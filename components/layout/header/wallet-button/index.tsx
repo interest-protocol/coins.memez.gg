@@ -4,7 +4,7 @@ import { Button, Div } from '@stylin.js/elements';
 import { motion } from 'framer-motion';
 import { FC } from 'react';
 
-import { WalletSVG } from '@/components/svg';
+import { LogoutSVG, UserSVG, WalletSVG } from '@/components/svg';
 import { useModal } from '@/hooks/use-modal';
 
 import ConnectModal from './connect-modal';
@@ -28,10 +28,13 @@ const WalletButton: FC = () => {
         cursor="pointer"
         alignItems="center"
         borderRadius="2rem"
+        whiteSpace="nowrap"
         onClick={() => mutate()}
         border="1px solid #F5B72280"
       >
+        <UserSVG maxWidth="1rem" maxHeight="1rem" width="100%" />
         {formatAddress(currentAccount.address)}
+        <LogoutSVG maxWidth="1rem" maxHeight="1rem" width="100%" />
       </Button>
     );
 
