@@ -12,7 +12,7 @@ const Footer: FC = () => (
     <Div
       mx="auto"
       display="flex"
-      maxWidth="1276px"
+      maxWidth="79.75rem"
       alignItems="center"
       justifyContent="space-between"
     >

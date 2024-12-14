@@ -8,7 +8,7 @@ const Header: FC = () => (
     <Div
       mx="auto"
       display="flex"
-      maxWidth="1276px"
+      maxWidth="87.5rem"
       alignItems="center"
       justifyContent="space-between"
     >
