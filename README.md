@@ -1,4 +1,4 @@
-# IPX INTERFACE TEMPLATE
+# MEMEZ COINS
 
 ## Contributing
 

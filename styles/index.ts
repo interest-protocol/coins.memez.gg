@@ -5,12 +5,25 @@ export const GlobalStyles = css`
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI',
-      Roboto, 'Helvetica Neue', Arial, sans-serif;
+    font-family:
+      'DM Sans',
+      -apple-system,
+      system-ui,
+      BlinkMacSystemFont,
+      'Segoe UI',
+      Roboto,
+      'Helvetica Neue',
+      Arial,
+      sans-serif;
   }
 
   html {
     scroll-behavior: smooth;
+  }
+
+  body {
+    color: #ffffff;
+    background: #131313;
   }
 
   body,
@@ -24,20 +37,20 @@ export const GlobalStyles = css`
   }
   /* width */
   ::-webkit-scrollbar {
-    width: 10px;
-    padding: 2rem;
+    width: 3px;
   }
 
   /* Track */
   ::-webkit-scrollbar-track {
+    background: #0007;
+    padding-left: 2px;
     border-radius: 0.5rem;
-    background: transparent;
     transition: all 300ms ease-in-out;
   }
 
   /* Track on hover */
   ::-webkit-scrollbar-track:hover {
-    background: #fff1;
+    background: #0003;
   }
 
   /* Handle */
