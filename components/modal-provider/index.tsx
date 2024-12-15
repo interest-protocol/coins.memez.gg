@@ -1,11 +1,16 @@
 import { Div } from '@stylin.js/elements';
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 
 import { useModal } from '@/hooks/use-modal';
 
 const ModalProvider: FC = () => {
   const { content, overlayProps, allowClose, onClose, handleClose } =
     useModal();
+
+  useEffect(() => {
+    if (content) window.document.body.style.overflowY = 'hidden';
+    () => (window.document.body.style.overflowY = 'auto');
+  }, [content]);
 
   if (!content) return null;
 

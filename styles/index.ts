@@ -22,6 +22,7 @@ export const GlobalStyles = css`
   }
 
   body {
+    overflow-y: auto;
     color: #ffffff;
     background: #131313;
   }
