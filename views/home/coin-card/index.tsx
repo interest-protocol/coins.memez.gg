@@ -5,12 +5,16 @@ import { FC } from 'react';
 
 import { CircleQuestionSVG } from '@/components/svg';
 import Tag from '@/components/tag';
+import { useCoinBalance } from '@/hooks/use-coin-balance';
+import { useCoinSupply } from '@/hooks/use-coin-supply';
+import { useCoinsAbilities } from '@/hooks/use-coins-abilities';
 import { useModal } from '@/hooks/use-modal';
 import { Abilities, Coin } from '@/interface';
+import { FixedPointMath } from '@/lib/entities/fixed-point-math';
+import { commaSeparatedNumber } from '@/utils';
 import { updateURL } from '@/utils/url';
 
 import CoinModal from '../coin-modal';
-import { useCoinsAbilities } from './coin-card.hooks';
 
 const CoinCard: FC<Coin> = ({
   id,
@@ -18,10 +22,13 @@ const CoinCard: FC<Coin> = ({
   type,
   symbol,
   iconUrl,
+  decimals,
   ipxTreasuryCap,
 }) => {
   const { pathname } = useRouter();
   const { setContent } = useModal();
+  const { balance } = useCoinBalance(type);
+  const { totalSupply } = useCoinSupply(type);
   const { abilities } = useCoinsAbilities(ipxTreasuryCap);
 
   const handleClick = () => {
@@ -84,12 +91,21 @@ const CoinCard: FC<Coin> = ({
       >
         <Div display="flex" justifyContent="space-between">
           <P color="#FFFFFFA3">Supply</P>
-          <P color="#F5B722">10.000.000</P>
+          <P color="#F5B722">
+            {totalSupply
+              ? commaSeparatedNumber(
+                  FixedPointMath.toNumber(totalSupply, decimals)
+                )
+              : '--'}
+          </P>
         </Div>
         <Div borderTop="1px solid #242424" />
         <Div display="flex" justifyContent="space-between">
           <P color="#FFFFFFA3">Balance</P>
-          <P color="#F5B722">116 {symbol}</P>
+          <P color="#F5B722">
+            {balance ? FixedPointMath.toNumber(balance, decimals) : '--'}{' '}
+            {symbol}
+          </P>
         </Div>
       </Div>
       <Button

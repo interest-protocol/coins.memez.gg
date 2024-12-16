@@ -10,7 +10,7 @@ import { Abilities } from '@/interface';
 import { FixedPointMath } from '@/lib/entities/fixed-point-math';
 import { commaSeparatedNumber } from '@/utils';
 
-import { useCoinsAbilities } from '../../coin-card/coin-card.hooks';
+import { useCoinsAbilities } from '../../../../hooks/use-coins-abilities';
 
 const CoinDetails: FC = () => {
   const params = useURIStaticParams();
