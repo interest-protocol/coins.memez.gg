@@ -5,7 +5,8 @@ export enum Step {
   Preview,
 }
 
-export const STEPS = [Step.Details, Step.Supply, Step.Features];
+export const STEPS: ReadonlyArray<Step.Details | Step.Supply | Step.Features> =
+  [Step.Details, Step.Supply, Step.Features];
 
 export interface ICreateCoin {
   step: Step;
