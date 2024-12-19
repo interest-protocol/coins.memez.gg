@@ -10,6 +10,7 @@ import { updateURL } from '@/utils/url';
 
 import CoinCard from './coin-card';
 import CoinModal from './coin-modal';
+import CreateCoin from './create-coin';
 
 const CardList: FC = () => {
   const { items } = useCoins();
@@ -33,8 +34,16 @@ const CardList: FC = () => {
 
   return (
     <Div>
-      <Div display="flex" gap="1rem">
-        <P>Filter</P>
+      <Div
+        gap="1rem"
+        display="flex"
+        alignItems="center"
+        justifyContent="space-between"
+      >
+        <Div display="flex" gap="1rem">
+          <P>Filters:</P>
+        </Div>
+        <CreateCoin />
       </Div>
       <Div
         mt="1rem"

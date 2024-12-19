@@ -10,7 +10,7 @@ const useCoins = (): UseCoinsResponse => {
     gql`
       query Coins($page: Int!, $limit: Int!) {
         fetchCoins(input: { page: $page, limit: $limit }) {
-          totalElements
+          totalItems
           coins {
             id
             name
@@ -34,9 +34,9 @@ const useCoins = (): UseCoinsResponse => {
   );
 
   return {
-    items: data?.fetchCoins.coins,
-    totalItems: data?.fetchCoins.totalElements,
     ...props,
+    items: data?.fetchCoins.coins,
+    totalItems: data?.fetchCoins.totalItems,
   };
 };
 

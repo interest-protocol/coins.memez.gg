@@ -28,6 +28,8 @@
     "ramda": "^0.30.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-hook-form": "^7.54.1",
+    "react-image-file-resizer": "^0.4.8",
     "swr": "^2.2.5",
     "toformat": "^2.0.0",
     "unikey": "^1.1.0",

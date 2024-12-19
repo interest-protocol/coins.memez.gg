@@ -3,6 +3,7 @@ export { default as CirclePlusSVG } from './circle-plus';
 export { default as CircleQuestionSVG } from './circle-question';
 export { default as DiscordSVG } from './discord';
 export { default as ExternalSVG } from './external';
+export { default as FileUploadSVG } from './file-upload';
 export { default as GithubSVG } from './github';
 export { default as InterestProtocolSVG } from './interest-protocol';
 export { default as LogoSVG } from './logo';

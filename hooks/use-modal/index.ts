@@ -10,7 +10,7 @@ interface UseModal {
   handleClose: () => void;
   setContent: (
     content: ReactNode,
-    options: {
+    options?: {
       onClose?: () => void;
       allowClose?: boolean;
       overlayProps?: DivProps;
