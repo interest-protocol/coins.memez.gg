@@ -4,11 +4,17 @@ import { useFormContext, useWatch } from 'react-hook-form';
 import unikey from 'unikey';
 
 import { STEP_DISPLAY } from '../../create-coin.data';
-import { ICreateCoin, STEPS } from '../../create-coin.types';
+import { ICreateCoin, Step, STEPS } from '../../create-coin.types';
 
 const CreateCoinSteps: FC = () => {
-  const { control } = useFormContext<ICreateCoin>();
+  const { control, setValue } = useFormContext<ICreateCoin>();
   const step = useWatch({ control, name: 'step' });
+
+  const handleStep = (formStep: Step) => {
+    if (step < formStep) return;
+
+    setValue('step', formStep);
+  };
 
   return (
     <Div display="flex" alignItems="center">
@@ -23,8 +29,16 @@ const CreateCoinSteps: FC = () => {
           key={unikey()}
           border="1px solid"
           borderRadius="2rem"
-          color={step >= formStep ? '#F5B722' : '#7C7C7C'}
-          borderColor={step >= formStep ? '#F5B722' : '#7C7C7C'}
+          onClick={() => handleStep(formStep)}
+          cursor={step > formStep ? 'pointer' : 'normal'}
+          bg={step > formStep ? '#F5B722' : 'transparent'}
+          color={
+            step > formStep
+              ? '#000000'
+              : step === formStep
+                ? '#F5B722'
+                : '#7C7C7C'
+          }
         >
           {formStep + 1}
           <Span>. {STEP_DISPLAY[formStep]}</Span>

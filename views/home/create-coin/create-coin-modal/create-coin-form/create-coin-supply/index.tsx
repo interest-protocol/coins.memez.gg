@@ -5,36 +5,18 @@ import CreateCoinField from '../../../create-coin-field';
 
 const CreateCoinSupply: FC = () => {
   return (
-    <Div>
+    <Div display="flex" flexDirection="column" gap="0.5rem">
       <CreateCoinField
-        name="name"
-        label="name"
-        placeholder="MemezGG"
-        kind="text"
+        kind="numeric"
+        name="decimals"
+        placeholder="9"
+        label="Decimals"
       />
       <CreateCoinField
-        name="name"
-        label="name"
-        placeholder="MemezGG"
-        kind="text"
-      />
-      <CreateCoinField
-        name="name"
-        label="name"
-        placeholder="MemezGG"
-        kind="text"
-      />
-      <CreateCoinField
-        name="name"
-        label="name"
-        placeholder="MemezGG"
-        kind="text"
-      />
-      <CreateCoinField
-        name="name"
-        label="name"
-        placeholder="MemezGG"
-        kind="text"
+        name="supply"
+        label="Supply"
+        kind="numeric"
+        placeholder="100000000"
       />
     </Div>
   );

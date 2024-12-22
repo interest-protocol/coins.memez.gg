@@ -5,7 +5,7 @@ import { useFormContext, useWatch } from 'react-hook-form';
 import { STEP_DISPLAY } from '../../create-coin.data';
 import { ICreateCoin, Step } from '../../create-coin.types';
 import CreateCoinButton from '../create-coin-button';
-import CreateCoinDetails from './create-coin-details/indext';
+import CreateCoinDetails from './create-coin-details';
 import CreateCoinFeatures from './create-coin-features';
 import CreateCoinSupply from './create-coin-supply';
 
@@ -22,15 +22,22 @@ const CreateCoinFormContent: FC = () => {
   if (step === Step.Preview) return null;
 
   return (
-    <>
+    <Div gap="1.5rem" display="flex" overflowY="auto" flexDirection="column">
       <H3>{STEP_DISPLAY[step]}</H3>
       {STEP_FORM[step]}
-    </>
+    </Div>
   );
 };
 
 const CreateCoinForm: FC = () => (
-  <Div display="flex" flexDirection="column" gap="1.5rem" overflowY="auto">
+  <Div
+    flex="1"
+    gap="1.5rem"
+    display="flex"
+    overflowY="auto"
+    flexDirection="column"
+    justifyContent="space-between"
+  >
     <CreateCoinFormContent />
     <CreateCoinButton />
   </Div>

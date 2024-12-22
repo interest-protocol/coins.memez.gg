@@ -12,6 +12,9 @@ export interface ICreateCoin {
   step: Step;
   name: string;
   symbol: string;
+  supply: number;
+  decimals: number;
   imageUrl: string;
   description: string;
+  showPreview: boolean;
 }
