@@ -4,8 +4,14 @@ import { FC, useEffect } from 'react';
 import { useModal } from '@/hooks/use-modal';
 
 const ModalProvider: FC = () => {
-  const { content, overlayProps, allowClose, onClose, handleClose } =
-    useModal();
+  const {
+    content,
+    onClose,
+    allowClose,
+    handleClose,
+    overlayProps,
+    containerProps,
+  } = useModal();
 
   useEffect(() => {
     if (content) window.document.body.style.overflowY = 'hidden';
@@ -35,7 +41,14 @@ const ModalProvider: FC = () => {
       onClick={onHandleClose}
       {...overlayProps}
     >
-      <Div onClick={(e) => e.stopPropagation()}>{content}</Div>
+      <Div
+        maxWidth="95vw"
+        maxHeight="95vh"
+        {...containerProps}
+        onClick={(e) => e.stopPropagation()}
+      >
+        {content}
+      </Div>
     </Div>
   );
 };

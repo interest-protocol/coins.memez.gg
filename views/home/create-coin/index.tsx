@@ -10,7 +10,10 @@ const CreateCoin: FC = () => {
   const { setContent } = useModal();
 
   const handleOpenModal = () =>
-    setContent(<CreateCoinModal />, { allowClose: true });
+    setContent(<CreateCoinModal />, {
+      allowClose: true,
+      containerProps: { display: 'flex', maxHeight: '90vh' },
+    });
 
   return (
     <Button

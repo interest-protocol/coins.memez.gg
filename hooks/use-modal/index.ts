@@ -7,6 +7,7 @@ interface UseModal {
   onClose?: () => void;
   allowClose?: boolean;
   overlayProps?: DivProps;
+  containerProps?: DivProps;
   handleClose: () => void;
   setContent: (
     content: ReactNode,
@@ -14,6 +15,7 @@ interface UseModal {
       onClose?: () => void;
       allowClose?: boolean;
       overlayProps?: DivProps;
+      containerProps?: DivProps;
     }
   ) => void;
 }
@@ -23,6 +25,7 @@ export const useModal = create<UseModal>((set) => ({
   allowClose: false,
   onClose: undefined,
   overlayProps: undefined,
+  containerProps: undefined,
   setContent: (content, options) => set({ content, ...options }),
   handleClose: () => set({ content: null, overlayProps: undefined }),
 }));

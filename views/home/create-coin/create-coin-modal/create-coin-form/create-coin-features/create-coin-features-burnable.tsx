@@ -34,31 +34,41 @@ const CreateCoinFeaturesBurnable: FC = () => {
           }}
         />
       </Div>
-      <Div
-        p="1rem"
-        gap="1rem"
-        display="flex"
-        bg="#3C3C3C40"
-        borderRadius="0.5rem"
-        flexDirection="column"
-      >
-        <Div display="flex" alignItems="center" justifyContent="space-between">
-          <P color="#FFFFFFA3">Allow holders to burn</P>
-          <ToggleButton
-            name="canBurn"
-            defaultValue={canBurn}
-            onChange={() => setValue('features.canBurn', !canBurn)}
-          />
+      {(burnable || canBurn) && (
+        <Div
+          p="1rem"
+          gap="1rem"
+          display="flex"
+          bg="#3C3C3C40"
+          borderRadius="0.5rem"
+          flexDirection="column"
+        >
+          <Div
+            display="flex"
+            alignItems="center"
+            justifyContent="space-between"
+          >
+            <P color="#FFFFFFA3">Allow holders to burn</P>
+            <ToggleButton
+              name="canBurn"
+              defaultValue={canBurn}
+              onChange={() => setValue('features.canBurn', !canBurn)}
+            />
+          </Div>
+          <Div
+            display="flex"
+            alignItems="center"
+            justifyContent="space-between"
+          >
+            <P color="#FFFFFFA3">Allow to burn as Admin</P>
+            <ToggleButton
+              name="burnable"
+              defaultValue={burnable}
+              onChange={() => setValue('features.burnable', !burnable)}
+            />
+          </Div>
         </Div>
-        <Div display="flex" alignItems="center" justifyContent="space-between">
-          <P color="#FFFFFFA3">Allow to burn as Admin</P>
-          <ToggleButton
-            name="burnable"
-            defaultValue={burnable}
-            onChange={() => setValue('features.burnable', !burnable)}
-          />
-        </Div>
-      </Div>
+      )}
     </Div>
   );
 };

@@ -8,14 +8,14 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { FC, PropsWithChildren } from 'react';
 
 const { networkConfig } = createNetworkConfig({
-  mainnet: { url: getFullnodeUrl('mainnet') },
+  testnet: { url: getFullnodeUrl('testnet') },
 });
 
 const queryClient = new QueryClient();
 
 const Web3Provider: FC<PropsWithChildren> = ({ children }) => (
   <QueryClientProvider client={queryClient}>
-    <SuiClientProvider networks={networkConfig} defaultNetwork="mainnet">
+    <SuiClientProvider networks={networkConfig} defaultNetwork="testnet">
       <WalletProvider>{children}</WalletProvider>
     </SuiClientProvider>
   </QueryClientProvider>

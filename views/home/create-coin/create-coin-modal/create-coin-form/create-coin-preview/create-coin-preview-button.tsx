@@ -5,16 +5,18 @@ import { useFormContext, useWatch } from 'react-hook-form';
 
 import { ChevronDownSVG } from '@/components/svg';
 
-import { ICreateCoin } from '../../../create-coin.types';
+import { ICreateCoin, Step } from '../../../create-coin.types';
 
 const Icon = motion(Span);
 
 const CreateCoinPreviewButton: FC = () => {
   const { control, setValue } = useFormContext<ICreateCoin>();
-  const [, showPreview] = useWatch({
+  const [step, showPreview] = useWatch({
     control,
     name: ['step', 'showPreview'],
   });
+
+  if (step === Step.Preview) return null;
 
   return (
     <Div display="flex" alignItems="center">

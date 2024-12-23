@@ -1,4 +1,4 @@
-import { CoinMetadata } from '@mysten/sui/client';
+import { CoinMetadata, SuiTransactionBlockResponse } from '@mysten/sui/client';
 import BigNumber from 'bignumber.js';
 
 export type BigNumberish = BigNumber | bigint | string | number;
@@ -35,4 +35,9 @@ export enum Abilities {
   Burn,
   Mint,
   Edit,
+}
+
+export interface TimedSuiTransactionBlockResponse
+  extends SuiTransactionBlockResponse {
+  time: number;
 }
