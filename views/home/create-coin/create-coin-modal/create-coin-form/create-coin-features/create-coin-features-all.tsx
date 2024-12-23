@@ -15,13 +15,12 @@ const CreateCoinFeaturesAll: FC = () => {
   });
 
   const activated =
-    features.burnable &&
-    features.canBurn &&
+    (features.burnable || features.canBurn) &&
     features.editable &&
     features.mintable;
 
   const toggleAll = () => {
-    setValue('features.burnable', !activated);
+    if (activated) setValue('features.burnable', false);
     setValue('features.canBurn', !activated);
     setValue('features.mintable', !activated);
     setValue('features.editable', !activated);

@@ -28,8 +28,6 @@ export const useCreateCoin = () => {
 
     const tx = new Transaction();
 
-    console.log({ coin });
-
     await initMoveByteCodeTemplate('/move_bytecode_template_bg.wasm');
 
     const coinBytecode = getBytecode(coin);

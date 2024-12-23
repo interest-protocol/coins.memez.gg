@@ -75,6 +75,7 @@ const CoinCard: FC<Coin> = ({
           width="4rem"
           height="4rem"
           src={iconUrl}
+          objectFit="cover"
           borderRadius="0.5rem"
         />
         <H3 fontSize="1.25rem">{name}</H3>

@@ -14,6 +14,8 @@ const CreateCoinFeaturesBurnable: FC = () => {
     name: ['features.burnable', 'features.canBurn'],
   });
 
+  const activated = burnable || canBurn;
+
   return (
     <Div
       p="1rem"
@@ -27,10 +29,14 @@ const CreateCoinFeaturesBurnable: FC = () => {
         <H4 color="#F5B722">Burnable</H4>
         <ToggleButton
           name="burn"
-          defaultValue={burnable || canBurn}
+          defaultValue={activated}
           onChange={() => {
-            setValue('features.burnable', !(burnable || canBurn));
-            setValue('features.canBurn', !(burnable || canBurn));
+            if (activated) {
+              setValue('features.burnable', false);
+              setValue('features.canBurn', false);
+              return;
+            }
+            setValue('features.canBurn', true);
           }}
         />
       </Div>
@@ -48,23 +54,14 @@ const CreateCoinFeaturesBurnable: FC = () => {
             alignItems="center"
             justifyContent="space-between"
           >
-            <P color="#FFFFFFA3">Allow holders to burn</P>
+            <P color="#FFFFFFA3">Allow public burn</P>
             <ToggleButton
               name="canBurn"
               defaultValue={canBurn}
-              onChange={() => setValue('features.canBurn', !canBurn)}
-            />
-          </Div>
-          <Div
-            display="flex"
-            alignItems="center"
-            justifyContent="space-between"
-          >
-            <P color="#FFFFFFA3">Allow to burn as Admin</P>
-            <ToggleButton
-              name="burnable"
-              defaultValue={burnable}
-              onChange={() => setValue('features.burnable', !burnable)}
+              onChange={() => {
+                setValue('features.canBurn', !canBurn);
+                setValue('features.burnable', canBurn);
+              }}
             />
           </Div>
         </Div>

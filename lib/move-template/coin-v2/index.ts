@@ -27,9 +27,9 @@ const updateSupply = (
 ) =>
   template.update_constants(
     modifiedByteCode,
-    bcs.vector(bcs.string()).serialize(supply).toBytes(),
-    bcs.vector(bcs.string()).serialize(['0', '0', '0']).toBytes(),
-    'Vector(Vector(U64))'
+    bcs.vector(bcs.u64()).serialize(supply).toBytes(),
+    bcs.vector(bcs.u64()).serialize([0, 0, 0]).toBytes(),
+    'Vector(U64)'
   );
 
 const updateCaps = (
