@@ -29,6 +29,7 @@ const CreateCoinPreviewButton: FC = () => {
         cursor="pointer"
         alignItems="center"
         flexDirection="column"
+        border="1px solid #242424"
         borderTopRightRadius="0.5rem"
         borderBottomRightRadius="0.5rem"
         onClick={() => setValue('showPreview', !showPreview)}

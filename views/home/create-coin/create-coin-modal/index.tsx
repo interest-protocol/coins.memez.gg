@@ -13,7 +13,15 @@ const ModalContainer = motion(Div);
 
 const CreateCoinModal: FC = () => {
   const form = useForm<ICreateCoin>({
-    defaultValues: { step: Step.Details },
+    defaultValues: {
+      step: Step.Details,
+      features: {
+        burnable: false,
+        canBurn: false,
+        mintable: false,
+        editable: false,
+      },
+    },
   });
 
   return (
