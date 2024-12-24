@@ -3,23 +3,36 @@ import { FC } from 'react';
 
 import { ChevronDownSVG, ExternalSVG } from '@/components/svg';
 import Tag from '@/components/tag';
+import { ExplorerMode } from '@/constants';
 import useCoin from '@/hooks/use-coin';
 import { useCoinSupply } from '@/hooks/use-coin-supply';
+import { useCoinsAbilities } from '@/hooks/use-coins-abilities';
+import { useGetExplorerUrl } from '@/hooks/use-get-explorer-url';
 import useURIStaticParams from '@/hooks/use-uri-static-params';
 import { Abilities } from '@/interface';
 import { FixedPointMath } from '@/lib/entities/fixed-point-math';
 import { commaSeparatedNumber } from '@/utils';
 
-import { useCoinsAbilities } from '../../../../hooks/use-coins-abilities';
-
 const CoinDetails: FC = () => {
   const params = useURIStaticParams();
+  const getExplorerUrl = useGetExplorerUrl();
   const { coin } = useCoin(params?.get('coin') ?? undefined);
 
   const { totalSupply } = useCoinSupply(coin?.type);
-  const { abilities } = useCoinsAbilities(coin?.ipxTreasuryCap);
+  const { abilities } = useCoinsAbilities({
+    burnCap: coin?.burnCap,
+    mintCap: coin?.mintCap,
+    metadataCap: coin?.metadataCap,
+  });
 
   if (!coin) return <Div>No Coin to show!</Div>;
+
+  const handleNavigate = () =>
+    window.open(
+      getExplorerUrl(`${coin.type}`, ExplorerMode.Coin),
+      '_blank',
+      'noreferrer'
+    );
 
   return (
     <Div>
@@ -41,8 +54,8 @@ const CoinDetails: FC = () => {
           {coin.name} <Span color="#9B9CA1">({coin.symbol})</Span>
         </H3>
         <Div display="flex" gap="0.5rem">
-          {!abilities?.[Abilities.Burn] && <Tag hexColor="#FF562C">Burn</Tag>}
-          {!abilities?.[Abilities.Mint] && <Tag hexColor="#95CB34">Mint</Tag>}
+          {abilities?.[Abilities.Burn] && <Tag hexColor="#FF562C">Burn</Tag>}
+          {abilities?.[Abilities.Mint] && <Tag hexColor="#95CB34">Mint</Tag>}
           {abilities?.[Abilities.Edit] && <Tag hexColor="#D0D0D0">Edit</Tag>}
         </Div>
       </Div>
@@ -122,6 +135,7 @@ const CoinDetails: FC = () => {
           alignItems="center"
           borderRadius="1rem"
           justifyContent="center"
+          onClick={handleNavigate}
         >
           Open on Explorer{' '}
           <ExternalSVG maxWidth="0.75rem" maxHeight="0.75rem" width="100%" />

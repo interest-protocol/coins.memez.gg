@@ -12,18 +12,21 @@ const useCoins = (): UseCoinsResponse => {
         fetchCoins(input: { page: $page, limit: $limit }) {
           totalItems
           coins {
-            id
             name
-            symbol
             type
-            decimals
+            symbol
             iconUrl
-            treasuryCap
-            ipxTreasuryCap
-            metadataObjectId
+            burnCap
+            mintCap
+            decimals
             createdAt
             createdBy
             description
+            metadataCap
+            treasuryCap
+            maximumSupply
+            ipxTreasuryCap
+            metadataObjectId
           }
         }
       }

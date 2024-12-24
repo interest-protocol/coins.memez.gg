@@ -80,6 +80,9 @@ importers:
       unikey:
         specifier: ^1.1.0
         version: 1.1.0
+      usehooks-ts:
+        specifier: ^3.1.0
+        version: 3.1.0(react@18.2.0)
       zustand:
         specifier: ^5.0.2
         version: 5.0.2(@types/react@18.2.38)(react@18.2.0)(use-sync-external-store@1.4.0(react@18.2.0))
@@ -2135,6 +2138,9 @@ packages:
   lodash.camelcase@4.3.0:
     resolution: {integrity: sha512-TwuEnCnxbc3rAvhf/LbG7tJUDzhqXyFnv3dtzLOPgCG/hODL7WFnsbwktkD7yUV0RrreP/l1PALq/YSg6VvjlA==}
 
+  lodash.debounce@4.0.8:
+    resolution: {integrity: sha512-FT1yDzDYEoYWhnSGnpE/4Kj1fLZkDFyqRb7fNt6FdYOSxlUWAtp42Eh6Wb0rGIv/m9Bgo7x4GhQbm5Ys4SG5ow==}
+
   lodash.isfunction@3.0.9:
     resolution: {integrity: sha512-AirXNj15uRIMMPihnkInB4i3NHeb4iBtNg9WRWuK2o31S+ePwwNmDPaTL3o7dTJ+VXNZim7rFs4rxN4YU1oUJw==}
 
@@ -2938,6 +2944,12 @@ packages:
     resolution: {integrity: sha512-9WXSPC5fMv61vaupRkCKCxsPxBocVnwakBEkMIHHpkTTg6icbJtg6jzgtLDm4bl3cSHAca52rYWih0k4K3PfHw==}
     peerDependencies:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
+
+  usehooks-ts@3.1.0:
+    resolution: {integrity: sha512-bBIa7yUyPhE1BCc0GmR96VU/15l/9gP1Ch5mYdLcFBaFGQsdmXkvjV0TtOqW1yUd6VjIwDunm+flSciCQXujiw==}
+    engines: {node: '>=16.15.0'}
+    peerDependencies:
+      react: ^16.8.0  || ^17 || ^18
 
   util-deprecate@1.0.2:
     resolution: {integrity: sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==}
@@ -5322,6 +5334,8 @@ snapshots:
 
   lodash.camelcase@4.3.0: {}
 
+  lodash.debounce@4.0.8: {}
+
   lodash.isfunction@3.0.9: {}
 
   lodash.isplainobject@4.0.6: {}
@@ -6095,6 +6109,11 @@ snapshots:
 
   use-sync-external-store@1.4.0(react@18.2.0):
     dependencies:
+      react: 18.2.0
+
+  usehooks-ts@3.1.0(react@18.2.0):
+    dependencies:
+      lodash.debounce: 4.0.8
       react: 18.2.0
 
   util-deprecate@1.0.2: {}

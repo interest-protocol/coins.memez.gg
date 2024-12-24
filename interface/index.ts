@@ -8,16 +8,19 @@ export interface CoinMetadataWithType extends CoinMetadata {
 }
 
 export interface Coin {
-  id: string;
   name: string;
   type: string;
   symbol: string;
+  mintCap: string;
+  burnCap: string;
   iconUrl: string;
   decimals: number;
   createdAt: string;
   createdBy: string;
   description: string;
   treasuryCap: string;
+  metadataCap: string;
+  maximumSupply: string;
   ipxTreasuryCap: string;
   metadataObjectId: string;
 }

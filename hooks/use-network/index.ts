@@ -1,3 +1,5 @@
 import { useSuiClientContext } from '@mysten/dapp-kit';
 
-export const useNetwork = () => useSuiClientContext().network;
+import { Network } from '@/constants';
+
+export const useNetwork = () => useSuiClientContext().network as Network;

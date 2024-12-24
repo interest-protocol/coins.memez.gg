@@ -1,7 +1,7 @@
 import { bcs } from '@mysten/sui/bcs';
 import { fromHex } from '@mysten/sui/utils';
 
-import { COIN_TEMPLATE_BYTECODE } from '@/constants';
+import { COIN_TEMPLATE_BYTECODE, Network } from '@/constants';
 import { FixedPointMath } from '@/lib/entities/fixed-point-math';
 import { ICreateCoin } from '@/views/home/create-coin/create-coin.types';
 
@@ -43,8 +43,8 @@ const updateCaps = (
     'Vector(Bool)'
   );
 
-export const getBytecode = (info: ICreateCoin) => {
-  const bytecode = COIN_TEMPLATE_BYTECODE.testnet;
+export const getBytecode = (info: ICreateCoin, network: Network) => {
+  const bytecode = COIN_TEMPLATE_BYTECODE[network];
 
   const templateByteCode = fromHex(bytecode);
 

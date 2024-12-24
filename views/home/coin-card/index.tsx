@@ -1,7 +1,7 @@
 import { formatAddress } from '@mysten/sui/utils';
 import { Article, Button, Div, H3, Img, P } from '@stylin.js/elements';
 import { useRouter } from 'next/router';
-import { FC } from 'react';
+import { FC, useState } from 'react';
 
 import { CircleQuestionSVG } from '@/components/svg';
 import Tag from '@/components/tag';
@@ -17,22 +17,24 @@ import { updateURL } from '@/utils/url';
 import CoinModal from '../coin-modal';
 
 const CoinCard: FC<Coin> = ({
-  id,
   name,
   type,
   symbol,
   iconUrl,
+  burnCap,
+  mintCap,
   decimals,
-  ipxTreasuryCap,
+  metadataCap,
 }) => {
   const { pathname } = useRouter();
   const { setContent } = useModal();
   const { balance } = useCoinBalance(type);
   const { totalSupply } = useCoinSupply(type);
-  const { abilities } = useCoinsAbilities(ipxTreasuryCap);
+  const [isImageError, setIsImageError] = useState(false);
+  const { abilities } = useCoinsAbilities({ burnCap, mintCap, metadataCap });
 
   const handleClick = () => {
-    updateURL(`${pathname}?coin=${id}&mode=${Abilities.Details}`);
+    updateURL(`${pathname}?coin=${type}&mode=${Abilities.Details}`);
 
     setContent(<CoinModal />, {
       allowClose: true,
@@ -51,7 +53,12 @@ const CoinCard: FC<Coin> = ({
       flexDirection="column"
       borderRadius="1.825rem"
     >
-      <Div display="flex" alignItems="center" justifyContent="space-between">
+      <Div
+        height="2rem"
+        display="flex"
+        alignItems="center"
+        justifyContent="space-between"
+      >
         <Div display="flex" gap="0.5rem">
           {abilities?.[Abilities.Burn] && <Tag hexColor="#FF562C">Burn</Tag>}
           {abilities?.[Abilities.Mint] && <Tag hexColor="#95CB34">Mint</Tag>}
@@ -74,9 +81,10 @@ const CoinCard: FC<Coin> = ({
           alt={name}
           width="4rem"
           height="4rem"
-          src={iconUrl}
           objectFit="cover"
           borderRadius="0.5rem"
+          onError={() => setIsImageError(true)}
+          src={isImageError ? '/default-image.webp' : iconUrl}
         />
         <H3 fontSize="1.25rem">{name}</H3>
         <P color="#9B9CA1">{formatAddress(type)}</P>

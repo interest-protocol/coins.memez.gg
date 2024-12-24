@@ -2,27 +2,31 @@ import { gql, useQuery } from '@apollo/client';
 
 import { UseCoinResponse } from './use-coin.types';
 
-const useCoin = (id?: string): UseCoinResponse => {
+const useCoin = (type?: string): UseCoinResponse => {
   const { data, ...props } = useQuery(
     gql`
-      query Coin($id: String!) {
-        fetchCoin(input: { id: $id }) {
+      query Coin($type: String!) {
+        fetchCoin(input: { type: $type }) {
           name
-          symbol
           type
-          decimals
+          symbol
           iconUrl
-          treasuryCap
-          ipxTreasuryCap
-          metadataObjectId
+          burnCap
+          mintCap
+          decimals
           createdAt
           createdBy
           description
+          metadataCap
+          treasuryCap
+          maximumSupply
+          ipxTreasuryCap
+          metadataObjectId
         }
       }
     `,
     {
-      variables: { id },
+      variables: { type },
     }
   );
 

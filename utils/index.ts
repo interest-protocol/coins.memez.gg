@@ -1,4 +1,5 @@
 export * from './bn';
+export * from './coin';
 export * from './file';
 export * from './number';
 export * from './sui';

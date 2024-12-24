@@ -4,60 +4,58 @@ import useSWR from 'swr';
 
 import { Abilities } from '@/interface';
 
-export const useCoinsAbilities = (ipxTreasuryCap?: string) => {
+interface UseCoinsAbilitiesArgs {
+  burnCap?: string;
+  mintCap?: string;
+  metadataCap?: string;
+}
+
+export const useCoinsAbilities = ({
+  burnCap,
+  mintCap,
+  metadataCap,
+}: UseCoinsAbilitiesArgs) => {
   const client = useSuiClient();
 
-  const { data, ...props } = useSWR(ipxTreasuryCap, async () => {
-    if (!ipxTreasuryCap) return;
+  const { data, ...props } = useSWR(
+    [burnCap, mintCap, metadataCap],
+    async () => {
+      const caps = [
+        [Abilities.Burn, burnCap],
+        [Abilities.Mint, mintCap],
+        [Abilities.Edit, metadataCap],
+      ].reduce(
+        (acc, [ability, value]) =>
+          value ? { ...acc, [ability as number]: value } : acc,
+        {}
+      );
 
-    const data = await client.getObject({
-      id: ipxTreasuryCap,
-      options: { showContent: true },
-    });
+      const response = await client.multiGetObjects({
+        ids: values(caps),
+        options: { showOwner: true },
+      });
 
-    const caps = [
-      [
-        Abilities.Burn,
-        pathOr('', ['data', 'content', 'fields', 'burn_cap'], data),
-      ],
-      [
-        Abilities.Mint,
-        pathOr('', ['data', 'content', 'fields', 'mint_cap'], data),
-      ],
-      [
-        Abilities.Edit,
-        pathOr('', ['data', 'content', 'fields', 'metadata_cap'], data),
-      ],
-    ].reduce(
-      (acc, curr) => (curr[1] ? { ...acc, [curr[0]]: curr[1] } : acc),
-      {}
-    );
+      const result = {
+        ...response.reduce(
+          (acc, curr, index) => ({
+            ...acc,
+            [keys(caps)[index]]: pathOr(
+              null,
+              ['data', 'owner', 'AddressOwner'],
+              curr
+            ),
+          }),
+          {
+            [Abilities.Burn]: null,
+            [Abilities.Mint]: null,
+            [Abilities.Edit]: null,
+          }
+        ),
+      };
 
-    const response = await client.multiGetObjects({
-      ids: values(caps),
-      options: { showContent: true },
-    });
-
-    const result = {
-      ...response.reduce(
-        (acc, curr, index) => ({
-          ...acc,
-          [keys(caps)[index]]: acc[keys(caps)[index]] || !curr.error,
-        }),
-        {
-          [Abilities.Burn]: pathOr(
-            '',
-            ['data', 'content', 'fields', 'can_burn'],
-            data
-          ),
-          [Abilities.Mint]: false,
-          [Abilities.Edit]: false,
-        }
-      ),
-    };
-
-    return result;
-  });
+      return result;
+    }
+  );
 
   return { abilities: data, ...props };
 };

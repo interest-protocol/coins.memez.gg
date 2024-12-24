@@ -20,3 +20,10 @@ export interface WaitForTxArgs {
   timeout?: number;
   pollInterval?: number;
 }
+
+export interface GetCoinsArgs {
+  type: string;
+  account: string;
+  client: SuiClient;
+  cursor?: string | null; // for internal recursive fn
+}

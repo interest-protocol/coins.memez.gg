@@ -5,16 +5,15 @@ import { motion } from 'framer-motion';
 import { FC } from 'react';
 
 import { LogoutSVG, UserSVG, WalletSVG } from '@/components/svg';
-import { useModal } from '@/hooks/use-modal';
 
-import ConnectModal from './connect-modal';
+import { useConnectModal } from './wallet-button.hook';
 
 const Motion = motion(Div);
 
 const WalletButton: FC = () => {
-  const { setContent } = useModal();
   const { mutate } = useDisconnectWallet();
   const currentAccount = useCurrentAccount();
+  const handleOpenConnectModal = useConnectModal();
 
   if (currentAccount)
     return (
@@ -37,11 +36,6 @@ const WalletButton: FC = () => {
         <LogoutSVG maxWidth="1rem" maxHeight="1rem" width="100%" />
       </Button>
     );
-
-  const handleOpenConnectModal = () =>
-    setContent(<ConnectModal />, {
-      allowClose: true,
-    });
 
   return (
     <Div
