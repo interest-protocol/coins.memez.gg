@@ -63,7 +63,7 @@ const CoinBurn: FC = () => {
           placeholder="0"
           {...form.register('amount')}
           disabled={!abilities?.[Abilities.Burn]}
-          suffix={
+          Suffix={
             <Button
               all="unset"
               px="0.5rem"
