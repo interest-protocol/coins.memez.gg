@@ -1,5 +1,5 @@
 import { Button, Div, H3, H4, Img, P, Span } from '@stylin.js/elements';
-import { FC } from 'react';
+import { FC, useState } from 'react';
 
 import { ChevronDownSVG, ExternalSVG } from '@/components/svg';
 import Tag from '@/components/tag';
@@ -16,6 +16,7 @@ import { commaSeparatedNumber } from '@/utils';
 const CoinDetails: FC = () => {
   const params = useURIStaticParams();
   const getExplorerUrl = useGetExplorerUrl();
+  const [imageError, setImageError] = useState(false);
   const { coin } = useCoin(params?.get('coin') ?? undefined);
 
   const { totalSupply } = useCoinSupply(coin?.type);
@@ -48,7 +49,8 @@ const CoinDetails: FC = () => {
           height="3.75rem"
           objectFit="cover"
           borderRadius="50%"
-          src={coin.iconUrl}
+          onError={() => setImageError(true)}
+          src={imageError ? '/default-image.webp' : coin.iconUrl}
         />
         <H3>
           {coin.name} <Span color="#9B9CA1">({coin.symbol})</Span>

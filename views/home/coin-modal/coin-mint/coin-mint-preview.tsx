@@ -1,4 +1,4 @@
-import { Div, H2, Hr, Img, P, Span } from '@stylin.js/elements';
+import { Div, H2, Hr, Img, P } from '@stylin.js/elements';
 import { FC, useState } from 'react';
 import { useFormContext, useWatch } from 'react-hook-form';
 
@@ -16,6 +16,7 @@ const CoinBurnPreview: FC<CoinMintPreviewProps> = ({ coin }) => {
   const [loading, setLoading] = useState(false);
   const { control } = useFormContext<IMintForm>();
   const { totalSupply } = useCoinSupply(coin.type);
+  const [imageError, setImageError] = useState(false);
 
   const amount = useWatch({ control, name: 'amount' });
 
@@ -51,15 +52,19 @@ const CoinBurnPreview: FC<CoinMintPreviewProps> = ({ coin }) => {
             width="2rem"
             height="2rem"
             alt={coin.name}
-            src={coin.iconUrl}
+            objectFit="cover"
             borderRadius="0.5rem"
+            onError={() => setImageError(true)}
+            src={imageError ? '/default-image.webp' : coin.iconUrl}
           />
-          <Span color="#FFFFFFA3">{coin.symbol}</Span>
+          <Div color="#FFFFFFA3">
+            <P>{coin.symbol}</P>
+            <P>{coin.name}</P>
+          </Div>
         </Div>
-        <Div textAlign="right">
-          <P color="#F5B722">{commaSeparatedNumber(Number(amount))}</P>
-          <P color="#FFFFFFA3">{coin.name}</P>
-        </Div>
+        <P color="#F5B722" textAlign="right">
+          {commaSeparatedNumber(Number(amount))}
+        </P>
       </Div>
       <Div
         py="0.25rem"
@@ -95,7 +100,6 @@ const CoinBurnPreview: FC<CoinMintPreviewProps> = ({ coin }) => {
               : '--'}
           </P>
         </Div>
-        <Hr border="none" borderTop="1px solid #242424" />
       </Div>
       <WalletGuardedButton onClick={handleMint}>
         {loading ? 'Minting...' : error || 'Mint'}

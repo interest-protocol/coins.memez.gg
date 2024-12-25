@@ -28,7 +28,7 @@ const CoinMint: FC = () => {
 
   const { totalSupply } = useCoinSupply(coin?.type);
   const { abilities } = useCoinsAbilities({
-    burnCap: coin?.burnCap,
+    mintCap: coin?.mintCap,
   });
 
   if (!coin) return <Div>No Coin to show!</Div>;
@@ -67,8 +67,8 @@ const CoinMint: FC = () => {
         <TextField
           placeholder="0"
           {...form.register('amount')}
-          disabled={!abilities?.[Abilities.Burn]}
-          suffix={
+          disabled={!abilities?.[Abilities.Mint]}
+          Suffix={
             <Button
               all="unset"
               px="0.5rem"

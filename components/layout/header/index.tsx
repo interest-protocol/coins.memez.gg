@@ -1,6 +1,8 @@
 import { Div, Header as HtmlHeader, Img } from '@stylin.js/elements';
 import { FC } from 'react';
 
+import SearchBar from '@/components/search-bar';
+
 import WalletButton from './wallet-button';
 
 const Header: FC = () => (
@@ -13,6 +15,7 @@ const Header: FC = () => (
       justifyContent="space-between"
     >
       <Img src="/logo.png" alt="logo" />
+      <SearchBar />
       <WalletButton />
     </Div>
   </HtmlHeader>

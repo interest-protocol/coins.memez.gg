@@ -7,6 +7,7 @@ import TextField from '@/components/text-field';
 
 import { CoinEditFormProps, IEditForm } from './coin-edit.types';
 import CoinEditButton from './coin-edit-button';
+import CoinEditFormImage from './coin-edit-form-image';
 
 const CoinEditForm: FC<CoinEditFormProps> = ({ coin }) => {
   const form = useForm<IEditForm>({
@@ -36,7 +37,10 @@ const CoinEditForm: FC<CoinEditFormProps> = ({ coin }) => {
         </Label>
         <Label display="flex" flexDirection="column" gap="0.5rem">
           <Span>Image Link</Span>
-          <TextField {...form.register('imageUrl')} />
+          <TextField
+            Prefix={<CoinEditFormImage />}
+            {...form.register('imageUrl')}
+          />
         </Label>
         <DraggableInput
           validTypes={['image/']}

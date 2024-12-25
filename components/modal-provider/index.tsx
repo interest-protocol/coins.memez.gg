@@ -1,6 +1,7 @@
 import { Div } from '@stylin.js/elements';
-import { FC, useEffect } from 'react';
+import { FC } from 'react';
 
+import useEventListener from '@/hooks/use-event-listener';
 import { useModal } from '@/hooks/use-modal';
 
 const ModalProvider: FC = () => {
@@ -13,19 +14,24 @@ const ModalProvider: FC = () => {
     containerProps,
   } = useModal();
 
-  useEffect(() => {
-    if (content) window.document.body.style.overflowY = 'hidden';
-    () => (window.document.body.style.overflowY = 'auto');
-  }, [content]);
-
-  if (!content) return null;
-
   const onHandleClose = () => {
     if (!allowClose) return;
 
     handleClose();
     onClose?.();
   };
+
+  useEventListener(
+    'keydown',
+    (e) => {
+      if (!e) return;
+
+      if ((e as KeyboardEvent).key === 'Escape') onHandleClose();
+    },
+    true
+  );
+
+  if (!content) return null;
 
   return (
     <Div

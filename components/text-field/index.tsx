@@ -4,7 +4,7 @@ import { forwardRef } from 'react';
 import { TextFieldProps } from './text-field.types';
 
 const TextField = forwardRef<InputElementProps, TextFieldProps>(
-  ({ prefix, suffix, ...props }, ref) => (
+  ({ Prefix, Suffix, ...props }, ref) => (
     <Div
       gap="1rem"
       bg="#1A1A1A"
@@ -13,9 +13,9 @@ const TextField = forwardRef<InputElementProps, TextFieldProps>(
       alignItems="center"
       borderRadius="0.5rem"
     >
-      {prefix}
+      {Prefix}
       <Input ref={ref} all="unset" width="100%" {...props} />
-      {suffix}
+      {Suffix}
     </Div>
   )
 );
