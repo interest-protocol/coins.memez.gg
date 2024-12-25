@@ -56,7 +56,9 @@ const CoinDetails: FC = () => {
           {coin.name} <Span color="#9B9CA1">({coin.symbol})</Span>
         </H3>
         <Div display="flex" gap="0.5rem">
-          {abilities?.[Abilities.Burn] && <Tag hexColor="#FF562C">Burn</Tag>}
+          {(coin.canBurn || abilities?.[Abilities.Burn]) && (
+            <Tag hexColor="#FF562C">Burn</Tag>
+          )}
           {abilities?.[Abilities.Mint] && <Tag hexColor="#95CB34">Mint</Tag>}
           {abilities?.[Abilities.Edit] && <Tag hexColor="#D0D0D0">Edit</Tag>}
         </Div>

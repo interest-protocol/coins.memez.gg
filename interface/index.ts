@@ -14,6 +14,7 @@ export interface Coin {
   mintCap: string;
   burnCap: string;
   iconUrl: string;
+  canBurn: boolean;
   decimals: number;
   createdAt: string;
   createdBy: string;
@@ -30,6 +31,9 @@ export interface Filter {
   symbol?: string;
   creator?: string;
   treasury?: string;
+  burnable?: boolean;
+  mintable?: boolean;
+  editable?: boolean;
   ipxTreasury?: string;
 }
 

@@ -31,6 +31,8 @@ const CoinBurn: FC = () => {
 
   if (!coin) return <Div>No Coin to show!</Div>;
 
+  const burnable = coin.canBurn || abilities?.[Abilities.Burn];
+
   return (
     <FormProvider {...form}>
       <Div gap="1rem" display="flex" flexDirection="column">
@@ -61,8 +63,8 @@ const CoinBurn: FC = () => {
         </Div>
         <TextField
           placeholder="0"
+          disabled={!burnable}
           {...form.register('amount')}
-          disabled={!abilities?.[Abilities.Burn]}
           Suffix={
             <Button
               all="unset"

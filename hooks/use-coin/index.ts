@@ -13,6 +13,7 @@ const useCoin = (type?: string): UseCoinResponse => {
           iconUrl
           burnCap
           mintCap
+          canBurn
           decimals
           createdAt
           createdBy

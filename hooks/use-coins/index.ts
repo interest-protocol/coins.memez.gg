@@ -4,12 +4,26 @@ import { useCoinsFilter } from '../use-coins-filter';
 import { UseCoinsResponse } from './use-coins.types';
 
 const useCoins = (): UseCoinsResponse => {
-  const { page, limit } = useCoinsFilter();
+  const { page, limit, filter } = useCoinsFilter();
 
   const { data, ...props } = useQuery(
     gql`
-      query Coins($page: Int!, $limit: Int!) {
-        fetchCoins(input: { page: $page, limit: $limit }) {
+      query Coins(
+        $page: Int!
+        $limit: Int!
+        $isBurnable: Boolean!
+        $isMintable: Boolean!
+        $isEditable: Boolean!
+      ) {
+        fetchCoins(
+          input: {
+            page: $page
+            limit: $limit
+            isBurnable: $isBurnable
+            isMintable: $isMintable
+            isEditable: $isEditable
+          }
+        ) {
           totalItems
           coins {
             name
@@ -17,6 +31,7 @@ const useCoins = (): UseCoinsResponse => {
             symbol
             iconUrl
             burnCap
+            canBurn
             mintCap
             decimals
             createdAt
@@ -32,7 +47,13 @@ const useCoins = (): UseCoinsResponse => {
       }
     `,
     {
-      variables: { page, limit },
+      variables: {
+        page,
+        limit,
+        isBurnable: !!filter.burnable,
+        isMintable: !!filter.mintable,
+        isEditable: !!filter.editable,
+      },
     }
   );
 
