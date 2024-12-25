@@ -1,4 +1,7 @@
-import { Button, Div, H3, H4, Img, P, Span } from '@stylin.js/elements';
+import { formatAddress } from '@mysten/sui/utils';
+import { Button, Div, H3, H4, Hr, Img, P, Span } from '@stylin.js/elements';
+import BigNumber from 'bignumber.js';
+import { motion } from 'framer-motion';
 import { FC, useState } from 'react';
 
 import { ChevronDownSVG, ExternalSVG } from '@/components/svg';
@@ -13,8 +16,11 @@ import { Abilities } from '@/interface';
 import { FixedPointMath } from '@/lib/entities/fixed-point-math';
 import { commaSeparatedNumber } from '@/utils';
 
+const Motion = motion(Div);
+
 const CoinDetails: FC = () => {
   const params = useURIStaticParams();
+  const [show, setShow] = useState(false);
   const getExplorerUrl = useGetExplorerUrl();
   const [imageError, setImageError] = useState(false);
   const { coin } = useCoin(params?.get('coin') ?? undefined);
@@ -123,21 +129,72 @@ const CoinDetails: FC = () => {
           borderRadius="0.5rem"
           justifyContent="center"
           border="1px solid #7C7C7C"
+          onClick={() => setShow(!show)}
         >
-          Advanced
-          <ChevronDownSVG maxWidth="0.75rem" maxHeight="0.75rem" width="100%" />
+          {show ? 'Hide' : 'Advanced'}
+          <Motion animate={{ rotate: show ? '180deg' : '0deg' }}>
+            <ChevronDownSVG
+              maxWidth="0.75rem"
+              maxHeight="0.75rem"
+              width="100%"
+            />
+          </Motion>
         </Button>
+        {show && (
+          <Div
+            p="1rem"
+            bg="#1A1A1A"
+            gap="0.5rem"
+            display="flex"
+            borderRadius="0.75rem"
+            flexDirection="column"
+          >
+            <Div display="flex" justifyContent="space-between">
+              <P color="#FFFFFFA3">Type</P>
+              <P color="#F5B722">{formatAddress(coin.type)}</P>
+            </Div>
+            <Hr border="none" borderTop="1px solid #242424" />
+            <Div display="flex" justifyContent="space-between">
+              <P color="#FFFFFFA3">Max Supply</P>
+              <P color="#F5B722">
+                {coin.maximumSupply
+                  ? commaSeparatedNumber(
+                      FixedPointMath.toNumber(
+                        BigNumber(coin.maximumSupply),
+                        coin.decimals
+                      )
+                    )
+                  : '--'}
+              </P>
+            </Div>
+            <Hr border="none" borderTop="1px solid #242424" />
+            <Div display="flex" justifyContent="space-between">
+              <P color="#FFFFFFA3">Treasury Cap</P>
+              <P color="#F5B722">{formatAddress(coin.treasuryCap)}</P>
+            </Div>
+            <Hr border="none" borderTop="1px solid #242424" />
+            <Div display="flex" justifyContent="space-between">
+              <P color="#FFFFFFA3">Coin Metadata</P>
+              <P color="#F5B722">{formatAddress(coin.metadataObjectId)}</P>
+            </Div>
+            <Hr border="none" borderTop="1px solid #242424" />
+            <Div display="flex" justifyContent="space-between">
+              <P color="#FFFFFFA3">IPX Standard Treasury</P>
+              <P color="#F5B722">{formatAddress(coin.ipxTreasuryCap)}</P>
+            </Div>
+          </Div>
+        )}
         <Button
           all="unset"
-          p="1.25rem"
-          gap="1rem"
+          p="1.125rem"
+          gap="0.5rem"
           bg="#F5B722"
-          px="1.25rem"
           display="flex"
           color="#000000"
-          fontSize="1.25rem"
+          cursor="pointer"
           alignItems="center"
-          borderRadius="1rem"
+          whiteSpace="nowrap"
+          borderRadius="0.75rem"
           justifyContent="center"
           onClick={handleNavigate}
         >
