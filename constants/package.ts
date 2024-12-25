@@ -2,7 +2,7 @@ import { Network } from './network';
 
 export const IPX_COIN_STANDARD = {
   [Network.TESTNET]:
-    '0x6af0765f764e1ac551d1d68235d812213f56e5eb1c28a74fec1ddfd07c42ec32',
+    '0x03979c0d3fac9c7cd89bc3b0b8de0aff4f23369be980b789b06c1b104f90eff3',
   [Network.MAINNET]:
-    '0xce7bfdc0f92c399bebda987cd123540ddf6d6ff37d78deeea97b69190aac49b1',
+    '0x8135dda2a2b575ef87654aa1115a46da63ea9a387abb5f7cdb93df062af7a937',
 };
