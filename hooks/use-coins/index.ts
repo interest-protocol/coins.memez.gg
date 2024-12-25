@@ -11,9 +11,9 @@ const useCoins = (): UseCoinsResponse => {
       query Coins(
         $page: Int!
         $limit: Int!
-        $isBurnable: Boolean!
-        $isMintable: Boolean!
-        $isEditable: Boolean!
+        $isBurnable: Boolean
+        $isMintable: Boolean
+        $isEditable: Boolean
       ) {
         fetchCoins(
           input: {
@@ -50,9 +50,9 @@ const useCoins = (): UseCoinsResponse => {
       variables: {
         page,
         limit,
-        isBurnable: !!filter.burnable,
-        isMintable: !!filter.mintable,
-        isEditable: !!filter.editable,
+        isBurnable: filter.burnable || undefined,
+        isMintable: filter.mintable || undefined,
+        isEditable: filter.editable || undefined,
       },
     }
   );
