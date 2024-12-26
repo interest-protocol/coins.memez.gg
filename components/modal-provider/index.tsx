@@ -24,9 +24,7 @@ const ModalProvider: FC = () => {
   useEventListener(
     'keydown',
     (e) => {
-      if (!e) return;
-
-      if ((e as KeyboardEvent).key === 'Escape') onHandleClose();
+      if (e && (e as KeyboardEvent).key === 'Escape') onHandleClose();
     },
     true
   );

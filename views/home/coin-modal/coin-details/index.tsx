@@ -153,6 +153,10 @@ const CoinDetails: FC = () => {
               <P color="#FFFFFFA3">Type</P>
               <P color="#F5B722">{formatAddress(coin.type)}</P>
             </Div>
+            <Div display="flex" justifyContent="space-between">
+              <P color="#FFFFFFA3">Creator</P>
+              <P color="#F5B722">{formatAddress(coin.createdBy)}</P>
+            </Div>
             <Hr border="none" borderTop="1px solid #242424" />
             <Div display="flex" justifyContent="space-between">
               <P color="#FFFFFFA3">Max Supply</P>

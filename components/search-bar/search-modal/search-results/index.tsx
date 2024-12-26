@@ -20,10 +20,12 @@ const SearchResults: FC = () => {
 
   return (
     <Div
+      flex="1"
       py="1rem"
       gap="1rem"
       px="0.5rem"
       display="flex"
+      overflowY="auto"
       flexDirection="column"
       borderTop="1px solid #F5B722"
     >

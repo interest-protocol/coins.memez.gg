@@ -4,16 +4,18 @@ import { FormProvider, useForm } from 'react-hook-form';
 
 import { SearchSVG } from '@/components/svg';
 import TextField from '@/components/text-field';
+import { useModal } from '@/hooks/use-modal';
 
 import { ISearchForm } from './search-modal.types';
 import SearchResults from './search-results';
 
 const SearchModal: FC = () => {
+  const { handleClose } = useModal();
   const form = useForm<ISearchForm>();
 
   return (
     <FormProvider {...form}>
-      <Div height="70vh">
+      <Div height="70vh" display="flex" flexDirection="column">
         <Div
           bg="#1A1A1A"
           overflow="hidden"
@@ -39,10 +41,13 @@ const SearchModal: FC = () => {
                 display="flex"
                 gap="0.125rem"
                 color="#7C7C7C"
+                cursor="pointer"
                 alignItems="center"
                 fontSize="0.825rem"
                 fontFamily="Manrope"
                 borderRadius="0.5rem"
+                onClick={handleClose}
+                nHover={{ color: '#ffffff' }}
               >
                 ESC
               </Span>
