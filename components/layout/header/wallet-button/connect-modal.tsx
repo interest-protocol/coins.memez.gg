@@ -16,10 +16,10 @@ const ConnectModal: FC = () => {
       gap="2rem"
       bg="#3C3C3C80"
       display="flex"
-      width="33.25rem"
       maxHeight="90vh"
-      borderRadius="1rem"
       flexDirection="column"
+      width={['100vw', '33.25rem']}
+      borderRadius={['1rem 1rem 0 0', '1rem']}
     >
       <H2 textAlign="center">Select Your Wallet</H2>
       <Ul

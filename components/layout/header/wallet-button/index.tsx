@@ -19,19 +19,21 @@ const WalletButton: FC = () => {
     return (
       <Button
         all="unset"
-        px="1.25rem"
         gap="0.5rem"
         bg="#1F1F1F"
-        py="0.825rem"
         display="flex"
         cursor="pointer"
         alignItems="center"
         borderRadius="2rem"
         whiteSpace="nowrap"
+        px={['1rem', '1.25rem']}
         onClick={() => mutate()}
+        py={['0.75rem', '0.825rem']}
         border="1px solid #F5B72280"
       >
-        <UserSVG maxWidth="1rem" maxHeight="1rem" width="100%" />
+        <Div display={['none', 'block']}>
+          <UserSVG maxWidth="1rem" maxHeight="1rem" width="100%" />
+        </Div>
         {formatAddress(currentAccount.address)}
         <LogoutSVG maxWidth="1rem" maxHeight="1rem" width="100%" />
       </Button>

@@ -35,7 +35,7 @@ const CreateCoinFormContent: FC = () => {
     );
 
   return (
-    <Div gap="1.5rem" display="flex" overflowY="auto" flexDirection="column">
+    <Div gap="1.5rem" display="flex" flexDirection="column">
       <CreateCoinSteps />
       <H3>{STEP_DISPLAY[step]}</H3>
       {STEP_FORM[step]}
@@ -47,12 +47,12 @@ const CreateCoinForm: FC = () => (
   <Div
     flex="1"
     gap="1.5rem"
-    width="100%"
     display="flex"
-    maxWidth="34rem"
     overflowY="auto"
+    overflowX="hidden"
     flexDirection="column"
     justifyContent="space-between"
+    width={['100%', '34rem', '34rem', '26rem', '34rem']}
   >
     <CreateCoinFormContent />
     <CreateCoinButton />

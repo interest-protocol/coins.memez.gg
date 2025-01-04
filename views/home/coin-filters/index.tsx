@@ -11,7 +11,11 @@ const CoinFilters: FC = () => {
 
   return (
     <Div display="flex" gap="1rem">
-      <Div display="flex" gap="0.5rem" alignItems="center">
+      <Div
+        gap="0.5rem"
+        alignItems="center"
+        display={['none', 'none', 'none', 'flex']}
+      >
         <FilterSVG maxWidth="1rem" maxHeight="1rem" width="100%" />
         <Span>Filter</Span>
       </Div>
