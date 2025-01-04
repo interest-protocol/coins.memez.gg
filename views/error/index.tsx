@@ -2,6 +2,7 @@ import { Button, Div, P } from '@stylin.js/elements';
 import { useRouter } from 'next/router';
 import { FC } from 'react';
 
+import { SadMemezGGSVG } from '@/components/svg';
 import { Routes, RoutesEnum } from '@/constants';
 
 import { ErrorProps } from './error.types';
@@ -11,7 +12,7 @@ const Error: FC<ErrorProps> = ({ message }) => {
 
   return (
     <Div
-      pt="4xl"
+      gap="0.5rem"
       width="100%"
       height="100vh"
       display="flex"
@@ -20,7 +21,10 @@ const Error: FC<ErrorProps> = ({ message }) => {
       flexDirection="column"
       justifyContent="center"
     >
-      <P fontSize="3.563rem" mb="0.5rem" textAlign="center">
+      <Div width="12rem" height="12rem">
+        <SadMemezGGSVG maxHeight="12rem" maxWidth="12rem" width="100%" />
+      </Div>
+      <P fontSize="3.563rem" textAlign="center">
         OOPS!
       </P>
       <P mb="1rem" textAlign="center">
