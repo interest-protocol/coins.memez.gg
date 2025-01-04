@@ -8,7 +8,7 @@ export const useSearchCoins = (search: string): UseSearchCoinsResponse => {
       query Coins($search: String!) {
         searchCoins(input: { search: $search }) {
           result {
-            type
+            field
             coins {
               name
               type
@@ -26,6 +26,6 @@ export const useSearchCoins = (search: string): UseSearchCoinsResponse => {
 
   return {
     ...props,
-    itemsPerType: data?.searchCoins.result,
+    itemsPerField: data?.searchCoins.result,
   };
 };

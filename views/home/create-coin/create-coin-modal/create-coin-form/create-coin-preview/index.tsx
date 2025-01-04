@@ -22,6 +22,7 @@ const CreateCoinPreview: FC = () => {
       minWidth="26rem"
       borderRadius="1rem"
       border="1px solid #7C7C7C"
+      display={['none', 'none', 'none', 'block']}
     >
       <CreateCoinPreviewContent />
     </Div>

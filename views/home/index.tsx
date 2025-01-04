@@ -4,19 +4,27 @@ import { FC } from 'react';
 import { Layout } from '@/components';
 
 import CardList from './coin-card-list';
+import CreateCoin from './create-coin';
 
 const Home: FC = () => (
   <Layout>
-    <Section
+    <Div
       px="2rem"
+      width="100%"
+      flexDirection="column"
+      display={['flex', 'flex', 'flex', 'none']}
+    >
+      <CreateCoin />
+    </Div>
+    <Section
       mx="auto"
-      py="2rem"
       gap="2rem"
       display="flex"
       maxWidth="96rem"
       flexDirection="column"
+      p={['1.5rem', '1.5rem', '1.5rem', '2rem']}
     >
-      <Div p="1.5rem" bg="#3C3C3C80" borderRadius="1rem">
+      <Div p={['1rem', '1.5rem']} bg="#3C3C3C80" borderRadius="1rem">
         <CardList />
       </Div>
     </Section>

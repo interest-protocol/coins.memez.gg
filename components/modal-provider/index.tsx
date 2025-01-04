@@ -43,6 +43,7 @@ const ModalProvider: FC = () => {
       alignItems="center"
       justifyContent="center"
       onClick={onHandleClose}
+      backdropFilter="blur(10px)"
       {...overlayProps}
     >
       <Div

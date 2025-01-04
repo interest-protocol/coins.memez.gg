@@ -30,6 +30,12 @@ const CardList: FC = () => {
     setContent(<CoinModal />, {
       allowClose: true,
       onClose: () => updateURL(pathname),
+      overlayProps: {
+        alignItems: ['flex-end', 'center'],
+      },
+      containerProps: {
+        maxWidth: ['100vw', '95vw'],
+      },
     });
   }, [params]);
 
@@ -38,15 +44,18 @@ const CardList: FC = () => {
       <Div
         gap="1rem"
         display="flex"
-        alignItems="center"
         justifyContent="space-between"
+        alignItems={['unset', 'unset', 'unset', 'center']}
+        flexDirection={['column', 'column', 'column', 'row']}
       >
-        <H3>
+        <H3 fontSize={['1.5rem', '1.5rem', '1.5rem', '1.25rem']}>
           {items?.length} coins of {totalItems}
         </H3>
         <Div gap="2rem" display="flex" alignItems="center">
           <CoinFilters />
-          <CreateCoin />
+          <Div display={['none', 'none', 'none', 'block']}>
+            <CreateCoin />
+          </Div>
         </Div>
       </Div>
       <Div
