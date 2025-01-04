@@ -38,7 +38,6 @@ const CoinCard: FC<Coin> = ({
     updateURL(`${pathname}?coin=${type}&mode=${Abilities.Details}`);
 
     setContent(<CoinModal />, {
-      allowClose: true,
       onClose: () => updateURL(pathname),
       overlayProps: {
         alignItems: ['flex-end', 'center'],

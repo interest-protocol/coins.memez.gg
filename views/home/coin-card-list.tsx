@@ -28,7 +28,6 @@ const CardList: FC = () => {
     updateURL(`${pathname}?coin=${coin}&mode=${mode}`);
 
     setContent(<CoinModal />, {
-      allowClose: true,
       onClose: () => updateURL(pathname),
       overlayProps: {
         alignItems: ['flex-end', 'center'],

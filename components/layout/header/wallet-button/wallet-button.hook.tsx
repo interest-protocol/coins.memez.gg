@@ -7,6 +7,11 @@ export const useConnectModal = () => {
 
   return () =>
     setContent(<ConnectModal />, {
-      allowClose: true,
+      overlayProps: {
+        alignItems: ['flex-end', 'center'],
+      },
+      containerProps: {
+        maxWidth: ['100vw', '95vw'],
+      },
     });
 };

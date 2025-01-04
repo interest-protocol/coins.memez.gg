@@ -11,7 +11,6 @@ const CreateCoin: FC = () => {
 
   const handleOpenModal = () =>
     setContent(<CreateCoinModal />, {
-      allowClose: true,
       overlayProps: {
         alignItems: ['flex-end', 'center'],
       },

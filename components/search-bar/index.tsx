@@ -12,10 +12,7 @@ const SearchBar: FC = () => {
   const isMacOS = useIsMacOS();
   const { setContent } = useModal();
 
-  const handleSearch = () =>
-    setContent(<SearchModal />, {
-      allowClose: true,
-    });
+  const handleSearch = () => setContent(<SearchModal />);
 
   useEventListener(
     'keydown',

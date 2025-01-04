@@ -23,7 +23,6 @@ const SearchResultsItem: FC<SearchingCoin> = ({
     updateURL(`${pathname}?coin=${type}&mode=${Abilities.Details}`);
 
     setContent(<CoinModal />, {
-      allowClose: true,
       onClose: () => updateURL(pathname),
     });
   };
