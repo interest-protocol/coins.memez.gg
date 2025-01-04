@@ -12,6 +12,7 @@
   "dependencies": {
     "@apollo/client": "^3.12.3",
     "@emotion/react": "^11.11.1",
+    "@interest-protocol/ui-kit": "0.2.26-alpha",
     "@mysten/dapp-kit": "^0.14.40",
     "@mysten/sui": "^1.16.0",
     "@mysten/suins": "^0.4.1",
