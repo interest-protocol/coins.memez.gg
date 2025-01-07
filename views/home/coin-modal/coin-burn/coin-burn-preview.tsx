@@ -10,7 +10,7 @@ import { commaSeparatedNumber } from '@/utils';
 import { useBurn } from './coin-burn.hook';
 import { CoinBurnPreviewProps, IBurnForm } from './coin-burn.types';
 
-const CoinBurnPreview: FC<CoinBurnPreviewProps> = ({ coin }) => {
+const CoinBurnPreview: FC<CoinBurnPreviewProps> = ({ coin, burnable }) => {
   const burn = useBurn(coin);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
@@ -21,6 +21,8 @@ const CoinBurnPreview: FC<CoinBurnPreviewProps> = ({ coin }) => {
   const amount = useWatch({ control, name: 'amount' });
 
   const handleBurn = async () => {
+    if (!burnable) return;
+
     try {
       setLoading(true);
       await burn();
@@ -101,8 +103,12 @@ const CoinBurnPreview: FC<CoinBurnPreviewProps> = ({ coin }) => {
           </P>
         </Div>
       </Div>
-      <WalletGuardedButton onClick={handleBurn}>
-        {loading ? 'Burning...' : error || 'Burn'}
+      <WalletGuardedButton disabled={!burnable} onClick={handleBurn}>
+        {loading
+          ? 'Burning...'
+          : error || !burnable
+            ? 'Unable to Burn'
+            : 'Burn'}
       </WalletGuardedButton>
     </>
   );

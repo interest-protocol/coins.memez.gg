@@ -57,6 +57,8 @@ const CoinCard: FC<Coin> = ({
       cursor="pointer"
       onClick={handleClick}
       flexDirection="column"
+      border="1px solid transparent"
+      nHover={{ borderColor: '#F5B72240' }}
       borderRadius={['1rem', '1rem', '1.825rem']}
     >
       <Div

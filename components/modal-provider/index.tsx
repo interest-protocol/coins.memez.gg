@@ -1,5 +1,6 @@
 import { Div } from '@stylin.js/elements';
 import { FC } from 'react';
+import { Toaster } from 'react-hot-toast';
 
 import useEventListener from '@/hooks/use-event-listener';
 import { useModal } from '@/hooks/use-modal';
@@ -46,6 +47,7 @@ const ModalProvider: FC = () => {
       backdropFilter="blur(10px)"
       {...overlayProps}
     >
+      <Toaster />
       <Div
         maxWidth="95vw"
         maxHeight="95vh"
