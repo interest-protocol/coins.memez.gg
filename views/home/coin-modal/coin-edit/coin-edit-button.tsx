@@ -30,9 +30,7 @@ const CoinEditButton: FC<CoinEditFormProps> = ({ coin, editable }) => {
     <WalletGuardedButton onClick={handleEdit} disabled={!editable}>
       {loading
         ? 'Updating...'
-        : error || editable
-          ? 'Unable to edit'
-          : 'Update'}
+        : error || (!editable ? 'Unable to update' : 'Update')}
     </WalletGuardedButton>
   );
 };
