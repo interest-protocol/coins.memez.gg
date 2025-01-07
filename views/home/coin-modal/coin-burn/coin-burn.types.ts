@@ -6,4 +6,5 @@ export interface IBurnForm {
 
 export interface CoinBurnPreviewProps {
   coin: Coin;
+  burnable: boolean;
 }

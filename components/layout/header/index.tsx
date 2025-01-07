@@ -6,7 +6,11 @@ import SearchBar from '@/components/search-bar';
 import WalletButton from './wallet-button';
 
 const Header: FC = () => (
-  <HtmlHeader p="1rem" bg="#00000033" backdropFilter="blur(40px)">
+  <HtmlHeader
+    p="1rem"
+    bg={['unset', 'unset', '#00000033']}
+    backdropFilter={['unset', 'unset', 'blur(40px)']}
+  >
     <Div
       mx="auto"
       display="flex"
@@ -14,7 +18,7 @@ const Header: FC = () => (
       alignItems="center"
       justifyContent="space-between"
     >
-      <Img src="/logo.png" alt="logo" />
+      <Img src="/logo.png" alt="logo" maxWidth={['6rem']} />
       <SearchBar />
       <WalletButton />
     </Div>

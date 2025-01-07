@@ -10,7 +10,7 @@ import { commaSeparatedNumber } from '@/utils';
 import { useMint } from './coin-mint.hook';
 import { CoinMintPreviewProps, IMintForm } from './coin-mint.types';
 
-const CoinBurnPreview: FC<CoinMintPreviewProps> = ({ coin }) => {
+const CoinBurnPreview: FC<CoinMintPreviewProps> = ({ coin, mintable }) => {
   const mint = useMint(coin);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
@@ -23,8 +23,8 @@ const CoinBurnPreview: FC<CoinMintPreviewProps> = ({ coin }) => {
   const handleMint = async () => {
     try {
       setLoading(true);
-      await mint();
       setError('');
+      await mint();
     } catch (e) {
       console.log({ e });
 
@@ -101,8 +101,12 @@ const CoinBurnPreview: FC<CoinMintPreviewProps> = ({ coin }) => {
           </P>
         </Div>
       </Div>
-      <WalletGuardedButton onClick={handleMint}>
-        {loading ? 'Minting...' : error || 'Mint'}
+      <WalletGuardedButton onClick={handleMint} disabled={!mintable}>
+        {loading
+          ? 'Minting...'
+          : error || !mintable
+            ? 'Unable to Mint'
+            : 'Mint'}
       </WalletGuardedButton>
     </>
   );

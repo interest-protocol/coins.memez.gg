@@ -19,7 +19,7 @@ const CreateCoinPreviewButton: FC = () => {
   if (step === Step.Preview) return null;
 
   return (
-    <Div display="flex" alignItems="center">
+    <Div display={['none', 'none', 'none', 'flex']} alignItems="center">
       <Button
         all="unset"
         py="0.75rem"

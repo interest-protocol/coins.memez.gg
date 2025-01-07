@@ -17,25 +17,24 @@ const CreateCoinSteps: FC = () => {
   };
 
   return (
-    <Div display="flex" alignItems="center" justifyContent="space-between">
+    <Div display="flex" alignItems="center">
       {STEPS.map((formStep) => [
         !!formStep && (
-          <Span
+          <Div
+            flex="1"
             overflow="hidden"
-            whiteSpace="break-spaces"
+            borderTop="1px dashed"
             color={step >= formStep ? '#F5B722' : '#7C7C7C'}
-          >
-            ---------
-          </Span>
+          />
         ),
         <Button
           all="unset"
-          px="1.5rem"
-          py="0.75rem"
           key={unikey()}
           border="1px solid"
           whiteSpace="nowrap"
           borderRadius="2rem"
+          px={['0.5rem', '1.5rem']}
+          py={['0.5rem', '0.75rem']}
           onClick={() => handleStep(formStep)}
           cursor={step > formStep ? 'pointer' : 'normal'}
           bg={step > formStep ? '#F5B722' : 'transparent'}

@@ -6,31 +6,29 @@ import { useDebounceValue } from 'usehooks-ts';
 
 import { useSearchCoins } from '@/hooks/use-search-coins';
 
-import { ISearchForm } from '../search-modal.types';
+import { ISearchForm, SearchResultsContentProps } from '../search-modal.types';
 import SearchResultsItem from './search-results-item';
 
-const SearchResults: FC = () => {
-  const { control } = useFormContext<ISearchForm>();
+const SearchResultsContent: FC<SearchResultsContentProps> = ({ search }) => {
+  const { itemsPerField } = useSearchCoins(search);
 
-  const [search] = useDebounceValue(useWatch({ control, name: 'search' }), 300);
-
-  const { itemsPerType } = useSearchCoins(search);
-
-  if (!itemsPerType) return null;
+  if (!itemsPerField) return null;
 
   return (
     <Div
+      flex="1"
       py="1rem"
       gap="1rem"
       px="0.5rem"
       display="flex"
+      overflowY="auto"
       flexDirection="column"
       borderTop="1px solid #F5B722"
     >
-      {itemsPerType.map(({ coins, type }) => (
+      {itemsPerField.map(({ coins, field }) => (
         <Div key={unikey()} display="flex" flexDirection="column" gap="0.5rem">
           <H4 color="#F5B722" ml="0.5rem">
-            {type}
+            {field}
           </H4>
           <Div display="flex" flexDirection="column" gap="0.5rem">
             {coins.map((coin) => (
@@ -41,6 +39,16 @@ const SearchResults: FC = () => {
       ))}
     </Div>
   );
+};
+
+const SearchResults: FC = () => {
+  const { control } = useFormContext<ISearchForm>();
+
+  const [search] = useDebounceValue(useWatch({ control, name: 'search' }), 300);
+
+  if (!search) return null;
+
+  return <SearchResultsContent search={search} />;
 };
 
 export default SearchResults;
