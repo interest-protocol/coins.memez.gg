@@ -9,7 +9,7 @@ import { CoinEditFormProps, IEditForm } from './coin-edit.types';
 import CoinEditButton from './coin-edit-button';
 import CoinEditFormImage from './coin-edit-form-image';
 
-const CoinEditForm: FC<CoinEditFormProps> = ({ coin }) => {
+const CoinEditForm: FC<CoinEditFormProps> = ({ coin, editable }) => {
   const form = useForm<IEditForm>({
     defaultValues: {
       name: coin.name,
@@ -47,7 +47,7 @@ const CoinEditForm: FC<CoinEditFormProps> = ({ coin }) => {
           advice="Maximum file size: 5MB"
           setFileUrl={(url: string) => form.setValue('imageUrl', url)}
         />
-        <CoinEditButton coin={coin} />
+        <CoinEditButton coin={coin} editable={editable} />
       </Div>
     </FormProvider>
   );
