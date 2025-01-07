@@ -42,6 +42,7 @@ const WalletGuardedButton: FC<ButtonProps> = (props) => {
       whiteSpace="nowrap"
       borderRadius="0.75rem"
       justifyContent="center"
+      nDisabled={{ opacity: 0.3, cursor: 'not-allowed' }}
       {...props}
     />
   );

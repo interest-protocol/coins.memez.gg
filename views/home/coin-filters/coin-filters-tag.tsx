@@ -12,8 +12,6 @@ const CoinFiltersTag: FC<PropsWithChildren<CoinFiltersTagProps>> = ({
 }) => (
   <Button
     all="unset"
-    px="0.5rem"
-    py="0.375rem"
     gap="0.25rem"
     display="flex"
     cursor="pointer"
@@ -23,6 +21,8 @@ const CoinFiltersTag: FC<PropsWithChildren<CoinFiltersTagProps>> = ({
     border="1px solid #F5B722"
     color={active ? '#242424' : '#F5B722'}
     bg={active ? '#F5B722' : 'transparent'}
+    py={['0.25rem', '0.25rem', '0.375rem']}
+    px={['0.375rem', '0.375rem', '0.5rem']}
   >
     {children}
     {active && <TimesSVG width="100%" maxWidth="1rem" maxHeight="1rem" />}

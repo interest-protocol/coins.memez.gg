@@ -9,4 +9,5 @@ export interface IEditForm {
 
 export interface CoinEditFormProps {
   coin: Coin;
+  editable: boolean;
 }

@@ -3,6 +3,7 @@ export { default as ChevronDownSVG } from './chevron-down';
 export { default as CirclePlusSVG } from './circle-plus';
 export { default as CircleQuestionSVG } from './circle-question';
 export { default as CommandSVG } from './command';
+export { default as CopySVG } from './copy';
 export { default as DiscordSVG } from './discord';
 export { default as ExclamationCircleSVG } from './exclamation-circle';
 export { default as ExternalSVG } from './external';

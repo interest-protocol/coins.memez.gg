@@ -28,9 +28,15 @@ const CreateCoinModal: FC = () => {
         bg="#3C3C3C80"
         display="flex"
         borderRadius="1.125rem"
+        width={['100vw', 'auto']}
         backdropFilter="blur(19px)"
       >
-        <Div gap="1rem" display="flex" flexDirection="column">
+        <Div
+          gap="1rem"
+          display="flex"
+          flex={['1', 'unset']}
+          flexDirection="column"
+        >
           <CreateCoinForm />
         </Div>
         <CreateCoinPreview />

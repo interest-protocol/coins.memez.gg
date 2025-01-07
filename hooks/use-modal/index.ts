@@ -22,7 +22,7 @@ interface UseModal {
 
 export const useModal = create<UseModal>((set) => ({
   content: null,
-  allowClose: false,
+  allowClose: true,
   onClose: undefined,
   overlayProps: undefined,
   containerProps: undefined,

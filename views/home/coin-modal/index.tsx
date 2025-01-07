@@ -44,11 +44,11 @@ const CoinModal: FC = () => {
       px="0.5rem"
       bg="#3C3C3C80"
       display="flex"
-      width="43.75rem"
       maxHeight="90vh"
       flexDirection="column"
-      borderRadius="1.125rem"
       backdropFilter="blur(19px)"
+      width={['100vw', '43.75rem']}
+      borderRadius={['1.125rem 1.125rem  0 0', '1.125rem']}
     >
       <Div px="0.5rem">
         <Tabs
