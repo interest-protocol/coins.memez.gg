@@ -5,9 +5,9 @@ import { CheckSVG, ExclamationCircleSVG, WarningSVG } from '@/components/svg';
 import { SVGProps } from '../svg/svg.types';
 
 export const COLOR_MAP: Record<string, string> = {
-  warning: 'warning',
+  warning: '#D87706',
   info: '#F5B722',
-  success: 'success',
+  success: '#baf6cf',
   error: '#ff562c',
 };
 

@@ -1,8 +1,7 @@
-import { Typography } from '@interest-protocol/ui-kit';
-import { Div, Img } from '@stylin.js/elements';
+import { Div, Img, P } from '@stylin.js/elements';
 import { FC, PropsWithChildren } from 'react';
 
-const SuccessModal: FC<PropsWithChildren> = ({ children }) => {
+const DialogModal: FC<PropsWithChildren> = ({ children }) => {
   return (
     <Div width="100%">
       <Div
@@ -18,18 +17,16 @@ const SuccessModal: FC<PropsWithChildren> = ({ children }) => {
         </Div>
       </Div>
       <Div display="flex" justifyContent="center" mb="0.5rem">
-        <Typography
+        <P
           alignItems="center"
           textAlign="center"
           color="onSurface"
-          variant="headline"
-          size="small"
           display="flex"
           fontSize="1rem"
           lineHeight="1rem"
         >
           BY:
-        </Typography>
+        </P>
         <Div
           ml="0.75rem"
           display="flex"
@@ -42,11 +39,9 @@ const SuccessModal: FC<PropsWithChildren> = ({ children }) => {
         </Div>
       </Div>
       <a href="https://www.memez.gg" target="_blank" rel="noopener, noreferrer">
-        <Typography
+        <P
           alignItems="center"
           textAlign="center"
-          variant="body"
-          size="small"
           display="flex"
           lineHeight="1.5rem"
           fontSize="0.75rem"
@@ -56,10 +51,10 @@ const SuccessModal: FC<PropsWithChildren> = ({ children }) => {
           mt="0.5rem"
         >
           www.memez.gg
-        </Typography>
+        </P>
       </a>
     </Div>
   );
 };
 
-export default SuccessModal;
+export default DialogModal;

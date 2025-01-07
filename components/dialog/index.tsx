@@ -1,8 +1,9 @@
-import { Button, Div, Span } from '@stylin.js/elements';
+import { Button, Div, Img, Span } from '@stylin.js/elements';
 import React, { FC } from 'react';
 
-import { COLOR_MAP } from './dialog.data';
+import { COLOR_MAP, STATUS_ICON } from './dialog.data';
 import { DialogProps, IDialogButton } from './dialog.types';
+import { hexToRgb } from './dialog.utils';
 
 export const Dialog: FC<DialogProps> = ({
   title,
@@ -11,6 +12,8 @@ export const Dialog: FC<DialogProps> = ({
   primaryButton,
   secondaryButton,
 }) => {
+  const Icon = STATUS_ICON[status] ?? STATUS_ICON['info'];
+
   return (
     <Div
       p="1.5rem"
@@ -37,16 +40,61 @@ export const Dialog: FC<DialogProps> = ({
         </Span>
       </Div>
       <Div
-        gap="m"
-        py="1rem"
+        gap="1rem"
+        pt="1.5rem"
         display="flex"
         minWidth="100%"
+        maxWidth="22rem"
         alignItems="center"
         flexDirection="column"
         justifyContent="center"
       >
-        {message && <Span>{message}</Span>}
+        {status !== 'general' ? (
+          status === 'loading' ? (
+            <Div
+              ml="0.75rem"
+              display="flex"
+              minWidth="1.5rem"
+              minHeight="1.5rem"
+              alignItems="center"
+              justifyContent="center"
+            >
+              <Img src="/logo.png" alt="logo" width="4rem" />
+            </Div>
+          ) : (
+            <Div
+              width="3rem"
+              height="3rem"
+              display="flex"
+              borderRadius="50%"
+              alignItems="center"
+              justifyContent="center"
+              color={COLOR_MAP[status]}
+              backgroundColor={`rgba(${hexToRgb(COLOR_MAP[status])}, 0.3)`}
+            >
+              <Icon
+                maxWidth="1.3rem"
+                maxHeight="1.3rem"
+                width="100%"
+                height="100%"
+              />
+            </Div>
+          )
+        ) : null}
       </Div>
+      {message && (
+        <Div
+          gap="m"
+          py="1rem"
+          display="flex"
+          minWidth="100%"
+          alignItems="center"
+          flexDirection="column"
+          justifyContent="center"
+        >
+          <Span>{message}</Span>
+        </Div>
+      )}
       <Div
         pt="1rem"
         display="flex"
@@ -88,7 +136,7 @@ export const Dialog: FC<DialogProps> = ({
                   gap="0.5rem"
                   display="flex"
                   cursor="pointer"
-                  color="#000000"
+                  color={COLOR_MAP.error ? '#fffff' : '#000000'}
                   alignItems="center"
                   whiteSpace="nowrap"
                   borderRadius="0.5rem"
