@@ -1,3 +1,8 @@
+import { ReactNode } from 'react';
+import React from 'react';
+
+import { IDialogButton } from './dialog.types';
+
 export const hexToRgb = (hex: string): string => {
   const bigint = parseInt(hex.replace('#', ''), 16);
   const r = (bigint >> 16) & 255;
@@ -5,3 +10,7 @@ export const hexToRgb = (hex: string): string => {
   const b = bigint & 255;
   return `${r}, ${g}, ${b}`;
 };
+
+export const isDialogButton = (
+  button: IDialogButton | ReactNode
+): button is IDialogButton => !React.isValidElement(button);

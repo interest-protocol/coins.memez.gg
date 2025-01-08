@@ -7,8 +7,13 @@ export interface IDialogButton {
 
 export interface DialogProps {
   title: string;
+  Icon?: ReactNode;
+  timeout?: number;
   message: string | ReactNode;
-  primaryButton?: IDialogButton | ReactNode;
-  secondaryButton?: IDialogButton | ReactNode;
-  status: 'success' | 'warning' | 'error' | 'info' | 'general' | 'loading';
+  button?: IDialogButton | ReactNode;
+  ghostButton?: IDialogButton | ReactNode;
+}
+
+export interface DialogCountdownProps {
+  timeout: number;
 }

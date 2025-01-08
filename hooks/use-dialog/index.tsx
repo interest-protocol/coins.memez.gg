@@ -1,7 +1,6 @@
 import { Dialog } from '@/components';
+import { DialogProps } from '@/components/dialog/dialog.types';
 import { useModal } from '@/hooks/use-modal';
-
-import { IDialogData } from './use-dialog.types';
 
 export const useDialog = () => {
   const { setContent, handleClose } = useModal();
@@ -10,23 +9,27 @@ export const useDialog = () => {
     handleClose,
     dialog: {
       promise: async (
-        promise: Promise<void>,
+        promise: Promise<unknown>,
         {
           loading,
           success,
           error,
-        }: Record<'error' | 'loading' | 'success', () => IDialogData>
+        }: {
+          success: (response: unknown) => DialogProps;
+          error: (error: Error) => DialogProps;
+          loading: () => Omit<DialogProps, 'button'>;
+        }
       ): Promise<void> => {
         try {
-          setContent(<Dialog status="loading" {...loading()} />, {
+          setContent(<Dialog {...loading()} />, {
             onClose: handleClose,
           });
-          await promise;
-          setContent(<Dialog status="success" {...success()} />, {
+          const response = await promise;
+          setContent(<Dialog {...success(response)} />, {
             onClose: handleClose,
           });
-        } catch {
-          setContent(<Dialog status="error" {...error()} />, {
+        } catch (e) {
+          setContent(<Dialog {...error(e as Error)} />, {
             onClose: handleClose,
           });
         }

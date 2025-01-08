@@ -52,5 +52,7 @@ export const useMint = ({ mintCap, ipxTreasuryCap, type, decimals }: Coin) => {
     throwTXIfNotSuccessful(txResult);
 
     await waitForTx({ suiClient: client, digest: txResult.digest });
+
+    return txResult.digest;
   };
 };

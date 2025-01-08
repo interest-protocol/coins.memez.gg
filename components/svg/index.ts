@@ -11,6 +11,7 @@ export { default as FileUploadSVG } from './file-upload';
 export { default as FilterSVG } from './filter';
 export { default as GithubSVG } from './github';
 export { default as InterestProtocolSVG } from './interest-protocol';
+export { default as LoaderSVG } from './loader';
 export { default as LogoSVG } from './logo';
 export { default as LogoutSVG } from './logout';
 export { default as MemezGGNirvanaSVG } from './memez-gg-nirvana';
