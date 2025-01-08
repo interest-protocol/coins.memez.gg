@@ -74,5 +74,7 @@ export const useBurn = ({ burnCap, ipxTreasuryCap, type, decimals }: Coin) => {
     throwTXIfNotSuccessful(txResult);
 
     await waitForTx({ suiClient: client, digest: txResult.digest });
+
+    return txResult.digest;
   };
 };

@@ -3,7 +3,7 @@ import { FC } from 'react';
 
 import SearchBar from '@/components/search-bar';
 
-import WalletButton from './wallet-button';
+import WalletButton from '../../wallet-button';
 
 const Header: FC = () => (
   <HtmlHeader

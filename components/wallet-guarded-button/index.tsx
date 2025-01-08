@@ -2,7 +2,7 @@ import { useCurrentAccount } from '@mysten/dapp-kit';
 import { Button, ButtonProps } from '@stylin.js/elements';
 import { FC } from 'react';
 
-import { useConnectModal } from '../layout/header/wallet-button/wallet-button.hook';
+import { useConnectModal } from '../wallet-button/wallet-button.hook';
 
 const WalletGuardedButton: FC<ButtonProps> = (props) => {
   const currentAccount = useCurrentAccount();
