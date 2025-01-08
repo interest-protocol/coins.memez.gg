@@ -6,7 +6,12 @@ import Link from 'next/link';
 import { FC, useState } from 'react';
 import toast from 'react-hot-toast';
 
-import { ChevronDownSVG, CopySVG, ExternalSVG } from '@/components/svg';
+import {
+  ChevronDownSVG,
+  CopySVG,
+  ExternalSVG,
+  LoaderSVG,
+} from '@/components/svg';
 import Tag from '@/components/tag';
 import { ExplorerMode } from '@/constants';
 import useCoin from '@/hooks/use-coin';
@@ -34,7 +39,17 @@ const CoinDetails: FC = () => {
     metadataCap: coin?.metadataCap,
   });
 
-  if (!coin) return <Div>No Coin to show!</Div>;
+  if (!coin)
+    return (
+      <Div
+        height="30rem"
+        display="flex"
+        alignItems="center"
+        justifyContent="center"
+      >
+        <LoaderSVG />
+      </Div>
+    );
 
   const openCoinExplorer = () =>
     window.open(
