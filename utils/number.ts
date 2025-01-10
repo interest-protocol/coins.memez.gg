@@ -1,3 +1,7 @@
+import { ChangeEvent } from 'react';
+
+import { MAX_NUMBER } from '@/constants';
+
 const isExponential = (number: number) => number.toString().includes('e');
 
 const removeZero = (array: ReadonlyArray<string>): string => {
@@ -36,13 +40,13 @@ const treatMoneyDecimals = (
               ? `${integralPart.slice(0, -3)}.${integralPart.slice(-3, -1)}`
               : `${integralPart}.${
                   +integralPart >= 10
-                    ? decimalPart?.slice(0, 2) ?? 0
-                    : decimalPart ?? 0
+                    ? (decimalPart?.slice(0, 2) ?? 0)
+                    : (decimalPart ?? 0)
                 }`
             : `${integralPart}.${
                 +integralPart >= 10
-                  ? decimalPart?.slice(0, 2) ?? 0
-                  : decimalPart ?? 0
+                  ? (decimalPart?.slice(0, 2) ?? 0)
+                  : (decimalPart ?? 0)
               }`
   );
 
@@ -55,7 +59,7 @@ const treatMoneyDecimals = (
   const decimalDigits =
     integralDigits <= 6 && +integralPart >= 10
       ? 2
-      : newMoneyString.split('.')[1]?.length ?? baseDecimals;
+      : (newMoneyString.split('.')[1]?.length ?? baseDecimals);
 
   return {
     newMoney,
@@ -108,3 +112,32 @@ export const formatDollars = (money: number, max = 6): string =>
 
 export const commaSeparatedNumber = (value: number) =>
   Intl.NumberFormat('de-DE').format(value).replace(/\./g, ',');
+
+export const parseInputEventToNumberString = (
+  event: ChangeEvent<HTMLInputElement>,
+  max: number = MAX_NUMBER
+): string => {
+  const value = event.target.value;
+
+  const x =
+    isNaN(+value[value.length - 1]) && value[value.length - 1] !== '.'
+      ? value.slice(0, value.length - 1)
+      : value;
+
+  if (isNaN(+x)) return '';
+
+  if (+x < 0) return '0';
+
+  if (+x >= max) return max.toString();
+
+  if (x.charAt(0) == '0' && !x.startsWith('0.')) return String(Number(x));
+
+  if (
+    value.includes('.') &&
+    value[value.length - 1] !== '.' &&
+    value[value.length - 1] !== '0'
+  )
+    return (+parseFloat(x).toFixed(6)).toPrecision();
+
+  return x;
+};

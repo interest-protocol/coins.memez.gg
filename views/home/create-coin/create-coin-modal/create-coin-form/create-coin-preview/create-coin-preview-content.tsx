@@ -10,19 +10,28 @@ import { ICreateCoin } from '../../../create-coin.types';
 const CreateCoinPreviewContent: FC = () => {
   const { control } = useFormContext<ICreateCoin>();
 
-  const [name, symbol, description, iconUrl, decimals, totalSupply, features] =
-    useWatch({
-      control,
-      name: [
-        'name',
-        'symbol',
-        'description',
-        'imageUrl',
-        'decimals',
-        'supply',
-        'features',
-      ],
-    });
+  const [
+    name,
+    symbol,
+    description,
+    iconUrl,
+    decimals,
+    totalSupply,
+    maxSupply,
+    features,
+  ] = useWatch({
+    control,
+    name: [
+      'name',
+      'symbol',
+      'description',
+      'imageUrl',
+      'decimals',
+      'supply',
+      'maxSupply',
+      'features',
+    ],
+  });
 
   return (
     <Div>
@@ -93,6 +102,15 @@ const CreateCoinPreviewContent: FC = () => {
               {totalSupply ? commaSeparatedNumber(totalSupply) : '--'}
             </P>
           </Div>
+          {maxSupply && (
+            <>
+              <Div borderTop="1px solid #242424" />
+              <Div display="flex" justifyContent="space-between">
+                <P color="#FFFFFFA3">Max Supply</P>
+                <P color="#F5B722">{commaSeparatedNumber(maxSupply)}</P>
+              </Div>
+            </>
+          )}
         </Div>
         <H4>Description</H4>
         <Div p="1rem" bg="#1A1A1A" borderRadius="0.75rem">

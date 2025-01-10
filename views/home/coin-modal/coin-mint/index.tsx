@@ -12,7 +12,11 @@ import { useCoinsAbilities } from '@/hooks/use-coins-abilities';
 import useURIStaticParams from '@/hooks/use-uri-static-params';
 import { Abilities } from '@/interface';
 import { FixedPointMath } from '@/lib/entities/fixed-point-math';
-import { commaSeparatedNumber, isSameAddress } from '@/utils';
+import {
+  commaSeparatedNumber,
+  isSameAddress,
+  parseInputEventToNumberString,
+} from '@/utils';
 
 import { IMintForm } from './coin-mint.types';
 import CoinBurnPreview from './coin-mint-preview';
@@ -68,7 +72,10 @@ const CoinMint: FC = () => {
         </Div>
         <TextField
           placeholder="0"
-          {...form.register('amount')}
+          {...form.register('amount', {
+            onChange: (e) =>
+              form.setValue('amount', parseInputEventToNumberString(e)),
+          })}
           disabled={!abilities?.[Abilities.Mint]}
           Suffix={
             <Button
