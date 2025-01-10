@@ -60,4 +60,41 @@ export const GlobalStyles = css`
     border-radius: 0.5rem;
     border: 5px solid transparent;
   }
+
+  /* Customize pagination component */
+  .paginate {
+    gap: 0.25rem;
+    display: flex;
+    list-style: none;
+    & li {
+      & a {
+        width: 2rem;
+        height: 2rem;
+        display: flex;
+        color: #f5b722;
+        cursor: pointer;
+        align-items: center;
+        border-radius: 0.5rem;
+        justify-content: center;
+      }
+      &.previous a {
+        margin-right: 1.5rem;
+      }
+      &.next a {
+        margin-left: 1.5rem;
+      }
+      &.previous a,
+      &.next a {
+        color: #f5b722;
+        border: 1px solid;
+      }
+      &.selected a {
+        color: #000;
+        background: #f5b722;
+      }
+      &.disabled a {
+        color: #ffffffa3;
+      }
+    }
+  }
 `;

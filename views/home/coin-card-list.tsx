@@ -1,9 +1,12 @@
 import { Div, H3 } from '@stylin.js/elements';
 import { useRouter } from 'next/router';
 import { FC, useEffect } from 'react';
+import ReactPaginate from 'react-paginate';
 import unikey from 'unikey';
 
+import { ChevronLeftSVG, ChevronRightSVG, LoaderSVG } from '@/components/svg';
 import useCoins from '@/hooks/use-coins';
+import { useCoinsFilter } from '@/hooks/use-coins-filter';
 import { useModal } from '@/hooks/use-modal';
 import useURIStaticParams from '@/hooks/use-uri-static-params';
 import { updateURL } from '@/utils/url';
@@ -14,10 +17,11 @@ import CoinModal from './coin-modal';
 import CreateCoin from './create-coin';
 
 const CardList: FC = () => {
-  const { totalItems, items } = useCoins();
   const { pathname } = useRouter();
   const { setContent } = useModal();
   const params = useURIStaticParams();
+  const { page, setPage, limit } = useCoinsFilter();
+  const { totalItems, items, loading } = useCoins();
 
   useEffect(() => {
     if (!params?.has('coin')) return;
@@ -57,20 +61,65 @@ const CardList: FC = () => {
           </Div>
         </Div>
       </Div>
-      <Div
-        mt="1rem"
-        gap="1rem"
-        display="grid"
-        gridTemplateColumns={[
-          '1fr',
-          '1fr 1fr',
-          '1fr 1fr',
-          '1fr 1fr 1fr',
-          '1fr 1fr 1fr 1fr',
-        ]}
-      >
-        {items?.map((coin) => <CoinCard key={unikey()} {...coin} />)}
-      </Div>
+      {items && totalItems ? (
+        <Div gap="2rem" display="flex" flexDirection="column">
+          <Div
+            mt="1rem"
+            gap="1rem"
+            display="grid"
+            gridTemplateColumns={[
+              '1fr',
+              '1fr 1fr',
+              '1fr 1fr',
+              '1fr 1fr 1fr',
+              '1fr 1fr 1fr 1fr',
+            ]}
+          >
+            {items.map((coin) => (
+              <CoinCard key={unikey()} {...coin} />
+            ))}
+          </Div>
+          <Div display="flex" justifyContent="center" fontFamily="DM Sans">
+            <ReactPaginate
+              breakLabel="..."
+              initialPage={page - 1}
+              pageRangeDisplayed={2}
+              renderOnZeroPageCount={null}
+              containerClassName="paginate"
+              pageCount={Math.floor(totalItems / limit)}
+              onPageChange={({ selected }) => setPage(selected + 1)}
+              previousLabel={
+                <ChevronLeftSVG width="100%" maxWidth="1rem" maxHeight="1rem" />
+              }
+              nextLabel={
+                <ChevronRightSVG
+                  width="100%"
+                  maxWidth="1rem"
+                  maxHeight="1rem"
+                />
+              }
+            />
+          </Div>
+        </Div>
+      ) : loading ? (
+        <Div
+          height="30rem"
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
+        >
+          <LoaderSVG />
+        </Div>
+      ) : (
+        <Div
+          height="30rem"
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
+        >
+          <LoaderSVG />
+        </Div>
+      )}
     </Div>
   );
 };
