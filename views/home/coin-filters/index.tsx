@@ -11,6 +11,12 @@ const CoinFilters: FC = () => {
 
   return (
     <Div display="flex" gap="1rem">
+      <CoinFiltersTag
+        active={!!filter.editable}
+        onClick={() => setFilter({ editable: !filter.editable })}
+      >
+        Me Mode
+      </CoinFiltersTag>
       <Div
         gap="0.5rem"
         alignItems="center"
