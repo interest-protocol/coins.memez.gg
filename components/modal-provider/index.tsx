@@ -51,6 +51,7 @@ const ModalProvider: FC = () => {
       <Div
         maxWidth="95vw"
         maxHeight="95vh"
+        pb="env(safe-area-inset-bottom)"
         {...containerProps}
         onClick={(e) => e.stopPropagation()}
       >
