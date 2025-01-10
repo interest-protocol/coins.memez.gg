@@ -11,7 +11,11 @@ import { useCoinsAbilities } from '@/hooks/use-coins-abilities';
 import useURIStaticParams from '@/hooks/use-uri-static-params';
 import { Abilities } from '@/interface';
 import { FixedPointMath } from '@/lib/entities/fixed-point-math';
-import { commaSeparatedNumber, isSameAddress } from '@/utils';
+import {
+  commaSeparatedNumber,
+  isSameAddress,
+  parseInputEventToNumberString,
+} from '@/utils';
 
 import { IBurnForm } from './coin-burn.types';
 import CoinBurnPreview from './coin-burn-preview';
@@ -66,7 +70,10 @@ const CoinBurn: FC = () => {
         <TextField
           placeholder="0"
           disabled={!burnable}
-          {...form.register('amount')}
+          {...form.register('amount', {
+            onChange: (e) =>
+              form.setValue('amount', parseInputEventToNumberString(e)),
+          })}
           Suffix={
             <Button
               all="unset"
