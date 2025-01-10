@@ -11,6 +11,7 @@ const useCoins = (): UseCoinsResponse => {
       query Coins(
         $page: Int!
         $limit: Int!
+        $creators: [String]
         $isBurnable: Boolean
         $isMintable: Boolean
         $isEditable: Boolean
@@ -19,6 +20,7 @@ const useCoins = (): UseCoinsResponse => {
           input: {
             page: $page
             limit: $limit
+            creators: $creators
             isBurnable: $isBurnable
             isMintable: $isMintable
             isEditable: $isEditable
@@ -53,6 +55,7 @@ const useCoins = (): UseCoinsResponse => {
         isBurnable: filter.burnable || undefined,
         isMintable: filter.mintable || undefined,
         isEditable: filter.editable || undefined,
+        creators: filter.creator ? [filter.creator] : undefined,
       },
       defaultOptions: {
         pollInterval: 5000,
