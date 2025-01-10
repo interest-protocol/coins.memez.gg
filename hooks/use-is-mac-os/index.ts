@@ -5,7 +5,7 @@ export const useIsMacOS = () => {
 
   useEffect(() => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    setIsMacOS((window.navigator as any).userAgentData.platform === 'macOS');
+    setIsMacOS((window.navigator as any)?.platform.includes('Mac'));
   }, []);
 
   return isMacOS;
