@@ -1,4 +1,4 @@
-import { Div, H3 } from '@stylin.js/elements';
+import { Div, H3, Img, P } from '@stylin.js/elements';
 import { useRouter } from 'next/router';
 import { FC, useEffect } from 'react';
 import ReactPaginate from 'react-paginate';
@@ -52,7 +52,13 @@ const CardList: FC = () => {
         flexDirection={['column', 'column', 'column', 'row']}
       >
         <H3 fontSize={['1.5rem', '1.5rem', '1.5rem', '1.25rem']}>
-          {items?.length} coins of {totalItems}
+          {items && totalItems ? (
+            <>
+              {items?.length} coins of {totalItems}
+            </>
+          ) : (
+            'No Results'
+          )}
         </H3>
         <Div gap="2rem" display="flex" alignItems="center">
           <CoinFilters />
@@ -112,12 +118,25 @@ const CardList: FC = () => {
         </Div>
       ) : (
         <Div
+          gap="1.5rem"
           height="30rem"
           display="flex"
           alignItems="center"
+          flexDirection="column"
           justifyContent="center"
         >
-          <LoaderSVG />
+          <Img src="/not-found.png" width="11.25rem" height="11.25rem" />
+          <Div
+            gap="1rem"
+            display="flex"
+            textAlign="center"
+            flexDirection="column"
+          >
+            <H3 fontSize="2rem">No Coins Listed</H3>
+            <P color="#9B9CA1">
+              No coins to show, try to clear your filters or refresh the page
+            </P>
+          </Div>
         </Div>
       )}
     </Div>
