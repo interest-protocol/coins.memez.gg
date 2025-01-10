@@ -10,6 +10,7 @@ import { useGetExplorerUrl } from '@/hooks/use-get-explorer-url';
 
 import { NEXT_BUTTON_TEXT, NEXT_STEP } from '../../create-coin.data';
 import { ICreateCoin, Step } from '../../create-coin.types';
+import { STEP_VALIDATION } from './create-coin-button.data';
 import { useCreateCoin } from './create-coin-button.hook';
 
 const CreateCoinButton: FC = () => {
@@ -17,7 +18,7 @@ const CreateCoinButton: FC = () => {
   const getExplorerLink = useGetExplorerUrl();
   const { dialog, handleClose } = useDialog();
   const [loading, setLoading] = useState(false);
-  const { control, setValue } = useFormContext<ICreateCoin>();
+  const { control, setValue, trigger } = useFormContext<ICreateCoin>();
 
   const step = useWatch({ control, name: 'step' });
 
@@ -93,6 +94,20 @@ const CreateCoinButton: FC = () => {
       </WalletGuardedButton>
     );
 
+  const handleNext = async () => {
+    if (
+      Step.Details === step ||
+      Step.Supply === step ||
+      Step.Features === step
+    ) {
+      const isValid = await trigger(STEP_VALIDATION[step]);
+
+      if (!isValid) return;
+    }
+
+    setValue('step', NEXT_STEP[step]);
+  };
+
   return (
     <Button
       all="unset"
@@ -104,9 +119,9 @@ const CreateCoinButton: FC = () => {
       cursor="pointer"
       alignItems="center"
       whiteSpace="nowrap"
+      onClick={handleNext}
       borderRadius="0.75rem"
       justifyContent="center"
-      onClick={() => setValue('step', NEXT_STEP[step])}
     >
       {NEXT_BUTTON_TEXT[step]}
     </Button>
