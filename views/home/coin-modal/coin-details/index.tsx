@@ -2,9 +2,16 @@ import { formatAddress } from '@mysten/sui/utils';
 import { Button, Div, H3, H4, Hr, Img, P, Span } from '@stylin.js/elements';
 import BigNumber from 'bignumber.js';
 import { motion } from 'framer-motion';
+import Link from 'next/link';
 import { FC, useState } from 'react';
+import toast from 'react-hot-toast';
 
-import { ChevronDownSVG, ExternalSVG } from '@/components/svg';
+import {
+  ChevronDownSVG,
+  CopySVG,
+  ExternalSVG,
+  LoaderSVG,
+} from '@/components/svg';
 import Tag from '@/components/tag';
 import { ExplorerMode } from '@/constants';
 import useCoin from '@/hooks/use-coin';
@@ -32,14 +39,29 @@ const CoinDetails: FC = () => {
     metadataCap: coin?.metadataCap,
   });
 
-  if (!coin) return <Div>No Coin to show!</Div>;
+  if (!coin)
+    return (
+      <Div
+        height="30rem"
+        display="flex"
+        alignItems="center"
+        justifyContent="center"
+      >
+        <LoaderSVG />
+      </Div>
+    );
 
-  const handleNavigate = () =>
+  const openCoinExplorer = () =>
     window.open(
-      getExplorerUrl(`${coin.type}`, ExplorerMode.Coin),
+      getExplorerUrl(coin.type, ExplorerMode.Coin),
       '_blank',
       'noreferrer'
     );
+
+  const handleCopy = (information: string) => {
+    window.navigator.clipboard.writeText(information);
+    toast.success('Copied!');
+  };
 
   return (
     <Div>
@@ -113,6 +135,22 @@ const CoinDetails: FC = () => {
                 : '--'}
             </P>
           </Div>
+          {coin.maximumSupply && (
+            <>
+              <Div borderTop="1px solid #242424" />
+              <Div display="flex" justifyContent="space-between">
+                <P color="#FFFFFFA3">Max Supply</P>
+                <P color="#F5B722">
+                  {commaSeparatedNumber(
+                    FixedPointMath.toNumber(
+                      BigNumber(coin.maximumSupply),
+                      coin.decimals
+                    )
+                  )}
+                </P>
+              </Div>
+            </>
+          )}
         </Div>
         <H4>Description</H4>
         <Div p="1rem" bg="#1A1A1A" borderRadius="0.75rem">
@@ -151,40 +189,123 @@ const CoinDetails: FC = () => {
           >
             <Div display="flex" justifyContent="space-between">
               <P color="#FFFFFFA3">Type</P>
-              <P color="#F5B722">{formatAddress(coin.type)}</P>
-            </Div>
-            <Div display="flex" justifyContent="space-between">
-              <P color="#FFFFFFA3">Creator</P>
-              <P color="#F5B722">{formatAddress(coin.createdBy)}</P>
+              <P
+                gap="0.5rem"
+                display="flex"
+                color="#F5B722"
+                cursor="pointer"
+                alignItems="center"
+              >
+                <Link
+                  target="_blank"
+                  href={getExplorerUrl(coin.type, ExplorerMode.Coin)}
+                >
+                  <Span nHover={{ textDecoration: 'underline' }}>
+                    {formatAddress(coin.type)}
+                  </Span>
+                </Link>
+                <Span onClick={() => handleCopy(coin.type)}>
+                  <CopySVG maxWidth="1rem" maxHeight="1rem" width="100%" />
+                </Span>
+              </P>
             </Div>
             <Hr border="none" borderTop="1px solid #242424" />
             <Div display="flex" justifyContent="space-between">
-              <P color="#FFFFFFA3">Max Supply</P>
-              <P color="#F5B722">
-                {coin.maximumSupply
-                  ? commaSeparatedNumber(
-                      FixedPointMath.toNumber(
-                        BigNumber(coin.maximumSupply),
-                        coin.decimals
-                      )
-                    )
-                  : '--'}
+              <P color="#FFFFFFA3">Creator</P>
+              <P
+                gap="0.5rem"
+                display="flex"
+                color="#F5B722"
+                cursor="pointer"
+                alignItems="center"
+              >
+                <Link
+                  target="_blank"
+                  href={getExplorerUrl(coin.createdBy, ExplorerMode.Account)}
+                >
+                  <Span nHover={{ textDecoration: 'underline' }}>
+                    {formatAddress(coin.createdBy)}
+                  </Span>
+                </Link>
+                <Span onClick={() => handleCopy(coin.createdBy)}>
+                  <CopySVG maxWidth="1rem" maxHeight="1rem" width="100%" />
+                </Span>
               </P>
             </Div>
             <Hr border="none" borderTop="1px solid #242424" />
             <Div display="flex" justifyContent="space-between">
               <P color="#FFFFFFA3">Treasury Cap</P>
-              <P color="#F5B722">{formatAddress(coin.treasuryCap)}</P>
+              <P
+                gap="0.5rem"
+                display="flex"
+                color="#F5B722"
+                cursor="pointer"
+                alignItems="center"
+              >
+                <Link
+                  target="_blank"
+                  href={getExplorerUrl(coin.treasuryCap, ExplorerMode.Object)}
+                >
+                  <Span nHover={{ textDecoration: 'underline' }}>
+                    {formatAddress(coin.treasuryCap)}
+                  </Span>
+                </Link>
+                <Span onClick={() => handleCopy(coin.treasuryCap)}>
+                  <CopySVG maxWidth="1rem" maxHeight="1rem" width="100%" />
+                </Span>
+              </P>
             </Div>
             <Hr border="none" borderTop="1px solid #242424" />
             <Div display="flex" justifyContent="space-between">
               <P color="#FFFFFFA3">Coin Metadata</P>
-              <P color="#F5B722">{formatAddress(coin.metadataObjectId)}</P>
+              <P
+                gap="0.5rem"
+                display="flex"
+                color="#F5B722"
+                cursor="pointer"
+                alignItems="center"
+              >
+                <Link
+                  target="_blank"
+                  href={getExplorerUrl(
+                    coin.metadataObjectId,
+                    ExplorerMode.Object
+                  )}
+                >
+                  <Span nHover={{ textDecoration: 'underline' }}>
+                    {formatAddress(coin.metadataObjectId)}
+                  </Span>
+                </Link>
+                <Span onClick={() => handleCopy(coin.metadataObjectId)}>
+                  <CopySVG maxWidth="1rem" maxHeight="1rem" width="100%" />
+                </Span>
+              </P>
             </Div>
             <Hr border="none" borderTop="1px solid #242424" />
             <Div display="flex" justifyContent="space-between">
               <P color="#FFFFFFA3">IPX Standard Treasury</P>
-              <P color="#F5B722">{formatAddress(coin.ipxTreasuryCap)}</P>
+              <P
+                gap="0.5rem"
+                display="flex"
+                color="#F5B722"
+                cursor="pointer"
+                alignItems="center"
+              >
+                <Link
+                  target="_blank"
+                  href={getExplorerUrl(
+                    coin.ipxTreasuryCap,
+                    ExplorerMode.Object
+                  )}
+                >
+                  <Span nHover={{ textDecoration: 'underline' }}>
+                    {formatAddress(coin.ipxTreasuryCap)}
+                  </Span>
+                </Link>
+                <Span onClick={() => handleCopy(coin.ipxTreasuryCap)}>
+                  <CopySVG maxWidth="1rem" maxHeight="1rem" width="100%" />
+                </Span>
+              </P>
             </Div>
           </Div>
         )}
@@ -200,7 +321,7 @@ const CoinDetails: FC = () => {
           whiteSpace="nowrap"
           borderRadius="0.75rem"
           justifyContent="center"
-          onClick={handleNavigate}
+          onClick={openCoinExplorer}
         >
           Open on Explorer{' '}
           <ExternalSVG maxWidth="0.75rem" maxHeight="0.75rem" width="100%" />

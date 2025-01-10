@@ -38,8 +38,13 @@ const CoinCard: FC<Coin> = ({
     updateURL(`${pathname}?coin=${type}&mode=${Abilities.Details}`);
 
     setContent(<CoinModal />, {
-      allowClose: true,
       onClose: () => updateURL(pathname),
+      overlayProps: {
+        alignItems: ['flex-end', 'center'],
+      },
+      containerProps: {
+        maxWidth: ['100vw', '95vw'],
+      },
     });
   };
 
@@ -52,7 +57,9 @@ const CoinCard: FC<Coin> = ({
       cursor="pointer"
       onClick={handleClick}
       flexDirection="column"
-      borderRadius="1.825rem"
+      border="1px solid transparent"
+      nHover={{ borderColor: '#F5B72240' }}
+      borderRadius={['1rem', '1rem', '1.825rem']}
     >
       <Div
         height="2rem"
@@ -103,7 +110,7 @@ const CoinCard: FC<Coin> = ({
       >
         <Div display="flex" justifyContent="space-between">
           <P color="#FFFFFFA3">Supply</P>
-          <P color="#F5B722">
+          <P color="#F5B722" textAlign="right">
             {totalSupply
               ? commaSeparatedNumber(
                   FixedPointMath.toNumber(totalSupply, decimals)
@@ -114,7 +121,7 @@ const CoinCard: FC<Coin> = ({
         <Div borderTop="1px solid #242424" />
         <Div display="flex" justifyContent="space-between">
           <P color="#FFFFFFA3">Balance</P>
-          <P color="#F5B722">
+          <P color="#F5B722" textAlign="right">
             {balance ? FixedPointMath.toNumber(balance, decimals) : '--'}{' '}
             {symbol}
           </P>

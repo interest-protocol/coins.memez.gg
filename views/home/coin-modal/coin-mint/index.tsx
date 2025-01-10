@@ -1,3 +1,4 @@
+import { useCurrentAccount } from '@mysten/dapp-kit';
 import { Button, Div, Span } from '@stylin.js/elements';
 import BigNumber from 'bignumber.js';
 import { FC } from 'react';
@@ -11,13 +12,18 @@ import { useCoinsAbilities } from '@/hooks/use-coins-abilities';
 import useURIStaticParams from '@/hooks/use-uri-static-params';
 import { Abilities } from '@/interface';
 import { FixedPointMath } from '@/lib/entities/fixed-point-math';
-import { commaSeparatedNumber } from '@/utils';
+import {
+  commaSeparatedNumber,
+  isSameAddress,
+  parseInputEventToNumberString,
+} from '@/utils';
 
 import { IMintForm } from './coin-mint.types';
 import CoinBurnPreview from './coin-mint-preview';
 
 const CoinMint: FC = () => {
   const params = useURIStaticParams();
+  const account = useCurrentAccount();
   const form = useForm<IMintForm>({
     defaultValues: {
       amount: '0',
@@ -66,7 +72,10 @@ const CoinMint: FC = () => {
         </Div>
         <TextField
           placeholder="0"
-          {...form.register('amount')}
+          {...form.register('amount', {
+            onChange: (e) =>
+              form.setValue('amount', parseInputEventToNumberString(e)),
+          })}
           disabled={!abilities?.[Abilities.Mint]}
           Suffix={
             <Button
@@ -99,7 +108,16 @@ const CoinMint: FC = () => {
             </Button>
           }
         />
-        <CoinBurnPreview coin={coin} />
+        <CoinBurnPreview
+          coin={coin}
+          mintable={
+            !!(
+              abilities?.[Abilities.Mint] &&
+              account &&
+              isSameAddress(abilities[Abilities.Mint], account.address)
+            )
+          }
+        />
       </Div>
     </FormProvider>
   );

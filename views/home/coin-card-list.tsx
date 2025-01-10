@@ -1,9 +1,12 @@
-import { Div, H3 } from '@stylin.js/elements';
+import { Div, H3, Img, P } from '@stylin.js/elements';
 import { useRouter } from 'next/router';
 import { FC, useEffect } from 'react';
+import ReactPaginate from 'react-paginate';
 import unikey from 'unikey';
 
+import { ChevronLeftSVG, ChevronRightSVG, LoaderSVG } from '@/components/svg';
 import useCoins from '@/hooks/use-coins';
+import { useCoinsFilter } from '@/hooks/use-coins-filter';
 import { useModal } from '@/hooks/use-modal';
 import useURIStaticParams from '@/hooks/use-uri-static-params';
 import { updateURL } from '@/utils/url';
@@ -14,10 +17,11 @@ import CoinModal from './coin-modal';
 import CreateCoin from './create-coin';
 
 const CardList: FC = () => {
-  const { totalItems, items } = useCoins();
   const { pathname } = useRouter();
   const { setContent } = useModal();
   const params = useURIStaticParams();
+  const { page, setPage, limit } = useCoinsFilter();
+  const { totalItems, items, loading } = useCoins();
 
   useEffect(() => {
     if (!params?.has('coin')) return;
@@ -28,8 +32,13 @@ const CardList: FC = () => {
     updateURL(`${pathname}?coin=${coin}&mode=${mode}`);
 
     setContent(<CoinModal />, {
-      allowClose: true,
       onClose: () => updateURL(pathname),
+      overlayProps: {
+        alignItems: ['flex-end', 'center'],
+      },
+      containerProps: {
+        maxWidth: ['100vw', '95vw'],
+      },
     });
   }, [params]);
 
@@ -38,31 +47,98 @@ const CardList: FC = () => {
       <Div
         gap="1rem"
         display="flex"
-        alignItems="center"
         justifyContent="space-between"
+        alignItems={['unset', 'unset', 'unset', 'center']}
+        flexDirection={['column', 'column', 'column', 'row']}
       >
-        <H3>
-          {items?.length} coins of {totalItems}
+        <H3 fontSize={['1.5rem', '1.5rem', '1.5rem', '1.25rem']}>
+          {items && totalItems ? (
+            <>
+              {items?.length} coins of {totalItems}
+            </>
+          ) : (
+            'No Results'
+          )}
         </H3>
         <Div gap="2rem" display="flex" alignItems="center">
           <CoinFilters />
-          <CreateCoin />
+          <Div display={['none', 'none', 'none', 'block']}>
+            <CreateCoin />
+          </Div>
         </Div>
       </Div>
-      <Div
-        mt="1rem"
-        gap="1rem"
-        display="grid"
-        gridTemplateColumns={[
-          '1fr',
-          '1fr 1fr',
-          '1fr 1fr',
-          '1fr 1fr 1fr',
-          '1fr 1fr 1fr 1fr',
-        ]}
-      >
-        {items?.map((coin) => <CoinCard key={unikey()} {...coin} />)}
-      </Div>
+      {items && totalItems ? (
+        <Div gap="2rem" display="flex" flexDirection="column">
+          <Div
+            mt="1rem"
+            gap="1rem"
+            display="grid"
+            gridTemplateColumns={[
+              '1fr',
+              '1fr 1fr',
+              '1fr 1fr',
+              '1fr 1fr 1fr',
+              '1fr 1fr 1fr 1fr',
+            ]}
+          >
+            {items.map((coin) => (
+              <CoinCard key={unikey()} {...coin} />
+            ))}
+          </Div>
+          <Div display="flex" justifyContent="center" fontFamily="DM Sans">
+            <ReactPaginate
+              breakLabel="..."
+              initialPage={page - 1}
+              pageRangeDisplayed={2}
+              renderOnZeroPageCount={null}
+              containerClassName="paginate"
+              pageCount={Math.floor(totalItems / limit)}
+              onPageChange={({ selected }) => setPage(selected + 1)}
+              previousLabel={
+                <ChevronLeftSVG width="100%" maxWidth="1rem" maxHeight="1rem" />
+              }
+              nextLabel={
+                <ChevronRightSVG
+                  width="100%"
+                  maxWidth="1rem"
+                  maxHeight="1rem"
+                />
+              }
+            />
+          </Div>
+        </Div>
+      ) : loading ? (
+        <Div
+          height="30rem"
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
+        >
+          <LoaderSVG />
+        </Div>
+      ) : (
+        <Div
+          gap="1.5rem"
+          height="30rem"
+          display="flex"
+          alignItems="center"
+          flexDirection="column"
+          justifyContent="center"
+        >
+          <Img src="/not-found.png" width="11.25rem" height="11.25rem" />
+          <Div
+            gap="1rem"
+            display="flex"
+            textAlign="center"
+            flexDirection="column"
+          >
+            <H3 fontSize="2rem">No Coins Listed</H3>
+            <P color="#9B9CA1">
+              No coins to show, try to clear your filters or refresh the page
+            </P>
+          </Div>
+        </Div>
+      )}
     </Div>
   );
 };

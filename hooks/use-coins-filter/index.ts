@@ -4,7 +4,7 @@ import { UseCoinsFilter } from './use-coins-filter.types';
 
 export const useCoinsFilter = create<UseCoinsFilter>((set) => ({
   page: 1,
-  limit: 20,
+  limit: 1,
   filter: {
     burnable: false,
     mintable: false,

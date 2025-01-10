@@ -11,8 +11,14 @@ const CreateCoin: FC = () => {
 
   const handleOpenModal = () =>
     setContent(<CreateCoinModal />, {
-      allowClose: true,
-      containerProps: { display: 'flex', maxHeight: '90vh' },
+      overlayProps: {
+        alignItems: ['flex-end', 'center'],
+      },
+      containerProps: {
+        display: 'flex',
+        maxHeight: '90vh',
+        maxWidth: ['100vw', '95vw'],
+      },
     });
 
   return (
@@ -21,14 +27,15 @@ const CreateCoin: FC = () => {
       px="1.25rem"
       gap="0.5rem"
       bg="#F5B722"
-      py="0.825rem"
       display="flex"
       color="#000000"
       cursor="pointer"
       alignItems="center"
       whiteSpace="nowrap"
       borderRadius="1rem"
+      justifyContent="center"
       onClick={handleOpenModal}
+      py={['1rem', '1rem', '1rem', '0.825rem']}
     >
       Create coin
       <CirclePlusSVG maxWidth="1rem" maxHeight="1rem" width="100%" />

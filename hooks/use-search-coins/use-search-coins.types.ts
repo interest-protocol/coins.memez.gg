@@ -8,12 +8,12 @@ export interface SearchingCoin {
 }
 
 interface TypedItems {
-  type: string;
+  field: string;
   coins: ReadonlyArray<SearchingCoin>;
 }
 
 export interface UseSearchCoinsResponse
   extends Omit<ReturnType<typeof useQuery>, 'data'> {
   totalItems?: number;
-  itemsPerType?: ReadonlyArray<TypedItems>;
+  itemsPerField?: ReadonlyArray<TypedItems>;
 }

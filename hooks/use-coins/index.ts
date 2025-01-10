@@ -54,6 +54,9 @@ const useCoins = (): UseCoinsResponse => {
         isMintable: filter.mintable || undefined,
         isEditable: filter.editable || undefined,
       },
+      defaultOptions: {
+        pollInterval: 5000,
+      },
     }
   );
 

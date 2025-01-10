@@ -45,15 +45,17 @@ export const useCreateCoin = () => {
 
     tx.transferObjects([upgradeCap], tx.pure.address(currentAccount.address));
 
-    const tx2 = await signAndExecute({
+    const txResult = await signAndExecute({
       tx,
       suiClient,
       currentAccount,
       signTransaction,
     });
 
-    throwTXIfNotSuccessful(tx2);
+    throwTXIfNotSuccessful(txResult);
 
-    await waitForTx({ suiClient, digest: tx2.digest });
+    await waitForTx({ suiClient, digest: txResult.digest });
+
+    return txResult.digest;
   };
 };

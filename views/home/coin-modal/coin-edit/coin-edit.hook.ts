@@ -98,5 +98,7 @@ export const useEdit = ({
     throwTXIfNotSuccessful(txResult);
 
     await waitForTx({ suiClient: client, digest: txResult.digest });
+
+    return txResult.digest;
   };
 };

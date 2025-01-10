@@ -30,10 +30,10 @@ const Tabs: FC<TabsProps> = ({ selected, items, onSelect }) => (
     />
     {items.map((item, index) => (
       <TabText
-        py="0.75rem"
         key={unikey()}
         cursor="pointer"
         position="relative"
+        py={['1rem', '0.75rem']}
         textTransform="uppercase"
         onClick={() => onSelect(index)}
         color={index === selected ? '#000' : '#F5B722'}

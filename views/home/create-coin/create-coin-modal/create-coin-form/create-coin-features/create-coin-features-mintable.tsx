@@ -43,9 +43,9 @@ const CreateCoinFeaturesMintable: FC = () => {
         >
           <CreateCoinField
             kind="numeric"
+            name="maxSupply"
             limit="Optional"
             label="Max Supply"
-            name="features.maxSupply"
             placeholder="100000000000"
           />
         </Div>

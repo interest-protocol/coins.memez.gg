@@ -15,13 +15,13 @@ export interface ICreateCoin {
   supply: number;
   decimals: number;
   imageUrl: string;
+  maxSupply: number;
+  description: string;
+  showPreview: boolean;
   features: {
     canBurn: boolean;
     burnable: boolean;
     editable: boolean;
     mintable: boolean;
-    maxSupply: string;
   };
-  description: string;
-  showPreview: boolean;
 }

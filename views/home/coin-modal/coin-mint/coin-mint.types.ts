@@ -6,4 +6,5 @@ export interface IMintForm {
 
 export interface CoinMintPreviewProps {
   coin: Coin;
+  mintable: boolean;
 }

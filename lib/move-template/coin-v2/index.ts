@@ -70,10 +70,7 @@ export const getBytecode = (info: ICreateCoin, network: Network) => {
   updated = updateSupply(updated, [
     String(info.decimals),
     FixedPointMath.toBigNumber(info.supply, info.decimals).toFixed(0),
-    FixedPointMath.toBigNumber(
-      info.features.maxSupply || '0',
-      info.decimals
-    ).toFixed(0),
+    FixedPointMath.toBigNumber(info.maxSupply || '0', info.decimals).toFixed(0),
   ]);
 
   return updated;

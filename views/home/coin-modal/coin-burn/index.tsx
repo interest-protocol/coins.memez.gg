@@ -1,3 +1,4 @@
+import { useCurrentAccount } from '@mysten/dapp-kit';
 import { Button, Div, Span } from '@stylin.js/elements';
 import { FC } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
@@ -10,13 +11,18 @@ import { useCoinsAbilities } from '@/hooks/use-coins-abilities';
 import useURIStaticParams from '@/hooks/use-uri-static-params';
 import { Abilities } from '@/interface';
 import { FixedPointMath } from '@/lib/entities/fixed-point-math';
-import { commaSeparatedNumber } from '@/utils';
+import {
+  commaSeparatedNumber,
+  isSameAddress,
+  parseInputEventToNumberString,
+} from '@/utils';
 
 import { IBurnForm } from './coin-burn.types';
 import CoinBurnPreview from './coin-burn-preview';
 
 const CoinBurn: FC = () => {
   const params = useURIStaticParams();
+  const account = useCurrentAccount();
   const { coin } = useCoin(params?.get('coin') ?? undefined);
   const form = useForm<IBurnForm>({
     defaultValues: {
@@ -31,7 +37,7 @@ const CoinBurn: FC = () => {
 
   if (!coin) return <Div>No Coin to show!</Div>;
 
-  const burnable = coin.canBurn || abilities?.[Abilities.Burn];
+  const burnable = !!(coin.canBurn || abilities?.[Abilities.Burn]);
 
   return (
     <FormProvider {...form}>
@@ -64,7 +70,10 @@ const CoinBurn: FC = () => {
         <TextField
           placeholder="0"
           disabled={!burnable}
-          {...form.register('amount')}
+          {...form.register('amount', {
+            onChange: (e) =>
+              form.setValue('amount', parseInputEventToNumberString(e)),
+          })}
           Suffix={
             <Button
               all="unset"
@@ -88,7 +97,17 @@ const CoinBurn: FC = () => {
             </Button>
           }
         />
-        <CoinBurnPreview coin={coin} />
+        <CoinBurnPreview
+          coin={coin}
+          burnable={
+            !!(
+              coin.canBurn ||
+              (abilities?.[Abilities.Burn] &&
+                account?.address &&
+                isSameAddress(abilities[Abilities.Burn], account.address))
+            )
+          }
+        />
       </Div>
     </FormProvider>
   );
