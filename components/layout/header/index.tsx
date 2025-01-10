@@ -18,7 +18,7 @@ const Header: FC = () => (
       alignItems="center"
       justifyContent="space-between"
     >
-      <Img src="/logo.png" alt="logo" maxWidth={['6rem']} />
+      <Img src="/logo.webp" alt="logo" maxWidth="6rem" />
       <SearchBar />
       <WalletButton />
     </Div>

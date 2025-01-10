@@ -1,5 +1,7 @@
 export { default as CheckSVG } from './check';
 export { default as ChevronDownSVG } from './chevron-down';
+export { default as ChevronLeftSVG } from './chevron-left';
+export { default as ChevronRightSVG } from './chevron-right';
 export { default as CirclePlusSVG } from './circle-plus';
 export { default as CircleQuestionSVG } from './circle-question';
 export { default as CommandSVG } from './command';
