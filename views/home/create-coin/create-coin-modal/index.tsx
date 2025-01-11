@@ -31,9 +31,9 @@ const CreateCoinModal: FC = () => {
         gap="2rem"
         bg="#3C3C3C80"
         display="flex"
-        borderRadius="1.125rem"
         width={['100vw', 'auto']}
         backdropFilter="blur(19px)"
+        borderRadius={['1.125rem 1.125rem 0 0', '1.125rem']}
       >
         <Div
           gap="1rem"
