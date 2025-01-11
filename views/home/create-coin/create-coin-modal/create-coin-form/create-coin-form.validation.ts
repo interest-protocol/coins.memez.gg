@@ -36,14 +36,18 @@ export const createCoinSchema = yup.object<ICreateCoin>({
       return bnValue.lte(MAX_U64);
     }),
   maxSupply: yup
-    .number()
+    .string()
     .test(
       'min',
       'Max Supply should be superior than current supply',
       function (value) {
         const { supply, features } = this.parent;
 
-        return features?.mintable && Number(supply) <= Number(value);
+        if (!features?.mintable) return true;
+
+        if (!Number(value)) return true;
+
+        return Number(supply) <= Number(value);
       }
     )
     .test('max', 'Max Supply exceed the u64 max amount', function (value) {
