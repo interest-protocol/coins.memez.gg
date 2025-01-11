@@ -47,7 +47,7 @@ const CoinModal: FC = () => {
       maxHeight="90vh"
       flexDirection="column"
       backdropFilter="blur(19px)"
-      width={['100vw', '43.75rem']}
+      width={['100vw', '95vw', '43.75rem']}
       borderRadius={['1.125rem 1.125rem  0 0', '1.125rem']}
     >
       <Div px="0.5rem">
