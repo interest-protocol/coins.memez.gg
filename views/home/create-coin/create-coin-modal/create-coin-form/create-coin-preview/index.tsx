@@ -19,7 +19,6 @@ const CreateCoinPreview: FC = () => {
     <Div
       p="1rem"
       bg="#3C3C3C80"
-      minWidth="26rem"
       overflowY="auto"
       borderRadius="1rem"
       border="1px solid #7C7C7C"
