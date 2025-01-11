@@ -25,8 +25,8 @@ const Tabs: FC<TabsProps> = ({ selected, items, onSelect }) => (
       position="absolute"
       borderRadius="0.5rem"
       width={`${100 / items.length}%`}
-      animate={{ x: `${selected * 100}%`, y: 0 }}
       transition={{ ease: 'anticipate' }}
+      animate={{ x: `${selected * 100}%`, y: 0 }}
     />
     {items.map((item, index) => (
       <TabText

@@ -18,8 +18,9 @@ const CreateCoinPreview: FC = () => {
   return (
     <Div
       p="1rem"
+      width="28rem"
       bg="#3C3C3C80"
-      minWidth="26rem"
+      overflowY="auto"
       borderRadius="1rem"
       border="1px solid #7C7C7C"
       display={['none', 'none', 'none', 'block']}

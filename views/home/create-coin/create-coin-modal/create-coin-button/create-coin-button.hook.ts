@@ -8,8 +8,10 @@ import { normalizeSuiAddress } from '@mysten/sui/utils';
 import { useFormContext } from 'react-hook-form';
 import invariant from 'tiny-invariant';
 
+import { CREATE_COIN_FEE, FEE_ADDRESS } from '@/constants/fee';
 import { IPX_COIN_STANDARD } from '@/constants/package';
 import { useNetwork } from '@/hooks/use-network';
+import { FixedPointMath } from '@/lib/entities/fixed-point-math';
 import { getBytecode } from '@/lib/move-template/coin-v2';
 import initMoveByteCodeTemplate from '@/lib/move-template/move-bytecode-template';
 import { signAndExecute, throwTXIfNotSuccessful, waitForTx } from '@/utils';
@@ -30,6 +32,10 @@ export const useCreateCoin = () => {
 
     const tx = new Transaction();
 
+    const fee = tx.splitCoins(tx.gas, [
+      tx.pure.u64(FixedPointMath.toBigNumber(CREATE_COIN_FEE).toString()),
+    ]);
+
     await initMoveByteCodeTemplate('/move_bytecode_template_bg.wasm');
 
     const coinBytecode = getBytecode(coin, network);
@@ -44,6 +50,7 @@ export const useCreateCoin = () => {
     });
 
     tx.transferObjects([upgradeCap], tx.pure.address(currentAccount.address));
+    tx.transferObjects([fee], tx.pure.address(FEE_ADDRESS));
 
     const txResult = await signAndExecute({
       tx,

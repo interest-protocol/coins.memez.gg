@@ -37,7 +37,7 @@ const Dialog: FC<DialogProps> = ({
       {title}
     </H2>
     {message && (
-      <P textAlign="center" fontSize="1.125rem">
+      <P textAlign="center" fontSize="1.125rem" wordBreak="break-word">
         {message}
       </P>
     )}

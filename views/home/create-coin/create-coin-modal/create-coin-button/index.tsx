@@ -5,6 +5,7 @@ import { useFormContext, useWatch } from 'react-hook-form';
 import { LoaderSVG } from '@/components/svg';
 import WalletGuardedButton from '@/components/wallet-guarded-button';
 import { ExplorerMode } from '@/constants';
+import { CREATE_COIN_FEE } from '@/constants/fee';
 import { useDialog } from '@/hooks/use-dialog';
 import { useGetExplorerUrl } from '@/hooks/use-get-explorer-url';
 
@@ -90,7 +91,9 @@ const CreateCoinButton: FC = () => {
   if (step === Step.Preview)
     return (
       <WalletGuardedButton onClick={handleCreateCoin}>
-        {loading ? 'Creating Coin...' : 'Create Coin'}
+        {loading
+          ? 'Creating Coin...'
+          : `Create Coin for ${CREATE_COIN_FEE} SUI`}
       </WalletGuardedButton>
     );
 

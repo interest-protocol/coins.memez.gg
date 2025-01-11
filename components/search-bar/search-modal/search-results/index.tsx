@@ -20,10 +20,12 @@ const SearchResultsContent: FC<SearchResultsContentProps> = ({ search }) => {
       py="1rem"
       gap="1rem"
       px="0.5rem"
+      height="100%"
       display="flex"
       overflowY="auto"
       flexDirection="column"
       borderTop="1px solid #F5B722"
+      onClick={(e) => e.stopPropagation()}
     >
       {itemsPerField.map(({ coins, field }) => (
         <Div key={unikey()} display="flex" flexDirection="column" gap="0.5rem">

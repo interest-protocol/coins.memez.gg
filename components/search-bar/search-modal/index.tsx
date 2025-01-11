@@ -17,14 +17,18 @@ const SearchModal: FC = () => {
     <FormProvider {...form}>
       <Div
         display="flex"
+        onClick={handleClose}
         flexDirection="column"
         height={['90vh', '90vh', '90vh', '70vh']}
       >
         <Div
           bg="#1A1A1A"
+          display="flex"
           overflow="hidden"
           borderRadius="1rem"
+          flexDirection="column"
           border="1px solid #F5B722"
+          onClick={(e) => e.stopPropagation()}
         >
           <TextField
             // eslint-disable-next-line jsx-a11y/no-autofocus
