@@ -45,13 +45,13 @@ const ModalProvider: FC = () => {
       justifyContent="center"
       onClick={onHandleClose}
       backdropFilter="blur(10px)"
+      pb="env(safe-area-inset-bottom)"
       {...overlayProps}
     >
       <Toaster />
       <Div
         maxWidth="95vw"
         maxHeight="95vh"
-        pb="env(safe-area-inset-bottom)"
         {...containerProps}
         onClick={(e) => e.stopPropagation()}
       >
