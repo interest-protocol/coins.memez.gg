@@ -76,7 +76,7 @@ const CardList: FC = () => {
             display="grid"
             gridTemplateColumns={[
               '1fr',
-              '1fr 1fr',
+              '1fr',
               '1fr 1fr',
               '1fr 1fr 1fr',
               '1fr 1fr 1fr 1fr',
