@@ -1,4 +1,4 @@
-import { Div, H3, Img, P } from '@stylin.js/elements';
+import { Div, H3 } from '@stylin.js/elements';
 import { useRouter } from 'next/router';
 import { FC, useEffect } from 'react';
 import ReactPaginate from 'react-paginate';
@@ -12,6 +12,7 @@ import useURIStaticParams from '@/hooks/use-uri-static-params';
 import { updateURL } from '@/utils/url';
 
 import CoinCard from './coin-card';
+import CoinCardListEmpty from './coin-card-list-empty';
 import CoinFilters from './coin-filters';
 import CoinModal from './coin-modal';
 import CreateCoin from './create-coin';
@@ -117,27 +118,7 @@ const CardList: FC = () => {
           <LoaderSVG />
         </Div>
       ) : (
-        <Div
-          gap="1.5rem"
-          height="30rem"
-          display="flex"
-          alignItems="center"
-          flexDirection="column"
-          justifyContent="center"
-        >
-          <Img src="/not-found.png" width="11.25rem" height="11.25rem" />
-          <Div
-            gap="1rem"
-            display="flex"
-            textAlign="center"
-            flexDirection="column"
-          >
-            <H3 fontSize="2rem">No Coins Listed</H3>
-            <P color="#9B9CA1">
-              No coins to show, try to clear your filters or refresh the page
-            </P>
-          </Div>
-        </Div>
+        <CoinCardListEmpty />
       )}
     </Div>
   );
