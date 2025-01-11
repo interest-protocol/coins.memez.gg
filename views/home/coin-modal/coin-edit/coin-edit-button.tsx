@@ -1,5 +1,6 @@
 import { Img } from '@stylin.js/elements';
 import { FC, useState } from 'react';
+import { useFormContext } from 'react-hook-form';
 
 import { LoaderSVG } from '@/components/svg';
 import WalletGuardedButton from '@/components/wallet-guarded-button';
@@ -8,13 +9,14 @@ import { useDialog } from '@/hooks/use-dialog';
 import { useGetExplorerUrl } from '@/hooks/use-get-explorer-url';
 
 import { useEdit } from './coin-edit.hook';
-import { CoinEditFormProps } from './coin-edit.types';
+import { CoinEditFormProps, IEditForm } from './coin-edit.types';
 
 const CoinEditButton: FC<CoinEditFormProps> = ({ coin, editable }) => {
   const edit = useEdit(coin);
   const getExplorerLink = useGetExplorerUrl();
   const { dialog, handleClose } = useDialog();
   const [loading, setLoading] = useState(false);
+  const { trigger } = useFormContext<IEditForm>();
 
   const goToTx = (tx: string) =>
     window.open(
@@ -24,6 +26,10 @@ const CoinEditButton: FC<CoinEditFormProps> = ({ coin, editable }) => {
     );
 
   const handleEdit = async () => {
+    const isValid = await trigger();
+
+    if (!isValid) return;
+
     if (!editable) return;
 
     try {

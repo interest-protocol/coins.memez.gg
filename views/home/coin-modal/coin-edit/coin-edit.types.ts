@@ -1,3 +1,5 @@
+import { FieldPath } from 'react-hook-form';
+
 import { Coin } from '@/interface';
 
 export interface IEditForm {
@@ -10,4 +12,8 @@ export interface IEditForm {
 export interface CoinEditFormProps {
   coin: Coin;
   editable: boolean;
+}
+export interface CoinEditFormFieldProps {
+  label: string;
+  name: FieldPath<IEditForm>;
 }
