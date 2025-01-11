@@ -1,4 +1,5 @@
 import { Div, Header as HtmlHeader, Img } from '@stylin.js/elements';
+import Link from 'next/link';
 import { FC } from 'react';
 
 import SearchBar from '@/components/search-bar';
@@ -18,7 +19,9 @@ const Header: FC = () => (
       alignItems="center"
       justifyContent="space-between"
     >
-      <Img src="/logo.webp" alt="logo" maxWidth="6rem" />
+      <Link href="https://memez.gg" target="_blank">
+        <Img src="/logo.webp" alt="logo" maxWidth="6rem" />
+      </Link>
       <SearchBar />
       <WalletButton />
     </Div>
