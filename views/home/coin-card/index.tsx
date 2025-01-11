@@ -19,7 +19,6 @@ import CoinModal from '../coin-modal';
 const CoinCard: FC<Coin> = ({
   name,
   type,
-  symbol,
   iconUrl,
   burnCap,
   mintCap,
@@ -58,7 +57,7 @@ const CoinCard: FC<Coin> = ({
       onClick={handleClick}
       flexDirection="column"
       border="1px solid transparent"
-      nHover={{ borderColor: '#F5B72240' }}
+      nHover={{ borderColor: '#F5B72280' }}
       borderRadius={['1rem', '1rem', '1.825rem']}
     >
       <Div
@@ -120,10 +119,11 @@ const CoinCard: FC<Coin> = ({
         </Div>
         <Div borderTop="1px solid #242424" />
         <Div display="flex" justifyContent="space-between">
-          <P color="#FFFFFFA3">Balance</P>
+          <P color="#FFFFFFA3">My Balance</P>
           <P color="#F5B722" textAlign="right">
-            {balance ? FixedPointMath.toNumber(balance, decimals) : '--'}{' '}
-            {symbol}
+            {totalSupply && balance
+              ? `${FixedPointMath.toNumber(balance.times(100).div(totalSupply).decimalPlaces(2), 0)}%`
+              : '--'}
           </P>
         </Div>
       </Div>

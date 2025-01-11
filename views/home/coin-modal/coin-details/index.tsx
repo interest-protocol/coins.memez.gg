@@ -307,6 +307,126 @@ const CoinDetails: FC = () => {
                 </Span>
               </P>
             </Div>
+            {(coin.canBurn || abilities?.[Abilities.Burn]) && (
+              <>
+                <Hr border="none" borderTop="1px solid #242424" />
+                <Div display="flex" justifyContent="space-between">
+                  <P color="#FFFFFFA3">
+                    {coin.canBurn ? 'Who can burn' : 'Burn Cap Owner'}
+                  </P>
+                  <P
+                    gap="0.5rem"
+                    display="flex"
+                    color="#F5B722"
+                    cursor="pointer"
+                    alignItems="center"
+                  >
+                    {coin.canBurn ? (
+                      'Everyone'
+                    ) : abilities?.[Abilities.Burn] ? (
+                      <>
+                        <Link
+                          target="_blank"
+                          href={getExplorerUrl(
+                            abilities[Abilities.Burn],
+                            ExplorerMode.Account
+                          )}
+                        >
+                          <Span nHover={{ textDecoration: 'underline' }}>
+                            {formatAddress(abilities[Abilities.Burn])}
+                          </Span>
+                        </Link>
+                        <Span
+                          onClick={() =>
+                            handleCopy(
+                              abilities[Abilities.Burn] as unknown as string
+                            )
+                          }
+                        >
+                          <CopySVG
+                            width="100%"
+                            maxWidth="1rem"
+                            maxHeight="1rem"
+                          />
+                        </Span>
+                      </>
+                    ) : null}
+                  </P>
+                </Div>
+              </>
+            )}
+            {abilities?.[Abilities.Mint] && (
+              <>
+                <Hr border="none" borderTop="1px solid #242424" />
+                <Div display="flex" justifyContent="space-between">
+                  <P color="#FFFFFFA3">Mint Cap Owner</P>
+                  <P
+                    gap="0.5rem"
+                    display="flex"
+                    color="#F5B722"
+                    cursor="pointer"
+                    alignItems="center"
+                  >
+                    <Link
+                      target="_blank"
+                      href={getExplorerUrl(
+                        abilities[Abilities.Mint],
+                        ExplorerMode.Account
+                      )}
+                    >
+                      <Span nHover={{ textDecoration: 'underline' }}>
+                        {formatAddress(abilities[Abilities.Mint])}
+                      </Span>
+                    </Link>
+                    <Span
+                      onClick={() =>
+                        handleCopy(
+                          abilities[Abilities.Mint] as unknown as string
+                        )
+                      }
+                    >
+                      <CopySVG width="100%" maxWidth="1rem" maxHeight="1rem" />
+                    </Span>
+                  </P>
+                </Div>
+              </>
+            )}
+            {abilities?.[Abilities.Edit] && (
+              <>
+                <Hr border="none" borderTop="1px solid #242424" />
+                <Div display="flex" justifyContent="space-between">
+                  <P color="#FFFFFFA3">Edit Cap Owner</P>
+                  <P
+                    gap="0.5rem"
+                    display="flex"
+                    color="#F5B722"
+                    cursor="pointer"
+                    alignItems="center"
+                  >
+                    <Link
+                      target="_blank"
+                      href={getExplorerUrl(
+                        abilities[Abilities.Edit],
+                        ExplorerMode.Account
+                      )}
+                    >
+                      <Span nHover={{ textDecoration: 'underline' }}>
+                        {formatAddress(abilities[Abilities.Edit])}
+                      </Span>
+                    </Link>
+                    <Span
+                      onClick={() =>
+                        handleCopy(
+                          abilities[Abilities.Edit] as unknown as string
+                        )
+                      }
+                    >
+                      <CopySVG width="100%" maxWidth="1rem" maxHeight="1rem" />
+                    </Span>
+                  </P>
+                </Div>
+              </>
+            )}
           </Div>
         )}
         <Button
