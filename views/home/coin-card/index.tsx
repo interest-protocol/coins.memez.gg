@@ -3,7 +3,6 @@ import { Article, Button, Div, H3, Img, P } from '@stylin.js/elements';
 import { useRouter } from 'next/router';
 import { FC, useState } from 'react';
 
-import { CircleQuestionSVG } from '@/components/svg';
 import Tag from '@/components/tag';
 import { useCoinBalance } from '@/hooks/use-coin-balance';
 import { useCoinSupply } from '@/hooks/use-coin-supply';
@@ -73,11 +72,6 @@ const CoinCard: FC<Coin> = ({
           {abilities?.[Abilities.Mint] && <Tag hexColor="#95CB34">Mint</Tag>}
           {abilities?.[Abilities.Edit] && <Tag hexColor="#D0D0D0">Edit</Tag>}
         </Div>
-        <CircleQuestionSVG
-          width="100%"
-          maxWidth="1.25rem"
-          maxHeight="1.25rem"
-        />
       </Div>
       <Div
         gap="0.5rem"
