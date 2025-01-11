@@ -80,7 +80,12 @@ const CoinDetails: FC = () => {
           onError={() => setImageError(true)}
           src={imageError ? '/default-image.webp' : coin.iconUrl}
         />
-        <H3>
+        <H3
+          maxWidth="25ch"
+          overflow="hidden"
+          textAlign="center"
+          textOverflow="ellipsis"
+        >
           {coin.name} <Span color="#9B9CA1">({coin.symbol})</Span>
         </H3>
         <Div display="flex" gap="0.5rem">
@@ -103,12 +108,26 @@ const CoinDetails: FC = () => {
         >
           <Div display="flex" justifyContent="space-between">
             <P color="#FFFFFFA3">Name</P>
-            <P color="#F5B722">{coin.name}</P>
+            <P
+              color="#F5B722"
+              maxWidth="25ch"
+              overflow="hidden"
+              textOverflow="ellipsis"
+            >
+              {coin.name}
+            </P>
           </Div>
           <Div borderTop="1px solid #242424" />
           <Div display="flex" justifyContent="space-between">
             <P color="#FFFFFFA3">Symbol</P>
-            <P color="#F5B722">{coin.symbol}</P>
+            <P
+              color="#F5B722"
+              maxWidth="12ch"
+              overflow="hidden"
+              textOverflow="ellipsis"
+            >
+              {coin.symbol}
+            </P>
           </Div>
         </Div>
         <H4>Supply</H4>

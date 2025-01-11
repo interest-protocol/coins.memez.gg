@@ -34,7 +34,7 @@ const CreateCoinPreviewContent: FC = () => {
   });
 
   return (
-    <Div>
+    <Div maxWidth="34rem">
       <H3>Coin Details</H3>
       <Div
         gap="0.5rem"
@@ -50,7 +50,12 @@ const CreateCoinPreviewContent: FC = () => {
           borderRadius="50%"
           src={iconUrl || '/default-image.webp'}
         />
-        <H3>
+        <H3
+          maxWidth="25ch"
+          overflow="hidden"
+          textAlign="center"
+          textOverflow="ellipsis"
+        >
           {name || 'Coin Name'}{' '}
           <Span color="#9B9CA1">({symbol || 'Coin Symbol'})</Span>
         </H3>
@@ -74,12 +79,26 @@ const CreateCoinPreviewContent: FC = () => {
         >
           <Div display="flex" justifyContent="space-between">
             <P color="#FFFFFFA3">Name</P>
-            <P color="#F5B722">{name || '--'}</P>
+            <P
+              color="#F5B722"
+              maxWidth="25ch"
+              overflow="hidden"
+              textOverflow="ellipsis"
+            >
+              {name || '--'}
+            </P>
           </Div>
           <Div borderTop="1px solid #242424" />
           <Div display="flex" justifyContent="space-between">
             <P color="#FFFFFFA3">Symbol</P>
-            <P color="#F5B722">{symbol || '--'}</P>
+            <P
+              color="#F5B722"
+              maxWidth="12ch"
+              overflow="hidden"
+              textOverflow="ellipsis"
+            >
+              {symbol || '--'}
+            </P>
           </Div>
         </Div>
         <H4>Supply</H4>
@@ -113,7 +132,12 @@ const CreateCoinPreviewContent: FC = () => {
           )}
         </Div>
         <H4>Description</H4>
-        <Div p="1rem" bg="#1A1A1A" borderRadius="0.75rem">
+        <Div
+          p="1rem"
+          bg="#1A1A1A"
+          borderRadius="0.75rem"
+          wordBreak="break-word"
+        >
           {description}
         </Div>
       </Div>
