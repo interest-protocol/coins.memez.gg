@@ -5,11 +5,10 @@ import {
 } from '@mysten/dapp-kit';
 import { Transaction } from '@mysten/sui/transactions';
 import { normalizeSuiAddress } from '@mysten/sui/utils';
-import BigNumber from 'bignumber.js';
 import { useFormContext } from 'react-hook-form';
 import invariant from 'tiny-invariant';
 
-import { FEE_ADDRESS } from '@/constants/fee';
+import { CREATE_COIN_FEE, FEE_ADDRESS } from '@/constants/fee';
 import { IPX_COIN_STANDARD } from '@/constants/package';
 import { useNetwork } from '@/hooks/use-network';
 import { FixedPointMath } from '@/lib/entities/fixed-point-math';
@@ -34,7 +33,7 @@ export const useCreateCoin = () => {
     const tx = new Transaction();
 
     const fee = tx.splitCoins(tx.gas, [
-      tx.pure.u64(FixedPointMath.toNumber(BigNumber(2))),
+      tx.pure.u64(FixedPointMath.toBigNumber(CREATE_COIN_FEE).toString()),
     ]);
 
     await initMoveByteCodeTemplate('/move_bytecode_template_bg.wasm');

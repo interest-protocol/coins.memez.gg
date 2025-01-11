@@ -34,7 +34,7 @@ const CreateCoinPreviewContent: FC = () => {
   });
 
   return (
-    <Div width="26rem">
+    <Div>
       <H3>Coin Details</H3>
       <Div
         gap="0.5rem"
