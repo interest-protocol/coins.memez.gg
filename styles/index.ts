@@ -23,7 +23,6 @@ export const GlobalStyles = css`
 
   body {
     color: #ffffff;
-    overflow-y: auto;
     background: #131313;
     min-height: -webkit-fill-available;
   }

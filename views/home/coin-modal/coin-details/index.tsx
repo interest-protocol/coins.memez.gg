@@ -1,17 +1,12 @@
 import { formatAddress } from '@mysten/sui/utils';
 import { Button, Div, H3, H4, Hr, Img, P, Span } from '@stylin.js/elements';
 import BigNumber from 'bignumber.js';
-import { motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'motion/react';
 import Link from 'next/link';
 import { FC, useState } from 'react';
 import toast from 'react-hot-toast';
 
-import {
-  ChevronDownSVG,
-  CopySVG,
-  ExternalSVG,
-  LoaderSVG,
-} from '@/components/svg';
+import { ChevronDownSVG, CopySVG, ExternalSVG } from '@/components/svg';
 import Tag from '@/components/tag';
 import { ExplorerMode } from '@/constants';
 import useCoin from '@/hooks/use-coin';
@@ -23,6 +18,9 @@ import { Abilities } from '@/interface';
 import { FixedPointMath } from '@/lib/entities/fixed-point-math';
 import { commaSeparatedNumber } from '@/utils';
 
+import CoinModalLoading from '../coin-modal-loading';
+import CoinModalNotFound from '../coin-modal-not-found';
+
 const Motion = motion(Div);
 
 const CoinDetails: FC = () => {
@@ -30,7 +28,7 @@ const CoinDetails: FC = () => {
   const [show, setShow] = useState(false);
   const getExplorerUrl = useGetExplorerUrl();
   const [imageError, setImageError] = useState(false);
-  const { coin } = useCoin(params?.get('coin') ?? undefined);
+  const { coin, loading } = useCoin(params?.get('coin') ?? undefined);
 
   const { totalSupply } = useCoinSupply(coin?.type);
   const { abilities } = useCoinsAbilities({
@@ -39,17 +37,9 @@ const CoinDetails: FC = () => {
     metadataCap: coin?.metadataCap,
   });
 
-  if (!coin)
-    return (
-      <Div
-        height="30rem"
-        display="flex"
-        alignItems="center"
-        justifyContent="center"
-      >
-        <LoaderSVG />
-      </Div>
-    );
+  if (loading) return <CoinModalLoading />;
+
+  if (!coin) return <CoinModalNotFound />;
 
   const openCoinExplorer = () =>
     window.open(
@@ -197,257 +187,276 @@ const CoinDetails: FC = () => {
             />
           </Motion>
         </Button>
-        {show && (
-          <Div
-            p="1rem"
-            bg="#1A1A1A"
-            gap="0.5rem"
-            display="flex"
-            borderRadius="0.75rem"
-            flexDirection="column"
-          >
-            <Div display="flex" justifyContent="space-between">
-              <P color="#FFFFFFA3">Type</P>
-              <P
-                gap="0.5rem"
-                display="flex"
-                color="#F5B722"
-                cursor="pointer"
-                alignItems="center"
-              >
-                <Link
-                  target="_blank"
-                  href={getExplorerUrl(coin.type, ExplorerMode.Coin)}
+        <AnimatePresence>
+          {show ? (
+            <Motion
+              layout
+              p="1rem"
+              bg="#1A1A1A"
+              gap="0.5rem"
+              display="flex"
+              overflow="hidden"
+              borderRadius="0.75rem"
+              flexDirection="column"
+              transition={{ duration: 0.3 }}
+              exit={{ scaleY: 0, height: 0 }}
+              animate={{
+                scaleY: [0, 1],
+                height: 'auto',
+                transformOrigin: 'top left',
+              }}
+            >
+              <Div display="flex" justifyContent="space-between">
+                <P color="#FFFFFFA3">Type</P>
+                <P
+                  gap="0.5rem"
+                  display="flex"
+                  color="#F5B722"
+                  cursor="pointer"
+                  alignItems="center"
                 >
-                  <Span nHover={{ textDecoration: 'underline' }}>
-                    {formatAddress(coin.type)}
-                  </Span>
-                </Link>
-                <Span onClick={() => handleCopy(coin.type)}>
-                  <CopySVG maxWidth="1rem" maxHeight="1rem" width="100%" />
-                </Span>
-              </P>
-            </Div>
-            <Hr border="none" borderTop="1px solid #242424" />
-            <Div display="flex" justifyContent="space-between">
-              <P color="#FFFFFFA3">Creator</P>
-              <P
-                gap="0.5rem"
-                display="flex"
-                color="#F5B722"
-                cursor="pointer"
-                alignItems="center"
-              >
-                <Link
-                  target="_blank"
-                  href={getExplorerUrl(coin.createdBy, ExplorerMode.Account)}
-                >
-                  <Span nHover={{ textDecoration: 'underline' }}>
-                    {formatAddress(coin.createdBy)}
-                  </Span>
-                </Link>
-                <Span onClick={() => handleCopy(coin.createdBy)}>
-                  <CopySVG maxWidth="1rem" maxHeight="1rem" width="100%" />
-                </Span>
-              </P>
-            </Div>
-            <Hr border="none" borderTop="1px solid #242424" />
-            <Div display="flex" justifyContent="space-between">
-              <P color="#FFFFFFA3">Treasury Cap</P>
-              <P
-                gap="0.5rem"
-                display="flex"
-                color="#F5B722"
-                cursor="pointer"
-                alignItems="center"
-              >
-                <Link
-                  target="_blank"
-                  href={getExplorerUrl(coin.treasuryCap, ExplorerMode.Object)}
-                >
-                  <Span nHover={{ textDecoration: 'underline' }}>
-                    {formatAddress(coin.treasuryCap)}
-                  </Span>
-                </Link>
-                <Span onClick={() => handleCopy(coin.treasuryCap)}>
-                  <CopySVG maxWidth="1rem" maxHeight="1rem" width="100%" />
-                </Span>
-              </P>
-            </Div>
-            <Hr border="none" borderTop="1px solid #242424" />
-            <Div display="flex" justifyContent="space-between">
-              <P color="#FFFFFFA3">Coin Metadata</P>
-              <P
-                gap="0.5rem"
-                display="flex"
-                color="#F5B722"
-                cursor="pointer"
-                alignItems="center"
-              >
-                <Link
-                  target="_blank"
-                  href={getExplorerUrl(
-                    coin.metadataObjectId,
-                    ExplorerMode.Object
-                  )}
-                >
-                  <Span nHover={{ textDecoration: 'underline' }}>
-                    {formatAddress(coin.metadataObjectId)}
-                  </Span>
-                </Link>
-                <Span onClick={() => handleCopy(coin.metadataObjectId)}>
-                  <CopySVG maxWidth="1rem" maxHeight="1rem" width="100%" />
-                </Span>
-              </P>
-            </Div>
-            <Hr border="none" borderTop="1px solid #242424" />
-            <Div display="flex" justifyContent="space-between">
-              <P color="#FFFFFFA3">IPX Standard Treasury</P>
-              <P
-                gap="0.5rem"
-                display="flex"
-                color="#F5B722"
-                cursor="pointer"
-                alignItems="center"
-              >
-                <Link
-                  target="_blank"
-                  href={getExplorerUrl(
-                    coin.ipxTreasuryCap,
-                    ExplorerMode.Object
-                  )}
-                >
-                  <Span nHover={{ textDecoration: 'underline' }}>
-                    {formatAddress(coin.ipxTreasuryCap)}
-                  </Span>
-                </Link>
-                <Span onClick={() => handleCopy(coin.ipxTreasuryCap)}>
-                  <CopySVG maxWidth="1rem" maxHeight="1rem" width="100%" />
-                </Span>
-              </P>
-            </Div>
-            {(coin.canBurn || abilities?.[Abilities.Burn]) && (
-              <>
-                <Hr border="none" borderTop="1px solid #242424" />
-                <Div display="flex" justifyContent="space-between">
-                  <P color="#FFFFFFA3">
-                    {coin.canBurn ? 'Who can burn' : 'Burn Cap Owner'}
-                  </P>
-                  <P
-                    gap="0.5rem"
-                    display="flex"
-                    color="#F5B722"
-                    cursor="pointer"
-                    alignItems="center"
+                  <Link
+                    target="_blank"
+                    href={getExplorerUrl(coin.type, ExplorerMode.Coin)}
                   >
-                    {coin.canBurn ? (
-                      'Everyone'
-                    ) : abilities?.[Abilities.Burn] ? (
-                      <>
-                        <Link
-                          target="_blank"
-                          href={getExplorerUrl(
-                            abilities[Abilities.Burn],
-                            ExplorerMode.Account
-                          )}
-                        >
-                          <Span nHover={{ textDecoration: 'underline' }}>
-                            {formatAddress(abilities[Abilities.Burn])}
+                    <Span nHover={{ textDecoration: 'underline' }}>
+                      {formatAddress(coin.type)}
+                    </Span>
+                  </Link>
+                  <Span onClick={() => handleCopy(coin.type)}>
+                    <CopySVG maxWidth="1rem" maxHeight="1rem" width="100%" />
+                  </Span>
+                </P>
+              </Div>
+              <Hr border="none" borderTop="1px solid #242424" />
+              <Div display="flex" justifyContent="space-between">
+                <P color="#FFFFFFA3">Creator</P>
+                <P
+                  gap="0.5rem"
+                  display="flex"
+                  color="#F5B722"
+                  cursor="pointer"
+                  alignItems="center"
+                >
+                  <Link
+                    target="_blank"
+                    href={getExplorerUrl(coin.createdBy, ExplorerMode.Account)}
+                  >
+                    <Span nHover={{ textDecoration: 'underline' }}>
+                      {formatAddress(coin.createdBy)}
+                    </Span>
+                  </Link>
+                  <Span onClick={() => handleCopy(coin.createdBy)}>
+                    <CopySVG maxWidth="1rem" maxHeight="1rem" width="100%" />
+                  </Span>
+                </P>
+              </Div>
+              <Hr border="none" borderTop="1px solid #242424" />
+              <Div display="flex" justifyContent="space-between">
+                <P color="#FFFFFFA3">Treasury Cap</P>
+                <P
+                  gap="0.5rem"
+                  display="flex"
+                  color="#F5B722"
+                  cursor="pointer"
+                  alignItems="center"
+                >
+                  <Link
+                    target="_blank"
+                    href={getExplorerUrl(coin.treasuryCap, ExplorerMode.Object)}
+                  >
+                    <Span nHover={{ textDecoration: 'underline' }}>
+                      {formatAddress(coin.treasuryCap)}
+                    </Span>
+                  </Link>
+                  <Span onClick={() => handleCopy(coin.treasuryCap)}>
+                    <CopySVG maxWidth="1rem" maxHeight="1rem" width="100%" />
+                  </Span>
+                </P>
+              </Div>
+              <Hr border="none" borderTop="1px solid #242424" />
+              <Div display="flex" justifyContent="space-between">
+                <P color="#FFFFFFA3">Coin Metadata</P>
+                <P
+                  gap="0.5rem"
+                  display="flex"
+                  color="#F5B722"
+                  cursor="pointer"
+                  alignItems="center"
+                >
+                  <Link
+                    target="_blank"
+                    href={getExplorerUrl(
+                      coin.metadataObjectId,
+                      ExplorerMode.Object
+                    )}
+                  >
+                    <Span nHover={{ textDecoration: 'underline' }}>
+                      {formatAddress(coin.metadataObjectId)}
+                    </Span>
+                  </Link>
+                  <Span onClick={() => handleCopy(coin.metadataObjectId)}>
+                    <CopySVG maxWidth="1rem" maxHeight="1rem" width="100%" />
+                  </Span>
+                </P>
+              </Div>
+              <Hr border="none" borderTop="1px solid #242424" />
+              <Div display="flex" justifyContent="space-between">
+                <P color="#FFFFFFA3">IPX Standard Treasury</P>
+                <P
+                  gap="0.5rem"
+                  display="flex"
+                  color="#F5B722"
+                  cursor="pointer"
+                  alignItems="center"
+                >
+                  <Link
+                    target="_blank"
+                    href={getExplorerUrl(
+                      coin.ipxTreasuryCap,
+                      ExplorerMode.Object
+                    )}
+                  >
+                    <Span nHover={{ textDecoration: 'underline' }}>
+                      {formatAddress(coin.ipxTreasuryCap)}
+                    </Span>
+                  </Link>
+                  <Span onClick={() => handleCopy(coin.ipxTreasuryCap)}>
+                    <CopySVG maxWidth="1rem" maxHeight="1rem" width="100%" />
+                  </Span>
+                </P>
+              </Div>
+              {(coin.canBurn || abilities?.[Abilities.Burn]) && (
+                <>
+                  <Hr border="none" borderTop="1px solid #242424" />
+                  <Div display="flex" justifyContent="space-between">
+                    <P color="#FFFFFFA3">
+                      {coin.canBurn ? 'Who can burn' : 'Burn Cap Owner'}
+                    </P>
+                    <P
+                      gap="0.5rem"
+                      display="flex"
+                      color="#F5B722"
+                      cursor="pointer"
+                      alignItems="center"
+                    >
+                      {coin.canBurn ? (
+                        'Everyone'
+                      ) : abilities?.[Abilities.Burn] ? (
+                        <>
+                          <Link
+                            target="_blank"
+                            href={getExplorerUrl(
+                              abilities[Abilities.Burn],
+                              ExplorerMode.Account
+                            )}
+                          >
+                            <Span nHover={{ textDecoration: 'underline' }}>
+                              {formatAddress(abilities[Abilities.Burn])}
+                            </Span>
+                          </Link>
+                          <Span
+                            onClick={() =>
+                              handleCopy(
+                                abilities[Abilities.Burn] as unknown as string
+                              )
+                            }
+                          >
+                            <CopySVG
+                              width="100%"
+                              maxWidth="1rem"
+                              maxHeight="1rem"
+                            />
                           </Span>
-                        </Link>
-                        <Span
-                          onClick={() =>
-                            handleCopy(
-                              abilities[Abilities.Burn] as unknown as string
-                            )
-                          }
-                        >
-                          <CopySVG
-                            width="100%"
-                            maxWidth="1rem"
-                            maxHeight="1rem"
-                          />
+                        </>
+                      ) : null}
+                    </P>
+                  </Div>
+                </>
+              )}
+              {abilities?.[Abilities.Mint] && (
+                <>
+                  <Hr border="none" borderTop="1px solid #242424" />
+                  <Div display="flex" justifyContent="space-between">
+                    <P color="#FFFFFFA3">Mint Cap Owner</P>
+                    <P
+                      gap="0.5rem"
+                      display="flex"
+                      color="#F5B722"
+                      cursor="pointer"
+                      alignItems="center"
+                    >
+                      <Link
+                        target="_blank"
+                        href={getExplorerUrl(
+                          abilities[Abilities.Mint],
+                          ExplorerMode.Account
+                        )}
+                      >
+                        <Span nHover={{ textDecoration: 'underline' }}>
+                          {formatAddress(abilities[Abilities.Mint])}
                         </Span>
-                      </>
-                    ) : null}
-                  </P>
-                </Div>
-              </>
-            )}
-            {abilities?.[Abilities.Mint] && (
-              <>
-                <Hr border="none" borderTop="1px solid #242424" />
-                <Div display="flex" justifyContent="space-between">
-                  <P color="#FFFFFFA3">Mint Cap Owner</P>
-                  <P
-                    gap="0.5rem"
-                    display="flex"
-                    color="#F5B722"
-                    cursor="pointer"
-                    alignItems="center"
-                  >
-                    <Link
-                      target="_blank"
-                      href={getExplorerUrl(
-                        abilities[Abilities.Mint],
-                        ExplorerMode.Account
-                      )}
-                    >
-                      <Span nHover={{ textDecoration: 'underline' }}>
-                        {formatAddress(abilities[Abilities.Mint])}
+                      </Link>
+                      <Span
+                        onClick={() =>
+                          handleCopy(
+                            abilities[Abilities.Mint] as unknown as string
+                          )
+                        }
+                      >
+                        <CopySVG
+                          width="100%"
+                          maxWidth="1rem"
+                          maxHeight="1rem"
+                        />
                       </Span>
-                    </Link>
-                    <Span
-                      onClick={() =>
-                        handleCopy(
-                          abilities[Abilities.Mint] as unknown as string
-                        )
-                      }
+                    </P>
+                  </Div>
+                </>
+              )}
+              {abilities?.[Abilities.Edit] && (
+                <>
+                  <Hr border="none" borderTop="1px solid #242424" />
+                  <Div display="flex" justifyContent="space-between">
+                    <P color="#FFFFFFA3">Edit Cap Owner</P>
+                    <P
+                      gap="0.5rem"
+                      display="flex"
+                      color="#F5B722"
+                      cursor="pointer"
+                      alignItems="center"
                     >
-                      <CopySVG width="100%" maxWidth="1rem" maxHeight="1rem" />
-                    </Span>
-                  </P>
-                </Div>
-              </>
-            )}
-            {abilities?.[Abilities.Edit] && (
-              <>
-                <Hr border="none" borderTop="1px solid #242424" />
-                <Div display="flex" justifyContent="space-between">
-                  <P color="#FFFFFFA3">Edit Cap Owner</P>
-                  <P
-                    gap="0.5rem"
-                    display="flex"
-                    color="#F5B722"
-                    cursor="pointer"
-                    alignItems="center"
-                  >
-                    <Link
-                      target="_blank"
-                      href={getExplorerUrl(
-                        abilities[Abilities.Edit],
-                        ExplorerMode.Account
-                      )}
-                    >
-                      <Span nHover={{ textDecoration: 'underline' }}>
-                        {formatAddress(abilities[Abilities.Edit])}
+                      <Link
+                        target="_blank"
+                        href={getExplorerUrl(
+                          abilities[Abilities.Edit],
+                          ExplorerMode.Account
+                        )}
+                      >
+                        <Span nHover={{ textDecoration: 'underline' }}>
+                          {formatAddress(abilities[Abilities.Edit])}
+                        </Span>
+                      </Link>
+                      <Span
+                        onClick={() =>
+                          handleCopy(
+                            abilities[Abilities.Edit] as unknown as string
+                          )
+                        }
+                      >
+                        <CopySVG
+                          width="100%"
+                          maxWidth="1rem"
+                          maxHeight="1rem"
+                        />
                       </Span>
-                    </Link>
-                    <Span
-                      onClick={() =>
-                        handleCopy(
-                          abilities[Abilities.Edit] as unknown as string
-                        )
-                      }
-                    >
-                      <CopySVG width="100%" maxWidth="1rem" maxHeight="1rem" />
-                    </Span>
-                  </P>
-                </Div>
-              </>
-            )}
-          </Div>
-        )}
+                    </P>
+                  </Div>
+                </>
+              )}
+            </Motion>
+          ) : null}
+        </AnimatePresence>
         <Button
           all="unset"
           p="1.125rem"

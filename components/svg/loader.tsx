@@ -1,8 +1,8 @@
 import { Div } from '@stylin.js/elements';
-import { motion } from 'framer-motion';
+import { motion } from 'motion/react';
 import { FC, useId } from 'react';
 
-const Motion = motion(Div);
+const Motion = motion.create(Div);
 
 const Loader: FC = () => {
   const id = useId();

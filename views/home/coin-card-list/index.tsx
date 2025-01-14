@@ -1,50 +1,25 @@
 import { Div, H3 } from '@stylin.js/elements';
-import { useRouter } from 'next/router';
-import { FC, useEffect } from 'react';
+import { FC } from 'react';
 import ReactPaginate from 'react-paginate';
 import unikey from 'unikey';
 
 import { ChevronLeftSVG, ChevronRightSVG, LoaderSVG } from '@/components/svg';
 import useCoins from '@/hooks/use-coins';
 import { useCoinsFilter } from '@/hooks/use-coins-filter';
-import { useModal } from '@/hooks/use-modal';
-import useURIStaticParams from '@/hooks/use-uri-static-params';
-import { updateURL } from '@/utils/url';
 
-import CoinCard from './coin-card';
+import CoinFilters from '../coin-filters';
+import CoinModalInitManager from '../coin-modal/coin-modal-init-manager';
+import CreateCoin from '../create-coin';
 import CoinCardListEmpty from './coin-card-list-empty';
-import CoinFilters from './coin-filters';
-import CoinModal from './coin-modal';
-import CreateCoin from './create-coin';
+import CoinCard from './coin-card-list-item';
 
 const CardList: FC = () => {
-  const { pathname } = useRouter();
-  const { setContent } = useModal();
-  const params = useURIStaticParams();
   const { page, setPage, limit } = useCoinsFilter();
   const { totalItems, items, loading } = useCoins();
 
-  useEffect(() => {
-    if (!params?.has('coin')) return;
-
-    const coin = params.get('coin');
-    const mode = params.get('mode');
-
-    updateURL(`${pathname}?coin=${coin}&mode=${mode}`);
-
-    setContent(<CoinModal />, {
-      onClose: () => updateURL(pathname),
-      overlayProps: {
-        alignItems: ['flex-end', 'center'],
-      },
-      containerProps: {
-        maxWidth: ['100vw', '95vw'],
-      },
-    });
-  }, [params]);
-
   return (
     <Div>
+      <CoinModalInitManager />
       <Div
         gap="1rem"
         display="flex"

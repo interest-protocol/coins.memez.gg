@@ -1,4 +1,5 @@
 import { Div, H3, H4, Img, P, Span } from '@stylin.js/elements';
+import { AnimatePresence, motion } from 'motion/react';
 import { FC } from 'react';
 import { useFormContext, useWatch } from 'react-hook-form';
 
@@ -6,6 +7,8 @@ import Tag from '@/components/tag';
 import { commaSeparatedNumber } from '@/utils';
 
 import { ICreateCoin } from '../../../create-coin.types';
+
+const Motion = motion.create(Div);
 
 const CreateCoinPreviewContent: FC = () => {
   const { control } = useFormContext<ICreateCoin>();
@@ -59,13 +62,29 @@ const CreateCoinPreviewContent: FC = () => {
           {name || 'Coin Name'}{' '}
           <Span color="#9B9CA1">({symbol || 'Coin Symbol'})</Span>
         </H3>
-        <Div display="flex" gap="0.5rem">
-          {(features.burnable || features.canBurn) && (
-            <Tag hexColor="#FF562C">Burn</Tag>
-          )}
-          {features.mintable && <Tag hexColor="#95CB34">Mint</Tag>}
-          {features?.editable && <Tag hexColor="#D0D0D0">Edit</Tag>}
-        </Div>
+        <Motion display="flex" gap="0.5rem">
+          <AnimatePresence>
+            {features.burnable || features.canBurn ? (
+              <Motion animate={{ scale: [0, 1] }} exit={{ scale: 0 }}>
+                <Tag hexColor="#FF562C">Burn</Tag>
+              </Motion>
+            ) : null}
+          </AnimatePresence>
+          <AnimatePresence>
+            {features.mintable && (
+              <Motion animate={{ scale: [0, 1] }} exit={{ scale: 0 }}>
+                <Tag hexColor="#95CB34">Mint</Tag>
+              </Motion>
+            )}
+          </AnimatePresence>
+          <AnimatePresence>
+            {features?.editable && (
+              <Motion animate={{ scale: [0, 1] }} exit={{ scale: 0 }}>
+                <Tag hexColor="#D0D0D0">Edit</Tag>
+              </Motion>
+            )}
+          </AnimatePresence>
+        </Motion>
       </Div>
       <Div display="flex" flexDirection="column" gap="1rem">
         <H4>Details</H4>

@@ -1,4 +1,5 @@
 import { Div } from '@stylin.js/elements';
+import { AnimatePresence, motion } from 'motion/react';
 import { useRouter } from 'next/router';
 import { FC, useEffect, useState } from 'react';
 import unikey from 'unikey';
@@ -12,12 +13,24 @@ import CoinDetails from './coin-details';
 import CoinEdit from './coin-edit';
 import CoinMint from './coin-mint';
 
+const Motion = motion.create(Div);
+
 const content = [
   <CoinDetails key={unikey()} />,
   <CoinBurn key={unikey()} />,
   <CoinMint key={unikey()} />,
   <CoinEdit key={unikey()} />,
-];
+].map((item) => (
+  <Motion
+    width="100%"
+    key={unikey()}
+    exit={{ opacity: 0 }}
+    animate={{ opacity: [0, 1] }}
+    transition={{ duration: 0.5 }}
+  >
+    {item}
+  </Motion>
+));
 
 const CoinModal: FC = () => {
   const { pathname } = useRouter();
@@ -39,7 +52,8 @@ const CoinModal: FC = () => {
   };
 
   return (
-    <Div
+    <Motion
+      layout
       py="1rem"
       px="0.5rem"
       bg="#3C3C3C80"
@@ -57,10 +71,18 @@ const CoinModal: FC = () => {
           items={['details', 'burn', 'mint', 'edit']}
         />
       </Div>
-      <Div overflowY="auto" height="100%" mt="1.5rem" px="0.5rem">
-        {content[tab]}
-      </Div>
-    </Div>
+      <AnimatePresence>
+        <Div
+          mt="1.5rem"
+          px="0.5rem"
+          height="100%"
+          display="flex"
+          overflowY="auto"
+        >
+          {content[tab]}
+        </Div>
+      </AnimatePresence>
+    </Motion>
   );
 };
 

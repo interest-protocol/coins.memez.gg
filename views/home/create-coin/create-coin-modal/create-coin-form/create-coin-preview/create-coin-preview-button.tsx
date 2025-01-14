@@ -1,5 +1,5 @@
 import { Button, Div, Span } from '@stylin.js/elements';
-import { motion } from 'framer-motion';
+import { motion } from 'motion/react';
 import { FC } from 'react';
 import { useFormContext, useWatch } from 'react-hook-form';
 
