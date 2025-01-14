@@ -1,4 +1,5 @@
 import { Div, H3 } from '@stylin.js/elements';
+import { AnimatePresence, motion } from 'motion/react';
 import { FC } from 'react';
 import { useFormContext, useWatch } from 'react-hook-form';
 
@@ -11,10 +12,39 @@ import CreateCoinFeatures from './create-coin-features';
 import CreateCoinPreviewContent from './create-coin-preview/create-coin-preview-content';
 import CreateCoinSupply from './create-coin-supply';
 
+const Motion = motion.create(Div);
+
 const STEP_FORM = {
-  [Step.Details]: <CreateCoinDetails />,
-  [Step.Supply]: <CreateCoinSupply />,
-  [Step.Features]: <CreateCoinFeatures />,
+  [Step.Details]: (
+    <Motion
+      width="100%"
+      exit={{ opacity: 0 }}
+      animate={{ opacity: [0, 1] }}
+      transition={{ duration: 0.5 }}
+    >
+      <CreateCoinDetails />
+    </Motion>
+  ),
+  [Step.Supply]: (
+    <Motion
+      width="100%"
+      exit={{ opacity: 0 }}
+      animate={{ opacity: [0, 1] }}
+      transition={{ duration: 0.5 }}
+    >
+      <CreateCoinSupply />
+    </Motion>
+  ),
+  [Step.Features]: (
+    <Motion
+      width="100%"
+      exit={{ opacity: 0 }}
+      animate={{ opacity: [0, 1] }}
+      transition={{ duration: 0.5 }}
+    >
+      <CreateCoinFeatures />
+    </Motion>
+  ),
 };
 
 const CreateCoinFormContent: FC = () => {
@@ -38,7 +68,7 @@ const CreateCoinFormContent: FC = () => {
     <Div gap="1.5rem" display="flex" flexDirection="column">
       <CreateCoinSteps />
       <H3>{STEP_DISPLAY[step]}</H3>
-      {STEP_FORM[step]}
+      <AnimatePresence>{STEP_FORM[step]}</AnimatePresence>
     </Div>
   );
 };

@@ -1,5 +1,6 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Div } from '@stylin.js/elements';
+import { motion } from 'motion/react';
 import { FC } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 
@@ -8,6 +9,8 @@ import CreateCoinForm from './create-coin-form';
 import { createCoinSchema } from './create-coin-form/create-coin-form.validation';
 import CreateCoinPreview from './create-coin-form/create-coin-preview';
 import CreateCoinPreviewButton from './create-coin-form/create-coin-preview/create-coin-preview-button';
+
+const Motion = motion.create(Div);
 
 const CreateCoinModal: FC = () => {
   const form = useForm({
@@ -26,7 +29,8 @@ const CreateCoinModal: FC = () => {
 
   return (
     <FormProvider {...form}>
-      <Div
+      <Motion
+        layout
         p="1rem"
         gap="2rem"
         bg="#3C3C3C80"
@@ -44,7 +48,7 @@ const CreateCoinModal: FC = () => {
           <CreateCoinForm />
         </Div>
         <CreateCoinPreview />
-      </Div>
+      </Motion>
       <CreateCoinPreviewButton />
     </FormProvider>
   );

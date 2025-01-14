@@ -18,26 +18,23 @@ import {
   parseInputEventToNumberString,
 } from '@/utils';
 
+import CoinModalLoading from '../coin-modal-loading';
+import CoinModalNotFound from '../coin-modal-not-found';
 import { IMintForm } from './coin-mint.types';
 import CoinBurnPreview from './coin-mint-preview';
 
 const CoinMint: FC = () => {
   const params = useURIStaticParams();
   const account = useCurrentAccount();
-  const form = useForm<IMintForm>({
-    defaultValues: {
-      amount: '0',
-    },
-  });
-
-  const { coin } = useCoin(params?.get('coin') ?? undefined);
+  const form = useForm<IMintForm>({ defaultValues: { amount: '0' } });
+  const { coin, loading } = useCoin(params?.get('coin') ?? undefined);
 
   const { totalSupply } = useCoinSupply(coin?.type);
-  const { abilities } = useCoinsAbilities({
-    mintCap: coin?.mintCap,
-  });
+  const { abilities } = useCoinsAbilities({ mintCap: coin?.mintCap });
 
-  if (!coin) return <Div>No Coin to show!</Div>;
+  if (loading) return <CoinModalLoading />;
+
+  if (!coin) return <CoinModalNotFound />;
 
   return (
     <FormProvider {...form}>

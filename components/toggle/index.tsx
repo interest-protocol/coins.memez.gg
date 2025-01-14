@@ -1,5 +1,5 @@
 import { Div, Input, Label, Span } from '@stylin.js/elements';
-import { motion } from 'framer-motion';
+import { motion } from 'motion/react';
 import { ChangeEventHandler, FC, PropsWithChildren } from 'react';
 
 import { CheckedButtonProps } from './toggle.types';

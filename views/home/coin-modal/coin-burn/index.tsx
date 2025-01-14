@@ -17,13 +17,15 @@ import {
   parseInputEventToNumberString,
 } from '@/utils';
 
+import CoinModalLoading from '../coin-modal-loading';
+import CoinModalNotFound from '../coin-modal-not-found';
 import { IBurnForm } from './coin-burn.types';
 import CoinBurnPreview from './coin-burn-preview';
 
 const CoinBurn: FC = () => {
   const params = useURIStaticParams();
   const account = useCurrentAccount();
-  const { coin } = useCoin(params?.get('coin') ?? undefined);
+  const { coin, loading } = useCoin(params?.get('coin') ?? undefined);
   const form = useForm<IBurnForm>({
     defaultValues: {
       amount: '0',
@@ -35,7 +37,9 @@ const CoinBurn: FC = () => {
     burnCap: coin?.burnCap,
   });
 
-  if (!coin) return <Div>No Coin to show!</Div>;
+  if (loading) return <CoinModalLoading />;
+
+  if (!coin) return <CoinModalNotFound />;
 
   const burnable = !!(coin.canBurn || abilities?.[Abilities.Burn]);
 

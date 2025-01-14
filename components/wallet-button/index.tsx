@@ -1,7 +1,7 @@
 import { useCurrentAccount, useDisconnectWallet } from '@mysten/dapp-kit';
 import { formatAddress } from '@mysten/sui/utils';
 import { Button, Div } from '@stylin.js/elements';
-import { motion } from 'framer-motion';
+import { motion } from 'motion/react';
 import { FC } from 'react';
 
 import { LogoutSVG, UserSVG, WalletSVG } from '@/components/svg';
