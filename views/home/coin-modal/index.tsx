@@ -58,7 +58,7 @@ const CoinModal: FC = () => {
       px="0.5rem"
       bg="#3C3C3C80"
       display="flex"
-      maxHeight="90vh"
+      height="80vh"
       flexDirection="column"
       backdropFilter="blur(19px)"
       width={['100vw', '95vw', '43.75rem']}

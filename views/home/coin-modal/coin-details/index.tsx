@@ -54,7 +54,13 @@ const CoinDetails: FC = () => {
   };
 
   return (
-    <Div>
+    <Div
+      gap="1rem"
+      height="100%"
+      display="flex"
+      flexDirection="column"
+      justifyContent="space-between"
+    >
       <Div
         gap="0.5rem"
         display="flex"
@@ -172,11 +178,13 @@ const CoinDetails: FC = () => {
           my="0.5rem"
           bg="#1A1A1A"
           display="flex"
+          cursor="pointer"
           alignItems="center"
           borderRadius="0.5rem"
           justifyContent="center"
           border="1px solid #7C7C7C"
           onClick={() => setShow(!show)}
+          nHover={{ borderColor: '#F5B72266' }}
         >
           {show ? 'Hide' : 'Advanced'}
           <Motion animate={{ rotate: show ? '180deg' : '0deg' }}>
@@ -457,24 +465,24 @@ const CoinDetails: FC = () => {
             </Motion>
           ) : null}
         </AnimatePresence>
-        <Button
-          all="unset"
-          p="1.125rem"
-          gap="0.5rem"
-          bg="#F5B722"
-          display="flex"
-          color="#000000"
-          cursor="pointer"
-          alignItems="center"
-          whiteSpace="nowrap"
-          borderRadius="0.75rem"
-          justifyContent="center"
-          onClick={openCoinExplorer}
-        >
-          Open on Explorer{' '}
-          <ExternalSVG maxWidth="0.75rem" maxHeight="0.75rem" width="100%" />
-        </Button>
       </Div>
+      <Button
+        all="unset"
+        p="1.125rem"
+        gap="0.5rem"
+        bg="#F5B722"
+        display="flex"
+        color="#000000"
+        cursor="pointer"
+        alignItems="center"
+        whiteSpace="nowrap"
+        borderRadius="0.75rem"
+        justifyContent="center"
+        onClick={openCoinExplorer}
+      >
+        Open on Explorer{' '}
+        <ExternalSVG maxWidth="0.75rem" maxHeight="0.75rem" width="100%" />
+      </Button>
     </Div>
   );
 };

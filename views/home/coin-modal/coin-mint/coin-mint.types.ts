@@ -4,7 +4,7 @@ export interface IMintForm {
   amount: string;
 }
 
-export interface CoinMintPreviewProps {
+export interface CoinMintButtonProps {
   coin: Coin;
   mintable: boolean;
 }

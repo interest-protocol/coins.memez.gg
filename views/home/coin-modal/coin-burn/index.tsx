@@ -20,6 +20,7 @@ import {
 import CoinModalLoading from '../coin-modal-loading';
 import CoinModalNotFound from '../coin-modal-not-found';
 import { IBurnForm } from './coin-burn.types';
+import CoinBurnButton from './coin-burn-button';
 import CoinBurnPreview from './coin-burn-preview';
 
 const CoinBurn: FC = () => {
@@ -45,63 +46,76 @@ const CoinBurn: FC = () => {
 
   return (
     <FormProvider {...form}>
-      <Div gap="1rem" display="flex" flexDirection="column">
-        <Div display="flex" alignItems="center" justifyContent="space-between">
-          <Tag hexColor="#FF562C">Burn</Tag>
+      <Div
+        gap="1rem"
+        height="100%"
+        display="flex"
+        flexDirection="column"
+        justifyContent="space-between"
+      >
+        <Div gap="1rem" display="flex" flexDirection="column">
           <Div
-            gap="0.5rem"
-            px="0.75rem"
-            bg="#1A1A1A"
-            py="0.825rem"
             display="flex"
-            minWidth="10rem"
             alignItems="center"
-            borderRadius="0.625rem"
-            border="1px solid #242424"
             justifyContent="space-between"
           >
-            <Span color="#FFFFFFA3">Balance</Span>
-            <Span color="#F5B722">
-              {balance
-                ? commaSeparatedNumber(
-                    FixedPointMath.toNumber(balance, coin.decimals)
-                  )
-                : 0}{' '}
-              {coin.symbol}
-            </Span>
-          </Div>
-        </Div>
-        <TextField
-          placeholder="0"
-          disabled={!burnable}
-          {...form.register('amount', {
-            onChange: (e) =>
-              form.setValue('amount', parseInputEventToNumberString(e)),
-          })}
-          Suffix={
-            <Button
-              all="unset"
-              px="0.5rem"
-              bg="#161616"
-              py="0.25rem"
-              borderRadius="0.5rem"
-              border="1px solid #7C7C7C"
-              onClick={() =>
-                form.setValue(
-                  'amount',
-                  String(
-                    balance
-                      ? FixedPointMath.toNumber(balance, coin.decimals)
-                      : 0
-                  )
-                )
-              }
+            <Tag hexColor="#FF562C">Burn</Tag>
+            <Div
+              gap="0.5rem"
+              px="0.75rem"
+              bg="#1A1A1A"
+              py="0.825rem"
+              display="flex"
+              minWidth="10rem"
+              alignItems="center"
+              borderRadius="0.625rem"
+              border="1px solid #242424"
+              justifyContent="space-between"
             >
-              MAX
-            </Button>
-          }
-        />
-        <CoinBurnPreview
+              <Span color="#FFFFFFA3">Balance</Span>
+              <Span color="#F5B722">
+                {balance
+                  ? commaSeparatedNumber(
+                      FixedPointMath.toNumber(balance, coin.decimals)
+                    )
+                  : 0}{' '}
+                {coin.symbol}
+              </Span>
+            </Div>
+          </Div>
+          <TextField
+            placeholder="0"
+            disabled={!burnable}
+            {...form.register('amount', {
+              onChange: (e) =>
+                form.setValue('amount', parseInputEventToNumberString(e)),
+            })}
+            Suffix={
+              <Button
+                all="unset"
+                px="0.5rem"
+                bg="#161616"
+                py="0.25rem"
+                borderRadius="0.5rem"
+                border="1px solid #7C7C7C"
+                onClick={() =>
+                  form.setValue(
+                    'amount',
+                    String(
+                      balance
+                        ? FixedPointMath.toNumber(balance, coin.decimals)
+                        : 0
+                    )
+                  )
+                }
+              >
+                MAX
+              </Button>
+            }
+          />
+          <CoinBurnPreview {...coin} />
+        </Div>
+        <CoinBurnButton
           coin={coin}
           burnable={
             !!(

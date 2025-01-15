@@ -23,18 +23,26 @@ const CoinEditForm: FC<CoinEditFormProps> = ({ coin, editable }) => {
 
   return (
     <FormProvider {...form}>
-      <Div display="flex" flexDirection="column" gap="1rem">
-        <CoinEditFormField name="name" label="Name" />
-        <CoinEditFormField name="symbol" label="Symbol" />
-        <CoinEditFormField name="description" label="Description" />
-        <CoinEditFormField name="imageUrl" label="Image Link" />
-        <DraggableInput
-          validTypes={['image/']}
-          advice="Maximum file size: 5MB"
-          setFileUrl={(url: string) =>
-            form.setValue('imageUrl' as never, url as never)
-          }
-        />
+      <Div
+        gap="1rem"
+        height="100%"
+        display="flex"
+        flexDirection="column"
+        justifyContent="space-between"
+      >
+        <Div display="flex" flexDirection="column" gap="1rem">
+          <CoinEditFormField name="name" label="Name" />
+          <CoinEditFormField name="symbol" label="Symbol" />
+          <CoinEditFormField name="description" label="Description" />
+          <CoinEditFormField name="imageUrl" label="Image Link" />
+          <DraggableInput
+            validTypes={['image/']}
+            advice="Maximum file size: 5MB"
+            setFileUrl={(url: string) =>
+              form.setValue('imageUrl' as never, url as never)
+            }
+          />
+        </Div>
         <CoinEditButton coin={coin} editable={editable} />
       </Div>
     </FormProvider>

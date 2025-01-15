@@ -30,10 +30,10 @@ const CreateCoinModal: FC = () => {
   return (
     <FormProvider {...form}>
       <Motion
-        layout
         p="1rem"
         gap="2rem"
         bg="#3C3C3C80"
+        height="80vh"
         display="flex"
         width={['100vw', 'auto']}
         backdropFilter="blur(19px)"
