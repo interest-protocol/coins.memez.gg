@@ -2,94 +2,19 @@ import { Div, H2, Hr, Img, P } from '@stylin.js/elements';
 import { FC, useState } from 'react';
 import { useFormContext, useWatch } from 'react-hook-form';
 
-import { LoaderSVG } from '@/components/svg';
-import WalletGuardedButton from '@/components/wallet-guarded-button';
-import { ExplorerMode } from '@/constants';
 import { useCoinSupply } from '@/hooks/use-coin-supply';
-import { useDialog } from '@/hooks/use-dialog';
-import { useGetExplorerUrl } from '@/hooks/use-get-explorer-url';
+import { Coin } from '@/interface';
 import { FixedPointMath } from '@/lib/entities/fixed-point-math';
 import { commaSeparatedNumber } from '@/utils';
 
-import { useBurn } from './coin-burn.hook';
-import { CoinBurnPreviewProps, IBurnForm } from './coin-burn.types';
+import { IBurnForm } from './coin-burn.types';
 
-const CoinBurnPreview: FC<CoinBurnPreviewProps> = ({ coin, burnable }) => {
-  const burn = useBurn(coin);
-  const getExplorerLink = useGetExplorerUrl();
-  const { dialog, handleClose } = useDialog();
-  const [loading, setLoading] = useState(false);
+const CoinBurnPreview: FC<Coin> = (coin) => {
   const { control } = useFormContext<IBurnForm>();
   const { totalSupply } = useCoinSupply(coin.type);
   const [imageError, setImageError] = useState(false);
 
   const amount = useWatch({ control, name: 'amount' });
-
-  const goToTx = (tx: string) =>
-    window.open(
-      getExplorerLink(tx, ExplorerMode.Transaction),
-      '_blank',
-      'noreferrer'
-    );
-
-  const handleBurn = async () => {
-    if (!burnable) return;
-
-    try {
-      setLoading(true);
-
-      await dialog.promise(burn(), {
-        success: (txDigest) => ({
-          timeout: 15000,
-          title: 'Coin Burnt',
-          button: {
-            label: 'See on explorer',
-            onClick: () => goToTx(String(txDigest)),
-          },
-          message: 'Congratulations! Your coin was successfully burnt.',
-          ghostButton: {
-            label: 'Continue browsing',
-            onClick: handleClose,
-          },
-          Icon: (
-            <Img
-              alt="Success"
-              width="7rem"
-              height="7rem"
-              src="/dialogs/success.png"
-            />
-          ),
-        }),
-        loading: () => ({
-          Icon: <LoaderSVG />,
-          title: 'Burning...',
-          message:
-            'Your transaction is being executed, we will let you know when it is done.',
-        }),
-        error: (e) => ({
-          title: 'Oops! You could not burn!',
-          button: { label: 'Try again', onClick: handleBurn },
-          message:
-            e.message ||
-            'Try to refresh the page, double-check your inputs, or reconnect your wallet.',
-          ghostButton: {
-            label: 'Do not want to try again!',
-            onClick: handleClose,
-          },
-          Icon: (
-            <Img
-              alt="Error"
-              width="7rem"
-              height="7rem"
-              src="/dialogs/error.png"
-            />
-          ),
-        }),
-      });
-    } finally {
-      setLoading(false);
-    }
-  };
 
   return (
     <>
@@ -158,9 +83,6 @@ const CoinBurnPreview: FC<CoinBurnPreviewProps> = ({ coin, burnable }) => {
           </P>
         </Div>
       </Div>
-      <WalletGuardedButton disabled={!burnable} onClick={handleBurn}>
-        {loading ? 'Burning...' : !burnable ? 'Unable to Burn' : 'Burn'}
-      </WalletGuardedButton>
     </>
   );
 };

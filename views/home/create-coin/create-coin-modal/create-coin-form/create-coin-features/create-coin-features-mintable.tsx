@@ -20,12 +20,15 @@ const CreateCoinFeaturesMintable: FC = () => {
 
   return (
     <Motion
+      layout
       p="1rem"
       gap="1rem"
       bg="#1A1A1A"
       display="flex"
+      overflow="hidden"
       borderRadius="0.5rem"
       flexDirection="column"
+      transition={{ ease: 'linear' }}
     >
       <Div display="flex" justifyContent="space-between" alignItems="center">
         <H4 color="#F5B722">Mintable</H4>
@@ -39,12 +42,13 @@ const CreateCoinFeaturesMintable: FC = () => {
         {mintable ? (
           <Motion
             layout
-            transition={{ duration: 0.3 }}
-            exit={{ scaleY: 0, height: 0 }}
+            style={{ originY: 0 }}
+            exit={{ height: 0, scaleY: 0 }}
+            transition={{ duration: 0.3, originY: 0 }}
             animate={{
-              scaleY: [0, 1],
               height: 'auto',
-              transformOrigin: 'top left',
+              scaleY: [0, 1],
+              transformOrigin: '0% 0%',
             }}
           >
             <Div

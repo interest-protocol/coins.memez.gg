@@ -1,19 +1,21 @@
-import { Div, H3, H4, Img, P, Span } from '@stylin.js/elements';
+import { Button, Div, H3, H4, Img, P, Span } from '@stylin.js/elements';
 import { AnimatePresence, motion } from 'motion/react';
 import { FC } from 'react';
 import { useFormContext, useWatch } from 'react-hook-form';
 
+import { ChevronLeftSVG } from '@/components/svg';
 import Tag from '@/components/tag';
 import { commaSeparatedNumber } from '@/utils';
 
-import { ICreateCoin } from '../../../create-coin.types';
+import { ICreateCoin, Step } from '../../../create-coin.types';
 
 const Motion = motion.create(Div);
 
 const CreateCoinPreviewContent: FC = () => {
-  const { control } = useFormContext<ICreateCoin>();
+  const { control, setValue } = useFormContext<ICreateCoin>();
 
   const [
+    step,
     name,
     symbol,
     description,
@@ -25,6 +27,7 @@ const CreateCoinPreviewContent: FC = () => {
   ] = useWatch({
     control,
     name: [
+      'step',
       'name',
       'symbol',
       'description',
@@ -38,7 +41,19 @@ const CreateCoinPreviewContent: FC = () => {
 
   return (
     <Div>
-      <H3>Coin Details</H3>
+      <Div display="flex" gap="0.5rem">
+        {step && Step.Preview && (
+          <Button
+            all="unset"
+            cursor="pointer"
+            nHover={{ color: '#F5B722' }}
+            onClick={() => setValue('step', Step.Features)}
+          >
+            <ChevronLeftSVG width="100%" maxWidth="1.5rem" maxHeight="1.5rem" />
+          </Button>
+        )}
+        <H3>Coin Details</H3>
+      </Div>
       <Div
         gap="0.5rem"
         display="flex"

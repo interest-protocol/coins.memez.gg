@@ -1,5 +1,5 @@
 import { Div, H4, P } from '@stylin.js/elements';
-import { motion } from 'motion/react';
+import { AnimatePresence, motion } from 'motion/react';
 import { FC } from 'react';
 import { useFormContext, useWatch } from 'react-hook-form';
 
@@ -21,11 +21,12 @@ const CreateCoinFeaturesBurnable: FC = () => {
 
   return (
     <Motion
+      layout
       p="1rem"
       gap="1rem"
       bg="#1A1A1A"
-      height="auto"
       display="flex"
+      overflow="hidden"
       borderRadius="0.5rem"
       flexDirection="column"
       transition={{ ease: 'linear' }}
@@ -45,43 +46,46 @@ const CreateCoinFeaturesBurnable: FC = () => {
           }}
         />
       </Div>
-      {burnable || canBurn ? (
-        <Motion
-          layout
-          transition={{ duration: 0.3 }}
-          exit={{ scaleY: 0, height: 0 }}
-          animate={{
-            scaleY: [0, 1],
-            height: 'auto',
-            transformOrigin: 'top left',
-          }}
-        >
-          <Div
-            p="1rem"
-            gap="1rem"
-            display="flex"
-            bg="#3C3C3C40"
-            borderRadius="0.5rem"
-            flexDirection="column"
+      <AnimatePresence>
+        {burnable || canBurn ? (
+          <Motion
+            layout
+            style={{ originY: 0 }}
+            exit={{ height: 0, scaleY: 0 }}
+            transition={{ duration: 0.3, originY: 0 }}
+            animate={{
+              height: 'auto',
+              scaleY: [0, 1],
+              transformOrigin: '0% 0%',
+            }}
           >
             <Div
+              p="1rem"
+              gap="1rem"
               display="flex"
-              alignItems="center"
-              justifyContent="space-between"
+              bg="#3C3C3C40"
+              borderRadius="0.5rem"
+              flexDirection="column"
             >
-              <P color="#FFFFFFA3">Allow public burn</P>
-              <ToggleButton
-                name="canBurn"
-                defaultValue={canBurn}
-                onChange={() => {
-                  setValue('features.canBurn', !canBurn);
-                  setValue('features.burnable', canBurn);
-                }}
-              />
+              <Div
+                display="flex"
+                alignItems="center"
+                justifyContent="space-between"
+              >
+                <P color="#FFFFFFA3">Allow public burn</P>
+                <ToggleButton
+                  name="canBurn"
+                  defaultValue={canBurn}
+                  onChange={() => {
+                    setValue('features.canBurn', !canBurn);
+                    setValue('features.burnable', canBurn);
+                  }}
+                />
+              </Div>
             </Div>
-          </Div>
-        </Motion>
-      ) : null}
+          </Motion>
+        ) : null}
+      </AnimatePresence>
     </Motion>
   );
 };
