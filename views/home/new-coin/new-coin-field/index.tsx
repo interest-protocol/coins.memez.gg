@@ -6,6 +6,7 @@ import { FieldError, useFormContext } from 'react-hook-form';
 import { parseInputEventToNumberString } from '@/utils';
 
 import { ICreateCoin } from '../create-coin-modal/create-coin.types';
+import { IMigrateCoin } from '../migrate-coin-modal/migrate-coin.types';
 import { NewCoinFieldProps } from './new-coin-field.types';
 
 const NewCoinField: FC<NewCoinFieldProps> = ({
@@ -20,7 +21,7 @@ const NewCoinField: FC<NewCoinFieldProps> = ({
     trigger,
     setValue,
     formState: { errors },
-  } = useFormContext<ICreateCoin>();
+  } = useFormContext<ICreateCoin | IMigrateCoin>();
 
   return (
     <Label display="flex" gap="0.5rem" flexDirection="column">
