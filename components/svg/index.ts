@@ -18,6 +18,7 @@ export { default as LogoSVG } from './logo';
 export { default as LogoutSVG } from './logout';
 export { default as MemezGGNirvanaSVG } from './memez-gg-nirvana';
 export { default as MemezGGPartySVG } from './memez-gg-party';
+export { default as MenuSVG } from './menu';
 export { default as SearchSVG } from './search';
 export { default as TelegramSVG } from './telegram';
 export { default as TimesSVG } from './times';
