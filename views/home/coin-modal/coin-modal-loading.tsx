@@ -5,8 +5,9 @@ import { LoaderSVG } from '@/components/svg';
 
 const CoinModalLoading: FC = () => (
   <Div
-    height="30rem"
+    flex="1"
     display="flex"
+    maxHeight="100%"
     alignItems="center"
     justifyContent="center"
   >

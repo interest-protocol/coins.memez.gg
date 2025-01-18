@@ -1,43 +1,20 @@
-import { useCurrentAccount, useDisconnectWallet } from '@mysten/dapp-kit';
-import { formatAddress } from '@mysten/sui/utils';
+import { useCurrentAccount } from '@mysten/dapp-kit';
 import { Button, Div } from '@stylin.js/elements';
 import { motion } from 'motion/react';
 import { FC } from 'react';
 
-import { LogoutSVG, UserSVG, WalletSVG } from '@/components/svg';
+import { WalletSVG } from '@/components/svg';
 
+import ConnectedModal from './connected-modal';
 import { useConnectModal } from './wallet-button.hook';
 
 const Motion = motion(Div);
 
 const WalletButton: FC = () => {
-  const { mutate } = useDisconnectWallet();
   const currentAccount = useCurrentAccount();
   const handleOpenConnectModal = useConnectModal();
 
-  if (currentAccount)
-    return (
-      <Button
-        all="unset"
-        gap="0.5rem"
-        bg="#1F1F1F"
-        display="flex"
-        cursor="pointer"
-        alignItems="center"
-        borderRadius="2rem"
-        whiteSpace="nowrap"
-        px={['1rem', '1.25rem']}
-        onClick={() => mutate()}
-        py={['0.75rem', '0.825rem']}
-        border="1px solid #F5B72280"
-      >
-        <Div display={['none', 'block']}>
-          <UserSVG maxWidth="1rem" maxHeight="1rem" width="100%" />
-        </Div>
-        {formatAddress(currentAccount.address)}
-        <LogoutSVG maxWidth="1rem" maxHeight="1rem" width="100%" />
-      </Button>
-    );
+  if (currentAccount) return <ConnectedModal />;
 
   return (
     <Div

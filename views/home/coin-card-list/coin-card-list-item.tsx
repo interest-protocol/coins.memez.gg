@@ -8,7 +8,7 @@ import { useCoinBalance } from '@/hooks/use-coin-balance';
 import { useCoinSupply } from '@/hooks/use-coin-supply';
 import { useCoinsAbilities } from '@/hooks/use-coins-abilities';
 import { useModal } from '@/hooks/use-modal';
-import { Abilities, Coin } from '@/interface';
+import { Abilities, Coin, CoinModalMode } from '@/interface';
 import { FixedPointMath } from '@/lib/entities/fixed-point-math';
 import { commaSeparatedNumber } from '@/utils';
 import { updateURL } from '@/utils/url';
@@ -33,7 +33,7 @@ const CoinCard: FC<Coin> = ({
   const { abilities } = useCoinsAbilities({ burnCap, mintCap, metadataCap });
 
   const handleClick = () => {
-    updateURL(`${pathname}?coin=${type}&mode=${Abilities.Details}`);
+    updateURL(`${pathname}?coin=${type}&mode=${CoinModalMode.Details}`);
 
     setContent(<CoinModal />, {
       onClose: () => updateURL(pathname),

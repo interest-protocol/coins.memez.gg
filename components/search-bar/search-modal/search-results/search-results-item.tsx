@@ -5,7 +5,7 @@ import unikey from 'unikey';
 
 import { useModal } from '@/hooks/use-modal';
 import { SearchingCoin } from '@/hooks/use-search-coins/use-search-coins.types';
-import { Abilities } from '@/interface';
+import { CoinModalMode } from '@/interface';
 import { updateURL } from '@/utils';
 import CoinModal from '@/views/home/coin-modal';
 
@@ -20,7 +20,7 @@ const SearchResultsItem: FC<SearchingCoin> = ({
   const [imageError, setImageError] = useState(false);
 
   const handleClick = () => {
-    updateURL(`${pathname}?coin=${type}&mode=${Abilities.Details}`);
+    updateURL(`${pathname}?coin=${type}&mode=${CoinModalMode.Details}`);
 
     setContent(<CoinModal />, {
       onClose: () => updateURL(pathname),

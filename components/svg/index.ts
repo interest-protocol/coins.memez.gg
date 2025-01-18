@@ -11,6 +11,7 @@ export { default as ExclamationCircleSVG } from './exclamation-circle';
 export { default as ExternalSVG } from './external';
 export { default as FileUploadSVG } from './file-upload';
 export { default as FilterSVG } from './filter';
+export { default as GearSVG } from './gear';
 export { default as GithubSVG } from './github';
 export { default as InterestProtocolSVG } from './interest-protocol';
 export { default as LoaderSVG } from './loader';

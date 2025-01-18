@@ -1,5 +1,5 @@
 import { Div } from '@stylin.js/elements';
-import { AnimatePresence, motion } from 'motion/react';
+import { motion } from 'motion/react';
 import { useRouter } from 'next/router';
 import { FC, useEffect, useState } from 'react';
 import unikey from 'unikey';
@@ -71,17 +71,15 @@ const CoinModal: FC = () => {
           items={['details', 'burn', 'mint', 'edit']}
         />
       </Div>
-      <AnimatePresence>
-        <Div
-          mt="1.5rem"
-          px="0.5rem"
-          height="100%"
-          display="flex"
-          overflowY="auto"
-        >
-          {content[tab]}
-        </Div>
-      </AnimatePresence>
+      <Div
+        mt="1.5rem"
+        px="0.5rem"
+        height="100%"
+        display="flex"
+        overflowY="auto"
+      >
+        {content[tab]}
+      </Div>
     </Motion>
   );
 };
