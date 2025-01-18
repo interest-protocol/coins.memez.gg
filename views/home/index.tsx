@@ -4,7 +4,7 @@ import { FC } from 'react';
 import { Layout } from '@/components';
 
 import CardList from './coin-card-list';
-import CreateCoin from './create-coin';
+import CreateCoin from './new-coin';
 
 const Home: FC = () => (
   <Layout>

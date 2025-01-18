@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { FC } from 'react';
 
 import SearchBar from '@/components/search-bar';
+import Settings from '@/components/settings';
 
 import WalletButton from '../../wallet-button';
 
@@ -23,7 +24,10 @@ const Header: FC = () => (
         <Img src="/logo.webp" alt="logo" maxWidth="6rem" />
       </Link>
       <SearchBar />
-      <WalletButton />
+      <Div display="flex" gap="1rem" alignItems="center">
+        <WalletButton />
+        <Settings />
+      </Div>
     </Div>
   </HtmlHeader>
 );

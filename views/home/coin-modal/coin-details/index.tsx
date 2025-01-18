@@ -7,7 +7,6 @@ import { FC, useState } from 'react';
 import toast from 'react-hot-toast';
 
 import { ChevronDownSVG, CopySVG, ExternalSVG } from '@/components/svg';
-import Tag from '@/components/tag';
 import { ExplorerMode } from '@/constants';
 import useCoin from '@/hooks/use-coin';
 import { useCoinSupply } from '@/hooks/use-coin-supply';
@@ -20,6 +19,7 @@ import { commaSeparatedNumber } from '@/utils';
 
 import CoinModalLoading from '../coin-modal-loading';
 import CoinModalNotFound from '../coin-modal-not-found';
+import CoinDetailsCapabilities from './coin-details-capabilities';
 
 const Motion = motion(Div);
 
@@ -30,12 +30,14 @@ const CoinDetails: FC = () => {
   const [imageError, setImageError] = useState(false);
   const { coin, loading } = useCoin(params?.get('coin') ?? undefined);
 
-  const { totalSupply } = useCoinSupply(coin?.type);
-  const { abilities } = useCoinsAbilities({
+  const abilityCaps = {
     burnCap: coin?.burnCap,
     mintCap: coin?.mintCap,
     metadataCap: coin?.metadataCap,
-  });
+  };
+
+  const { totalSupply } = useCoinSupply(coin?.type);
+  const { abilities } = useCoinsAbilities(abilityCaps);
 
   if (loading) return <CoinModalLoading />;
 
@@ -84,13 +86,12 @@ const CoinDetails: FC = () => {
         >
           {coin.name} <Span color="#9B9CA1">({coin.symbol})</Span>
         </H3>
-        <Div display="flex" gap="0.5rem">
-          {(coin.canBurn || abilities?.[Abilities.Burn]) && (
-            <Tag hexColor="#FF562C">Burn</Tag>
-          )}
-          {abilities?.[Abilities.Mint] && <Tag hexColor="#95CB34">Mint</Tag>}
-          {abilities?.[Abilities.Edit] && <Tag hexColor="#D0D0D0">Edit</Tag>}
-        </Div>
+
+        <CoinDetailsCapabilities
+          caps={abilityCaps}
+          abilities={abilities}
+          canBurn={coin.canBurn}
+        />
       </Div>
       <Div display="flex" flexDirection="column" gap="1rem">
         <H4>Details</H4>

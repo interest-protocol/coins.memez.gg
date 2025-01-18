@@ -17,7 +17,7 @@ export const useCoinsAbilities = ({
 }: UseCoinsAbilitiesArgs) => {
   const client = useSuiClient();
 
-  const { data, ...props } = useSWR(
+  const { data, ...props } = useSWR<Record<Abilities, string | null>>(
     [burnCap, mintCap, metadataCap],
     async () => {
       const caps = [
@@ -49,7 +49,7 @@ export const useCoinsAbilities = ({
             [Abilities.Burn]: null,
             [Abilities.Mint]: null,
             [Abilities.Edit]: null,
-          }
+          } as Record<Abilities, string | null>
         ),
       };
 

@@ -6,6 +6,8 @@ import {
 import { Transaction } from '@mysten/sui/transactions';
 import { WalletAccount } from '@mysten/wallet-standard';
 
+import { CoinMetadataWithType } from '@/interface';
+
 export interface SignAndExecuteArgs {
   suiClient: SuiClient;
   currentAccount: WalletAccount;
@@ -26,4 +28,10 @@ export interface GetCoinsArgs {
   account: string;
   client: SuiClient;
   cursor?: string | null; // for internal recursive fn
+}
+
+export interface FetchCoinMetadataMultipleTypeArg {}
+
+export interface FetchCoinMetadata {
+  (types: ReadonlyArray<string>): Promise<ReadonlyArray<CoinMetadataWithType>>;
 }

@@ -1,6 +1,6 @@
 import type { CoinStruct } from '@mysten/sui/client';
 
-import { GetCoinsArgs } from './utils.types';
+import { FetchCoinMetadata, GetCoinsArgs } from './utils.types';
 
 export const getCoins = async ({
   type,
@@ -24,4 +24,19 @@ export const getCoins = async ({
   });
 
   return [...data, ...newData];
+};
+
+export const fetchCoinMetadata: FetchCoinMetadata = async (types) => {
+  const uniqueTypes = Array.from(new Set(types));
+
+  const metadata = await fetch(
+    `https://coin-metadata-api-testnet-production.up.railway.app/api/v1/fetch-coins?coinTypes=${uniqueTypes}`,
+    {
+      headers: {
+        network: 'sui',
+      },
+    }
+  ).then((res) => res.json());
+
+  return metadata;
 };

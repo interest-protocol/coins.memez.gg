@@ -38,6 +38,12 @@ export interface Filter {
 }
 
 export enum Abilities {
+  Burn,
+  Mint,
+  Edit,
+}
+
+export enum CoinModalMode {
   Details,
   Burn,
   Mint,

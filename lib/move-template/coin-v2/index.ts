@@ -3,7 +3,7 @@ import { fromHex } from '@mysten/sui/utils';
 
 import { COIN_TEMPLATE_BYTECODE, Network } from '@/constants';
 import { FixedPointMath } from '@/lib/entities/fixed-point-math';
-import { ICreateCoin } from '@/views/home/create-coin/create-coin.types';
+import { ICreateCoin } from '@/views/home/new-coin/create-coin-modal/create-coin.types';
 
 import * as template from '../move-bytecode-template';
 

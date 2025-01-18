@@ -9,7 +9,7 @@ import { useCoinsFilter } from '@/hooks/use-coins-filter';
 
 import CoinFilters from '../coin-filters';
 import CoinModalInitManager from '../coin-modal/coin-modal-init-manager';
-import CreateCoin from '../create-coin';
+import CreateCoin from '../new-coin';
 import CoinCardListEmpty from './coin-card-list-empty';
 import CoinCard from './coin-card-list-item';
 
