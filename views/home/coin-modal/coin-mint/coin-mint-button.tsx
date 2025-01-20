@@ -58,7 +58,7 @@ const CoinMintButton: FC<CoinMintButtonProps> = ({ coin, mintable }) => {
             'Accept the transaction on the your wallet pop up, we will let you know when it is done.',
         }),
         error: (e) => ({
-          title: 'Oops! You could not create!',
+          title: 'Oops! You could not mint!',
           button: { label: 'Try again', onClick: handleMint },
           message:
             e.message ||

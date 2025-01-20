@@ -1,24 +1,39 @@
 import { useCurrentAccount } from '@mysten/dapp-kit';
-import { Button, Div, Span } from '@stylin.js/elements';
+import { Button, Div, Img, Span } from '@stylin.js/elements';
 import { not } from 'ramda';
 import { FC, useState } from 'react';
 
-import { GearSVG, TimesSVG } from '@/components/svg';
+import { GearSVG, LoaderSVG, TimesSVG } from '@/components/svg';
 import Tag from '@/components/tag';
+import { ExplorerMode } from '@/constants';
+import { useDialog } from '@/hooks/use-dialog';
+import { useGetExplorerUrl } from '@/hooks/use-get-explorer-url';
+import { useModal } from '@/hooks/use-modal';
 import { Abilities } from '@/interface';
 import { isSameAddress } from '@/utils';
 
 import { CoinDetailsCapabilitiesProps } from '../coin-details.types';
 import { useDestroyCap } from './coin-details-capabilities.hooks';
+import CapabilityDestroyModal from './coin-details-capability-destroy-modal';
 
 const CoinDetailsCapabilities: FC<CoinDetailsCapabilitiesProps> = ({
   caps,
   canBurn,
   abilities,
 }) => {
+  const { setContent } = useModal();
   const destroyCap = useDestroyCap();
   const currentAccount = useCurrentAccount();
+  const { dialog, handleClose } = useDialog();
+  const getExplorerLink = useGetExplorerUrl();
   const [managing, setManaging] = useState(false);
+
+  const goToTx = (tx: string) =>
+    window.open(
+      getExplorerLink(tx, ExplorerMode.Transaction),
+      '_blank',
+      'noreferrer'
+    );
 
   const hasBurnCap =
     abilities?.[Abilities.Burn] &&
@@ -34,6 +49,61 @@ const CoinDetailsCapabilities: FC<CoinDetailsCapabilitiesProps> = ({
 
   const hasAdminCap = hasBurnCap || hasMintCap || hasEditCap;
 
+  const handleDestroyCap = (cap: string, ability: Abilities) => () =>
+    dialog.promise(destroyCap(cap, ability), {
+      success: (txDigest) => ({
+        timeout: 15000,
+        title: 'Feature Destroyed',
+        button: {
+          label: 'See on explorer',
+          onClick: () => goToTx(String(txDigest)),
+        },
+        message: 'Congratulations! Your feature was successfully destroyed.',
+        ghostButton: {
+          label: 'Continue browsing',
+          onClick: handleClose,
+        },
+        Icon: (
+          <Img
+            alt="Success"
+            width="7rem"
+            height="7rem"
+            src="/dialogs/success.png"
+          />
+        ),
+      }),
+      loading: () => ({
+        Icon: <LoaderSVG />,
+        title: 'Destroying...',
+        message:
+          'Accept the transaction on the your wallet pop up, we will let you know when it is done.',
+      }),
+      error: (e) => ({
+        title: 'Oops! You could not destroy!',
+        button: { label: 'Try again', onClick: handleDestroyCap(cap, ability) },
+        message:
+          e.message ||
+          'Try to refresh the page, double-check your inputs, or reconnect your wallet.',
+        ghostButton: {
+          label: 'Do not want to try again!',
+          onClick: handleClose,
+        },
+        Icon: (
+          <Img
+            alt="Error"
+            width="7rem"
+            height="7rem"
+            src="/dialogs/error.png"
+          />
+        ),
+      }),
+    });
+
+  const onDestroyCap = (cap: string, ability: Abilities) => () =>
+    setContent(
+      <CapabilityDestroyModal onClick={handleDestroyCap(cap, ability)} />
+    );
+
   return (
     <Div display="flex" gap="0.5rem">
       {(canBurn || abilities?.[Abilities.Burn]) && (
@@ -41,13 +111,13 @@ const CoinDetailsCapabilities: FC<CoinDetailsCapabilitiesProps> = ({
           hexColor="#FF562C"
           onClick={
             managing && hasBurnCap
-              ? () => destroyCap(caps.burnCap!, Abilities.Burn)
+              ? onDestroyCap(caps.burnCap!, Abilities.Burn)
               : undefined
           }
         >
           Burn
           {managing && hasBurnCap && (
-            <TimesSVG width="100%" maxWidth="0.825rem" maxHeight="0.825rem" />
+            <TimesSVG width="100%" maxWidth="1.25rem" maxHeight="1.25rem" />
           )}
         </Tag>
       )}
@@ -56,13 +126,13 @@ const CoinDetailsCapabilities: FC<CoinDetailsCapabilitiesProps> = ({
           hexColor="#95CB34"
           onClick={
             managing && hasMintCap
-              ? () => destroyCap(caps.mintCap!, Abilities.Mint)
+              ? onDestroyCap(caps.mintCap!, Abilities.Mint)
               : undefined
           }
         >
           Mint
           {managing && hasMintCap && (
-            <TimesSVG width="100%" maxWidth="0.825rem" maxHeight="0.825rem" />
+            <TimesSVG width="100%" maxWidth="1.25rem" maxHeight="1.25rem" />
           )}
         </Tag>
       )}
@@ -71,13 +141,13 @@ const CoinDetailsCapabilities: FC<CoinDetailsCapabilitiesProps> = ({
           hexColor="#D0D0D0"
           onClick={
             managing && hasEditCap
-              ? () => destroyCap(caps.metadataCap!, Abilities.Edit)
+              ? onDestroyCap(caps.metadataCap!, Abilities.Edit)
               : undefined
           }
         >
           Edit
           {managing && hasEditCap && (
-            <TimesSVG width="100%" maxWidth="0.825rem" maxHeight="0.825rem" />
+            <TimesSVG width="100%" maxWidth="1.25rem" maxHeight="1.25rem" />
           )}
         </Tag>
       )}
@@ -104,7 +174,7 @@ const CoinDetailsCapabilities: FC<CoinDetailsCapabilitiesProps> = ({
             nHover={{ transform: 'rotate(180deg)' }}
           >
             {managing ? (
-              <TimesSVG width="100%" maxWidth="1rem" maxHeight="1rem" />
+              <TimesSVG width="100%" maxWidth="1.25rem" maxHeight="1.25rem" />
             ) : (
               <GearSVG width="100%" maxWidth="1rem" maxHeight="1rem" />
             )}
