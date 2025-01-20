@@ -43,11 +43,8 @@ const NewCoinModal: FC = () => {
       <Div display="flex" justifyContent="center">
         <Img src="/coins.png" width="5rem" height="5rem" alt="Coins" />
       </Div>
-      <H2>Your Token Journey Starts Here!</H2>
-      <P>
-        Ready to build the future? Choose whether to create a brand-new token,
-        or migrate your existing V1 token to V2.
-      </P>
+      <H2>The Future Begins Here!</H2>
+      <P>Create a new token or Migrate your V1 token to V2.</P>
       <Div display="grid" gap="1rem" gridTemplateColumns="1fr 1fr">
         <Button
           all="unset"
@@ -63,7 +60,7 @@ const NewCoinModal: FC = () => {
           color={mode === NewCoinMode.Create ? '#F5B722' : undefined}
         >
           <Radio active={mode === NewCoinMode.Create} />
-          Create a new coin
+          Create token
         </Button>
         <Button
           all="unset"
