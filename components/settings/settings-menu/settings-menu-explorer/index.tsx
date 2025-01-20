@@ -1,4 +1,4 @@
-import { Div, H4 } from '@stylin.js/elements';
+import { Div, P } from '@stylin.js/elements';
 import { AnimatePresence, motion } from 'motion/react';
 import { FC } from 'react';
 import { useLocalStorage } from 'usehooks-ts';
@@ -33,7 +33,7 @@ const SettingsMenuExplorer: FC<SettingsMenusProps> = ({ show, toggleShow }) => {
         onClick={toggleShow}
         justifyContent="space-between"
       >
-        <H4>Explorer</H4>
+        <P>Explorer</P>
         <Motion animate={{ rotate: show ? '90deg' : '0deg' }}>
           <ChevronRightSVG
             width="100%"
@@ -54,10 +54,11 @@ const SettingsMenuExplorer: FC<SettingsMenusProps> = ({ show, toggleShow }) => {
               opacity: [0, 1, 1],
             }}
           >
-            {EXPLORERS.map((explorer) => (
+            {EXPLORERS.map((explorer, index) => (
               <SettingsMenuExplorerItem
                 key={explorer}
                 name={explorer}
+                withBorder={!!index}
                 title={EXPLORER_DISPLAY[explorer]}
                 selected={explorer === localExplorer}
                 onSelect={() => setExplorer(explorer)}

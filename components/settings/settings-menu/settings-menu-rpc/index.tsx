@@ -1,10 +1,11 @@
-import { Div, H4, Small } from '@stylin.js/elements';
+import { Div, P, Small } from '@stylin.js/elements';
 import { AnimatePresence, motion } from 'motion/react';
 import { FC } from 'react';
 import { useLocalStorage } from 'usehooks-ts';
 
 import { ChevronRightSVG } from '@/components/svg';
 import { RPC, RPC_DISPLAY, RPC_STORAGE_KEY, RPCs } from '@/constants/rpc';
+import { useNetwork } from '@/hooks/use-network';
 
 import { SettingsMenusProps } from '../settings-menu.types';
 import SettingsMenuRPCItem from './settings-menu-rpc-item';
@@ -12,6 +13,7 @@ import SettingsMenuRPCItem from './settings-menu-rpc-item';
 const Motion = motion.create(Div);
 
 const SettingsMenuRPC: FC<SettingsMenusProps> = ({ show, toggleShow }) => {
+  const network = useNetwork();
   const [localRPC, setRPC] = useLocalStorage<RPC>(RPC_STORAGE_KEY, RPC.Shinami);
 
   return (
@@ -25,9 +27,7 @@ const SettingsMenuRPC: FC<SettingsMenusProps> = ({ show, toggleShow }) => {
         onClick={toggleShow}
         justifyContent="space-between"
       >
-        <H4>
-          RPCs <Small opacity="0.6">(testnet)</Small>
-        </H4>
+        <P>RPCs {network && <Small opacity="0.6">(testnet)</Small>}</P>
         <Motion animate={{ rotate: show ? '90deg' : '0deg' }}>
           <ChevronRightSVG
             width="100%"
@@ -48,10 +48,11 @@ const SettingsMenuRPC: FC<SettingsMenusProps> = ({ show, toggleShow }) => {
               opacity: [0, 1, 1],
             }}
           >
-            {RPCs.map((rpc) => (
+            {RPCs.map((rpc, index) => (
               <SettingsMenuRPCItem
                 key={rpc}
                 name={rpc}
+                withBorder={!!index}
                 title={RPC_DISPLAY[rpc]}
                 selected={rpc === localRPC}
                 onSelect={() => setRPC(rpc)}
