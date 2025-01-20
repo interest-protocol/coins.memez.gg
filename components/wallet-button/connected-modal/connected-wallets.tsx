@@ -2,7 +2,6 @@ import { useAccounts } from '@mysten/dapp-kit';
 import { Div } from '@stylin.js/elements';
 import { AnimatePresence, motion } from 'motion/react';
 import { FC } from 'react';
-import unikey from 'unikey';
 
 import ConnectedWalletItem from './connected-wallet-item';
 
@@ -31,7 +30,7 @@ const ConnectedWallets: FC = () => {
     >
       <AnimatePresence>
         {accounts.map((account) => (
-          <ConnectedWalletItem key={unikey()} account={account} />
+          <ConnectedWalletItem key={account.address} account={account} />
         ))}
       </AnimatePresence>
     </Motion>
