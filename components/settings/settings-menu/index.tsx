@@ -30,7 +30,7 @@ const SettingsMenu: FC = () => {
           show={menu === 'explorer'}
           toggleShow={() => setMenu(menu === 'explorer' ? null : 'explorer')}
         />
-        <Hr border="none" borderBottom="1px solid #242424" />
+        <Hr border="none" borderBottom="1px solid #242424" mx="1rem" />
         <SettingsMenuRPC
           show={menu === 'rpc'}
           toggleShow={() => setMenu(menu === 'rpc' ? null : 'rpc')}

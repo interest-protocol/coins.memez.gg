@@ -39,6 +39,7 @@ const SettingsMenuRPC: FC<SettingsMenusProps> = ({ show, toggleShow }) => {
       <AnimatePresence>
         {show && (
           <Motion
+            ml="1.5rem"
             style={{ originY: 0 }}
             exit={{ scaleY: 0, height: 0, opacity: 0 }}
             animate={{
