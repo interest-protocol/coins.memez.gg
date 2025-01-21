@@ -36,7 +36,6 @@ const CreateCoinButton: FC = () => {
 
       await dialog.promise(createCoin(), {
         success: (txDigest: unknown) => ({
-          timeout: 15000,
           title: 'Coin Created',
           button: {
             label: 'See on explorer',

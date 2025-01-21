@@ -36,7 +36,6 @@ const MigrateCoinButton: FC = () => {
 
       await dialog.promise(migrateCoin(), {
         success: (txDigest: unknown) => ({
-          timeout: 15000,
           title: 'Coin Migrated',
           button: {
             label: 'See on explorer',

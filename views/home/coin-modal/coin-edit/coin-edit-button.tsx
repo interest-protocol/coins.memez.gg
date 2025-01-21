@@ -37,7 +37,6 @@ const CoinEditButton: FC<CoinEditFormProps> = ({ coin, editable }) => {
 
       await dialog.promise(edit(), {
         success: (txDigest) => ({
-          timeout: 15000,
           title: 'Coin Updated',
           button: {
             label: 'See on explorer',
