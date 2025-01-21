@@ -14,12 +14,13 @@ import { NewCoinMode } from './new-coin.types';
 const Motion = motion.create(Div);
 
 const NewCoinModal: FC = () => {
-  const { setContent } = useModal();
+  const { setContent, onClose } = useModal();
   const [mode, setMode] = useState<NewCoinMode>();
 
   const handleOpenModal = (Component: FC | null) => () =>
     Component &&
     setContent(<Component />, {
+      onClose,
       overlayProps: {
         alignItems: ['flex-end', 'center'],
       },

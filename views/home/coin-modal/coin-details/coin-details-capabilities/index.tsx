@@ -21,7 +21,7 @@ const CoinDetailsCapabilities: FC<CoinDetailsCapabilitiesProps> = ({
   canBurn,
   abilities,
 }) => {
-  const { setContent } = useModal();
+  const { setContent, onClose } = useModal();
   const destroyCap = useDestroyCap();
   const currentAccount = useCurrentAccount();
   const { dialog, handleClose } = useDialog();
@@ -100,7 +100,8 @@ const CoinDetailsCapabilities: FC<CoinDetailsCapabilitiesProps> = ({
 
   const onDestroyCap = (cap: string, ability: Abilities) => () =>
     setContent(
-      <CapabilityDestroyModal onClick={handleDestroyCap(cap, ability)} />
+      <CapabilityDestroyModal onClick={handleDestroyCap(cap, ability)} />,
+      { onClose }
     );
 
   return (

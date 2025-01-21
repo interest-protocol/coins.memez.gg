@@ -33,9 +33,11 @@ const ModalProvider: FC = () => {
     true
   );
 
+  if (!content) return null;
+
   return (
     <AnimatePresence>
-      {content ? (
+      {content && (
         <Motion
           inset="0"
           bg="#0007"
@@ -49,9 +51,9 @@ const ModalProvider: FC = () => {
           justifyContent="center"
           onClick={onHandleClose}
           backdropFilter="blur(10px)"
-          animate={{ opacity: [0, 1] }}
           transition={{ duration: 0.5 }}
           pb="env(safe-area-inset-bottom)"
+          animate={{ opacity: [0, 1] }}
           {...overlayProps}
         >
           <Toaster />
@@ -69,7 +71,7 @@ const ModalProvider: FC = () => {
             {content}
           </Motion>
         </Motion>
-      ) : null}
+      )}
     </AnimatePresence>
   );
 };

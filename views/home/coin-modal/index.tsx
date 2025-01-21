@@ -40,8 +40,8 @@ const CoinModal: FC = () => {
   useEffect(() => {
     if (!params) return;
 
-    setTab(Number(params.get('mode'))); // Initialize based on URL
-  }, [params]); // Params will only update once after first render
+    setTab(Number(params.get('mode')));
+  }, [params]);
 
   const onSelect = (index: number) => {
     if (!params) return;

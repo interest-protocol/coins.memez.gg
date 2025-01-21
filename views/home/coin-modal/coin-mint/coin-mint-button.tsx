@@ -6,13 +6,15 @@ import WalletGuardedButton from '@/components/wallet-guarded-button';
 import { ExplorerMode } from '@/constants';
 import { useDialog } from '@/hooks/use-dialog';
 import { useGetExplorerUrl } from '@/hooks/use-get-explorer-url';
+import { useModal } from '@/hooks/use-modal';
 
 import { useMint } from './coin-mint.hook';
 import { CoinMintButtonProps } from './coin-mint.types';
 
 const CoinMintButton: FC<CoinMintButtonProps> = ({ coin, mintable }) => {
   const mint = useMint(coin);
-  const { dialog, handleClose } = useDialog();
+  const { dialog } = useDialog();
+  const { handleClose } = useModal();
   const getExplorerLink = useGetExplorerUrl();
   const [loading, setLoading] = useState(false);
 

@@ -10,9 +10,9 @@ import SearchModal from './search-modal';
 
 const SearchBar: FC = () => {
   const isMacOS = useIsMacOS();
-  const { setContent } = useModal();
+  const { setContent, onClose } = useModal();
 
-  const handleSearch = () => setContent(<SearchModal />);
+  const handleSearch = () => setContent(<SearchModal />, { onClose });
 
   useEventListener(
     'keydown',

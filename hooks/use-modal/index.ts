@@ -25,12 +25,16 @@ interface UseModal {
   ) => void;
 }
 
-export const useModal = create<UseModal>((set) => ({
+const defaultValues = {
   content: null,
   allowClose: true,
   onClose: undefined,
   overlayProps: undefined,
   containerProps: undefined,
+};
+
+export const useModal = create<UseModal>((set) => ({
+  ...defaultValues,
+  handleClose: () => set(defaultValues),
   setContent: (content, options) => set({ content, ...options }),
-  handleClose: () => set({ content: null, overlayProps: undefined }),
 }));

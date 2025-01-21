@@ -7,10 +7,11 @@ import { useModal } from '@/hooks/use-modal';
 import NewCoinModal from './new-coin-modal';
 
 const NewCoin: FC = () => {
-  const { setContent } = useModal();
+  const { setContent, onClose } = useModal();
 
   const handleOpenModal = () =>
     setContent(<NewCoinModal />, {
+      onClose,
       overlayProps: {
         alignItems: ['flex-end', 'center'],
       },
