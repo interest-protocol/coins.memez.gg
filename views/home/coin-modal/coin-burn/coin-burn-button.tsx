@@ -31,7 +31,6 @@ const CoinBurnButton: FC<CoinBurnButtonProps> = ({ coin, burnable }) => {
 
       await dialog.promise(burn(), {
         success: (txDigest) => ({
-          timeout: 15000,
           title: 'Coin Burnt',
           button: {
             label: 'See on explorer',

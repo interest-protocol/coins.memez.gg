@@ -52,7 +52,6 @@ const CoinDetailsCapabilities: FC<CoinDetailsCapabilitiesProps> = ({
   const handleDestroyCap = (cap: string, ability: Abilities) => () =>
     dialog.promise(destroyCap(cap, ability), {
       success: (txDigest) => ({
-        timeout: 15000,
         title: 'Feature Destroyed',
         button: {
           label: 'See on explorer',

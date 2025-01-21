@@ -31,7 +31,6 @@ const CoinMintButton: FC<CoinMintButtonProps> = ({ coin, mintable }) => {
 
       await dialog.promise(mint(), {
         success: (txDigest) => ({
-          timeout: 15000,
           title: 'Coin Minted',
           button: {
             label: 'See on explorer',
