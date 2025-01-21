@@ -1,8 +1,10 @@
-import { Button, Div, H2, Img, P } from '@stylin.js/elements';
+import { TooltipWrapper } from '@interest-protocol/ui-kit';
+import { Button, Div, H2, Img, P, Span } from '@stylin.js/elements';
 import { motion } from 'motion/react';
 import { FC, useState } from 'react';
 
 import { Radio } from '@/components';
+import { InfoSVG } from '@/components/svg';
 import { useModal } from '@/hooks/use-modal';
 
 import CreateCoinModal from './create-coin-modal';
@@ -61,6 +63,17 @@ const NewCoinModal: FC = () => {
         >
           <Radio active={mode === NewCoinMode.Create} />
           Create token
+          <Span lineHeight="0">
+            <TooltipWrapper
+              bg="#111"
+              width="15rem"
+              lineHeight="normal"
+              tooltipPosition="top"
+              tooltipContent="Create a totally new v2 token"
+            >
+              <InfoSVG maxWidth="1rem" maxHeight="1rem" width="100%" />
+            </TooltipWrapper>
+          </Span>
         </Button>
         <Button
           all="unset"
@@ -77,6 +90,17 @@ const NewCoinModal: FC = () => {
         >
           <Radio active={mode === NewCoinMode.Migrate} />
           Migrate
+          <Span lineHeight="0">
+            <TooltipWrapper
+              bg="#111"
+              width="15rem"
+              lineHeight="normal"
+              tooltipPosition="top"
+              tooltipContent="Having the treasury cap you can migrate your token v1 to v2"
+            >
+              <InfoSVG maxWidth="1rem" maxHeight="1rem" width="100%" />
+            </TooltipWrapper>
+          </Span>
         </Button>
       </Div>
       <Button

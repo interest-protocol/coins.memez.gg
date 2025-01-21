@@ -13,6 +13,7 @@
     "@apollo/client": "^3.12.3",
     "@emotion/react": "^11.11.1",
     "@hookform/resolvers": "^3.10.0",
+    "@interest-protocol/ui-kit": "0.3.3-beta",
     "@mysten/dapp-kit": "^0.14.40",
     "@mysten/sui": "^1.16.0",
     "@mysten/suins": "^0.4.1",
