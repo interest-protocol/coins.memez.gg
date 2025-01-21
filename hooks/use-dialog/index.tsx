@@ -3,7 +3,7 @@ import { DialogProps } from '@/components/dialog/dialog.types';
 import { useModal } from '@/hooks/use-modal';
 
 export const useDialog = () => {
-  const { setContent, handleClose } = useModal();
+  const { setContent, handleClose, onClose } = useModal();
 
   return {
     handleClose,
@@ -21,17 +21,11 @@ export const useDialog = () => {
         }
       ): Promise<void> => {
         try {
-          setContent(<Dialog {...loading()} />, {
-            onClose: handleClose,
-          });
+          setContent(<Dialog {...loading()} />, { onClose });
           const response = await promise;
-          setContent(<Dialog {...success(response)} />, {
-            onClose: handleClose,
-          });
+          setContent(<Dialog {...success(response)} />, { onClose });
         } catch (e) {
-          setContent(<Dialog {...error(e as Error)} />, {
-            onClose: handleClose,
-          });
+          setContent(<Dialog {...error(e as Error)} />, { onClose });
         }
       },
     },
