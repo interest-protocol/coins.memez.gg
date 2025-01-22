@@ -8,7 +8,7 @@ import { FC, PropsWithChildren } from 'react';
 import { useReadLocalStorage } from 'usehooks-ts';
 
 import { NETWORK } from '@/constants';
-import { RPC, RPC_STORAGE_KEY } from '@/constants/rpc';
+import { RPC, RPC_MAP, RPC_STORAGE_KEY } from '@/constants/rpc';
 
 const queryClient = new QueryClient();
 
@@ -21,7 +21,7 @@ const Web3Provider: FC<PropsWithChildren> = ({ children }) => {
         defaultNetwork={NETWORK}
         networks={
           createNetworkConfig({
-            [NETWORK]: { url: rpc },
+            [NETWORK]: { url: RPC_MAP[NETWORK][rpc] },
           }).networkConfig
         }
       >
