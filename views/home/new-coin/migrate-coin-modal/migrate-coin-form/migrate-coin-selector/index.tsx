@@ -88,7 +88,7 @@ const MigrateCoinSelector: FC = () => {
               alt={name}
               width="2rem"
               height="2rem"
-              src={iconUrl ?? '/default-image.webp'}
+              src={iconUrl || '/default-image.webp'}
             />
             <Div flex="1">
               <H4 width="12ch" textOverflow="ellipsis" whiteSpace="nowrap">
