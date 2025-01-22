@@ -7,7 +7,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { FC, PropsWithChildren } from 'react';
 import { useReadLocalStorage } from 'usehooks-ts';
 
-import { Network } from '@/constants';
+import { NETWORK } from '@/constants';
 import { RPC, RPC_STORAGE_KEY } from '@/constants/rpc';
 
 const queryClient = new QueryClient();
@@ -18,10 +18,10 @@ const Web3Provider: FC<PropsWithChildren> = ({ children }) => {
   return (
     <QueryClientProvider client={queryClient}>
       <SuiClientProvider
-        defaultNetwork={Network.TESTNET}
+        defaultNetwork={NETWORK}
         networks={
           createNetworkConfig({
-            [Network.TESTNET]: { url: rpc },
+            [NETWORK]: { url: rpc },
           }).networkConfig
         }
       >
