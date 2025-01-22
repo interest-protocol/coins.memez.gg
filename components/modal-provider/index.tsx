@@ -45,7 +45,7 @@ const ModalProvider: FC = () => {
           height="100vh"
           display="flex"
           zIndex="999999"
-          position="fixed"
+          position="absolute"
           alignItems="center"
           exit={{ opacity: 0 }}
           justifyContent="center"

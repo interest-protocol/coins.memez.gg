@@ -5,7 +5,6 @@ import dynamic from 'next/dynamic';
 import { Toaster } from 'react-hot-toast';
 
 import { graphQLClient } from '@/api';
-import ModalProvider from '@/components/modal-provider';
 import { GlobalStyles } from '@/styles';
 
 const Web3Provider = dynamic(import('@/components/web3-provider'), {
@@ -18,7 +17,6 @@ const App = ({ Component, pageProps }: AppProps) => (
       <Toaster />
       <Global styles={GlobalStyles} />
       <Component {...pageProps} />
-      <ModalProvider />
     </Web3Provider>
   </ApolloProvider>
 );
