@@ -42,9 +42,7 @@ const ModalProvider: FC = () => {
     <AnimatePresence>
       {content && (
         <Motion
-          top="0"
-          left="0"
-          right="0"
+          inset="0"
           bg="#0007"
           width="100vw"
           height="100vh"

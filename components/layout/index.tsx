@@ -5,7 +5,7 @@ import Footer from './footer';
 import Header from './header';
 
 const Layout: FC<PropsWithChildren> = ({ children }) => (
-  <Div display="flex" flexDirection="column">
+  <Div display="flex" minHeight="100vh" flexDirection="column">
     <Header />
     <Main flex="1">{children}</Main>
     <Footer />

@@ -5,11 +5,12 @@ const useEventListener = (
   callback: (event?: Event) => void,
   runOnInit = false,
   target?: Element
-): void =>
+): void => {
   useEffect(() => {
     runOnInit && callback();
     (target ?? window).addEventListener(eventType, callback);
     return () => (target ?? window).removeEventListener(eventType, callback);
   }, []);
+};
 
 export default useEventListener;
