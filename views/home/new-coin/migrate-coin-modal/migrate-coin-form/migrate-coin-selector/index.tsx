@@ -91,8 +91,17 @@ const MigrateCoinSelector: FC = () => {
               src={iconUrl ?? '/default-image.webp'}
             />
             <Div flex="1">
-              <H4>{name}</H4>
-              <P opacity="0.6">{symbol}</P>
+              <H4 width="12ch" textOverflow="ellipsis" whiteSpace="nowrap">
+                {name}
+              </H4>
+              <P
+                width="16ch"
+                opacity="0.6"
+                whiteSpace="nowrap"
+                textOverflow="ellipsis"
+              >
+                {symbol}
+              </P>
             </Div>
             <Radio active={type === formType} />
           </Div>
