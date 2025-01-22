@@ -40,8 +40,22 @@ const CoinMintPreview: FC<Coin> = (coin) => {
             src={imageError ? '/default-image.webp' : coin.iconUrl}
           />
           <Div color="#FFFFFFA3">
-            <P>{coin.symbol}</P>
-            <P>{coin.name}</P>
+            <P
+              maxWidth="16ch"
+              overflow="hidden"
+              whiteSpace="nowrap"
+              textOverflow="ellipsis"
+            >
+              {coin.symbol}
+            </P>
+            <P
+              maxWidth="12ch"
+              overflow="hidden"
+              whiteSpace="nowrap"
+              textOverflow="ellipsis"
+            >
+              {coin.name}
+            </P>
           </Div>
         </Div>
         <P color="#F5B722" textAlign="right">

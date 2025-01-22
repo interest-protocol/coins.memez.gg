@@ -77,6 +77,14 @@ const CoinBurn: FC = () => {
                       FixedPointMath.toNumber(balance, coin.decimals)
                     )
                   : 0}{' '}
+              </Span>
+              <Span
+                maxWidth="10ch"
+                color="#F5B722"
+                overflow="hidden"
+                whiteSpace="nowrap"
+                textOverflow="ellipsis"
+              >
                 {coin.symbol}
               </Span>
             </Div>
