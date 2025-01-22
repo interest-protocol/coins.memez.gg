@@ -26,7 +26,7 @@ const NewCoinModal: FC = () => {
       },
       containerProps: {
         display: 'flex',
-        maxHeight: '90vh',
+        maxHeight: ['90%', '90vh'],
         maxWidth: ['100vw', '95vw'],
       },
     });

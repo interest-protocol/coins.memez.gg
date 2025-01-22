@@ -5,12 +5,12 @@ import { Toaster } from 'react-hot-toast';
 
 import useEventListener from '@/hooks/use-event-listener';
 import { useModal } from '@/hooks/use-modal';
-import { useSafeInsetBottom } from '@/hooks/use-safe-inset-bottom';
+import { useSafeHeight } from '@/hooks/use-safe-height';
 
 const Motion = motion.create(Div);
 
 const ModalProvider: FC = () => {
-  const safeInsetBottom = useSafeInsetBottom();
+  const safeHeight = useSafeHeight();
 
   const {
     content,
@@ -42,7 +42,9 @@ const ModalProvider: FC = () => {
     <AnimatePresence>
       {content && (
         <Motion
-          inset="0"
+          top="0"
+          left="0"
+          right="0"
           bg="#0007"
           width="100vw"
           height="100vh"
@@ -50,20 +52,19 @@ const ModalProvider: FC = () => {
           zIndex="999999"
           position="fixed"
           alignItems="center"
-          pb={safeInsetBottom}
           exit={{ opacity: 0 }}
           justifyContent="center"
           onClick={onHandleClose}
           backdropFilter="blur(10px)"
           animate={{ opacity: [0, 1] }}
           transition={{ duration: 0.5 }}
+          pb={`calc(100vh - ${safeHeight}px)`}
           {...overlayProps}
         >
           <Toaster />
           <Motion
             maxWidth="95vw"
-            maxHeight="95vh"
-            pb={safeInsetBottom}
+            maxHeight="95%"
             transition={{ duration: 0.5, delay: 0.2 }}
             animate={{ y: ['200vh', '0vh'], scale: [0.5, 1] }}
             {...containerProps}

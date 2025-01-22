@@ -8,14 +8,7 @@ import { SOCIAL_ITEMS } from './footer.data';
 import FooterSocialItem from './footer-social-item';
 
 const Footer: FC = () => (
-  <HtmlFooter
-    bottom="0"
-    bg="#00000033"
-    position="sticky"
-    p={['1.5rem', '2rem']}
-    backdropFilter="blur(40px)"
-    pb="env(safe-area-inset-bottom)"
-  >
+  <HtmlFooter bg="#00000033" p={['1.5rem', '2rem']} backdropFilter="blur(40px)">
     <Div
       mx="auto"
       display="flex"

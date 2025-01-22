@@ -6,18 +6,11 @@ import Footer from './footer';
 import Header from './header';
 
 const Layout: FC<PropsWithChildren> = ({ children }) => (
-  <Div
-    height="100vh"
-    display="flex"
-    flexDirection="column"
-    pb="env(safe-area-inset-bottom)"
-  >
+  <Div display="flex" flexDirection="column">
     <ModalProvider />
     <Header />
-    <Main flex="1">
-      {children}
-      <Footer />
-    </Main>
+    <Main flex="1">{children}</Main>
+    <Footer />
   </Div>
 );
 
