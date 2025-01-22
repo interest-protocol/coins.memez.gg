@@ -65,6 +65,8 @@ const MigrateCoinSelector: FC = () => {
             bg="#393838"
             display="flex"
             cursor="pointer"
+            alignItems="center"
+            borderRadius="0.5rem"
             border="1px solid transparent"
             nHover={{ borderColor: '#F5B722' }}
             onClick={() => {
@@ -81,18 +83,25 @@ const MigrateCoinSelector: FC = () => {
                 FixedPointMath.toNumber(BigNumber(supply), decimals)
               );
             }}
-            alignItems="center"
-            borderRadius="0.5rem"
           >
             <Img
               alt={name}
               width="2rem"
               height="2rem"
-              src={iconUrl ?? '/default-image.webp'}
+              src={iconUrl || '/default-image.webp'}
             />
             <Div flex="1">
-              <H4>{name}</H4>
-              <P opacity="0.6">{symbol}</P>
+              <H4 width="12ch" textOverflow="ellipsis" whiteSpace="nowrap">
+                {name}
+              </H4>
+              <P
+                width="16ch"
+                opacity="0.6"
+                whiteSpace="nowrap"
+                textOverflow="ellipsis"
+              >
+                {symbol}
+              </P>
             </Div>
             <Radio active={type === formType} />
           </Div>
