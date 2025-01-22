@@ -30,12 +30,17 @@ const CoinEditButton: FC<CoinEditFormProps> = ({ coin, editable }) => {
       'noreferrer'
     );
 
+  const disabled =
+    !editable ||
+    (coin.name === name &&
+      coin.symbol === symbol &&
+      coin.description === description &&
+      coin.iconUrl === image);
+
   const handleEdit = async () => {
     const isValid = await trigger();
 
-    if (!isValid) return;
-
-    if (!editable) return;
+    if (!isValid || disabled) return;
 
     try {
       setLoading(true);
@@ -91,13 +96,6 @@ const CoinEditButton: FC<CoinEditFormProps> = ({ coin, editable }) => {
       setLoading(false);
     }
   };
-
-  const disabled =
-    !editable ||
-    (coin.name === name &&
-      coin.symbol === symbol &&
-      coin.description === description &&
-      coin.iconUrl === image);
 
   return (
     <WalletGuardedButton onClick={handleEdit} disabled={disabled}>
