@@ -45,21 +45,21 @@ const ModalProvider: FC = () => {
           height="100vh"
           display="flex"
           zIndex="999999"
-          position="absolute"
+          position="sticky"
           alignItems="center"
           exit={{ opacity: 0 }}
           justifyContent="center"
           onClick={onHandleClose}
           backdropFilter="blur(10px)"
-          transition={{ duration: 0.5 }}
-          pb="env(safe-area-inset-bottom)"
           animate={{ opacity: [0, 1] }}
+          transition={{ duration: 0.5 }}
           {...overlayProps}
         >
           <Toaster />
           <Motion
             maxWidth="95vw"
             maxHeight="95vh"
+            pb="env(safe-area-inset-bottom)"
             transition={{ duration: 0.5, delay: 0.2 }}
             animate={{
               y: ['200vh', '0vh'],

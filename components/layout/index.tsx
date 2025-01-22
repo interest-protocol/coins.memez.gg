@@ -13,10 +13,10 @@ const Layout: FC<PropsWithChildren> = ({ children }) => (
     flexDirection="column"
     pb="env(safe-area-inset-bottom)"
   >
+    <ModalProvider />
     <Header />
     <Main flex="1">{children}</Main>
     <Footer />
-    <ModalProvider />
   </Div>
 );
 
