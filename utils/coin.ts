@@ -30,12 +30,8 @@ export const fetchCoinMetadata: FetchCoinMetadata = async (types) => {
   const uniqueTypes = Array.from(new Set(types));
 
   const metadata = await fetch(
-    `https://coin-metadata-api-testnet-production.up.railway.app/api/v1/fetch-coins?coinTypes=${uniqueTypes}`,
-    {
-      headers: {
-        network: 'sui',
-      },
-    }
+    `${process.env.NEXT_PUBLIC_COIN_METADATA_API}/api/v1/fetch-coins?coinTypes=${uniqueTypes}`,
+    { headers: { network: 'sui' } }
   ).then((res) => res.json());
 
   return metadata;
