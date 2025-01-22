@@ -1,5 +1,7 @@
+import { TooltipWrapper } from '@interest-protocol/ui-kit';
 import { useCurrentAccount } from '@mysten/dapp-kit';
-import { Button, Div, Img, Span } from '@stylin.js/elements';
+import { Button, Div, Img, P, Span } from '@stylin.js/elements';
+import { AnimatePresence, motion } from 'motion/react';
 import { not } from 'ramda';
 import { FC, useState } from 'react';
 
@@ -16,13 +18,15 @@ import { CoinDetailsCapabilitiesProps } from '../coin-details.types';
 import { useDestroyCap } from './coin-details-capabilities.hooks';
 import CapabilityDestroyModal from './coin-details-capability-destroy-modal';
 
+const Motion = motion.create(Div);
+
 const CoinDetailsCapabilities: FC<CoinDetailsCapabilitiesProps> = ({
   caps,
   canBurn,
   abilities,
 }) => {
-  const { setContent, onClose } = useModal();
   const destroyCap = useDestroyCap();
+  const { setContent, onClose } = useModal();
   const currentAccount = useCurrentAccount();
   const { dialog, handleClose } = useDialog();
   const getExplorerLink = useGetExplorerUrl();
@@ -105,83 +109,117 @@ const CoinDetailsCapabilities: FC<CoinDetailsCapabilitiesProps> = ({
     );
 
   return (
-    <Div display="flex" gap="0.5rem">
-      {(canBurn || abilities?.[Abilities.Burn]) && (
-        <Tag
-          hexColor="#FF562C"
-          onClick={
-            managing && hasBurnCap
-              ? onDestroyCap(caps.burnCap!, Abilities.Burn)
-              : undefined
-          }
-        >
-          Burn
-          {managing && hasBurnCap && (
-            <TimesSVG width="100%" maxWidth="1.25rem" maxHeight="1.25rem" />
-          )}
-        </Tag>
-      )}
-      {abilities?.[Abilities.Mint] && (
-        <Tag
-          hexColor="#95CB34"
-          onClick={
-            managing && hasMintCap
-              ? onDestroyCap(caps.mintCap!, Abilities.Mint)
-              : undefined
-          }
-        >
-          Mint
-          {managing && hasMintCap && (
-            <TimesSVG width="100%" maxWidth="1.25rem" maxHeight="1.25rem" />
-          )}
-        </Tag>
-      )}
-      {abilities?.[Abilities.Edit] && (
-        <Tag
-          hexColor="#D0D0D0"
-          onClick={
-            managing && hasEditCap
-              ? onDestroyCap(caps.metadataCap!, Abilities.Edit)
-              : undefined
-          }
-        >
-          Edit
-          {managing && hasEditCap && (
-            <TimesSVG width="100%" maxWidth="1.25rem" maxHeight="1.25rem" />
-          )}
-        </Tag>
-      )}
-      {hasAdminCap && (
-        <Button
-          all="unset"
-          px="1rem"
-          py="0.5rem"
-          bg="#F5B722"
-          display="flex"
-          color="#000000"
-          cursor="pointer"
-          alignItems="center"
-          borderRadius="1.5rem"
-          justifyContent="center"
-          onClick={() => setManaging(not)}
-        >
-          <Span
-            display="flex"
-            alignItems="center"
-            justifyContent="center"
-            transformOrigin="center center"
-            transition="transform 300ms linear"
-            nHover={{ transform: 'rotate(180deg)' }}
+    <Motion display="flex" alignItems="center" flexDirection="column">
+      <Div display="flex" gap="0.5rem">
+        {(canBurn || abilities?.[Abilities.Burn]) && (
+          <Tag
+            hexColor="#FF562C"
+            onClick={
+              managing && hasBurnCap
+                ? onDestroyCap(caps.burnCap!, Abilities.Burn)
+                : undefined
+            }
           >
-            {managing ? (
+            Burn
+            {managing && hasBurnCap && (
               <TimesSVG width="100%" maxWidth="1.25rem" maxHeight="1.25rem" />
-            ) : (
-              <GearSVG width="100%" maxWidth="1rem" maxHeight="1rem" />
             )}
-          </Span>
-        </Button>
-      )}
-    </Div>
+          </Tag>
+        )}
+        {abilities?.[Abilities.Mint] && (
+          <Tag
+            hexColor="#95CB34"
+            onClick={
+              managing && hasMintCap
+                ? onDestroyCap(caps.mintCap!, Abilities.Mint)
+                : undefined
+            }
+          >
+            Mint
+            {managing && hasMintCap && (
+              <TimesSVG width="100%" maxWidth="1.25rem" maxHeight="1.25rem" />
+            )}
+          </Tag>
+        )}
+        {abilities?.[Abilities.Edit] && (
+          <Tag
+            hexColor="#D0D0D0"
+            onClick={
+              managing && hasEditCap
+                ? onDestroyCap(caps.metadataCap!, Abilities.Edit)
+                : undefined
+            }
+          >
+            Edit
+            {managing && hasEditCap && (
+              <TimesSVG width="100%" maxWidth="1.25rem" maxHeight="1.25rem" />
+            )}
+          </Tag>
+        )}
+        {hasAdminCap && (
+          <TooltipWrapper
+            bg="#111"
+            tooltipPosition="top"
+            tooltipContent="Revoke"
+          >
+            <Button
+              all="unset"
+              px="1rem"
+              py="0.5rem"
+              bg="#F5B722"
+              display="flex"
+              color="#000000"
+              cursor="pointer"
+              alignItems="center"
+              borderRadius="1.5rem"
+              justifyContent="center"
+              onClick={() => setManaging(not)}
+            >
+              <Span
+                display="flex"
+                alignItems="center"
+                justifyContent="center"
+                transformOrigin="center center"
+                transition="transform 300ms linear"
+                nHover={{ transform: 'rotate(180deg)' }}
+              >
+                {managing ? (
+                  <TimesSVG
+                    width="100%"
+                    maxWidth="1.25rem"
+                    maxHeight="1.25rem"
+                  />
+                ) : (
+                  <GearSVG width="100%" maxWidth="1rem" maxHeight="1rem" />
+                )}
+              </Span>
+            </Button>
+          </TooltipWrapper>
+        )}
+      </Div>
+      <AnimatePresence>
+        {managing && (
+          <Motion
+            mt="0.75rem"
+            transition={{ ease: 'linear' }}
+            exit={{ height: 0, scaleY: 0, opacity: 0 }}
+            animate={{ scaleY: [0, 1], height: [0, 'auto'], opacity: [0, 1] }}
+          >
+            <P
+              px="0.5rem"
+              py="0.25rem"
+              bg="#FF47471A"
+              color="#FF4747"
+              overflow="hidden"
+              border="1px solid"
+              borderRadius="0.5rem"
+            >
+              You are revoking features
+            </P>
+          </Motion>
+        )}
+      </AnimatePresence>
+    </Motion>
   );
 };
 

@@ -34,9 +34,7 @@ const CoinBurn: FC = () => {
   });
 
   const { balance } = useCoinBalance(coin?.type);
-  const { abilities } = useCoinsAbilities({
-    burnCap: coin?.burnCap,
-  });
+  const { abilities } = useCoinsAbilities({ burnCap: coin?.burnCap });
 
   if (loading) return <CoinModalLoading />;
 

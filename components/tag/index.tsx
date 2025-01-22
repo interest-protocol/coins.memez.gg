@@ -24,7 +24,6 @@ const Tag: FC<PropsWithChildren<TagProps>> = ({
     cursor={onClick ? 'pointer' : 'unset'}
     py={['0.25rem', '0.25rem', '0.375rem']}
     {...(!!onClick && {
-      whileHover: { scale: 1.05 },
       animate: { rotate: ['1deg', '-1deg'] },
       transition: {
         ease: 'linear',
