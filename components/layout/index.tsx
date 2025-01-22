@@ -7,16 +7,17 @@ import Header from './header';
 
 const Layout: FC<PropsWithChildren> = ({ children }) => (
   <Div
+    height="100vh"
     display="flex"
-    minHeight="100vh"
-    position="relative"
     flexDirection="column"
     pb="env(safe-area-inset-bottom)"
   >
     <ModalProvider />
     <Header />
-    <Main flex="1">{children}</Main>
-    <Footer />
+    <Main flex="1">
+      {children}
+      <Footer />
+    </Main>
   </Div>
 );
 
