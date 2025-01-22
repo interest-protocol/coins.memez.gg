@@ -11,7 +11,9 @@ const Footer: FC = () => (
   <HtmlFooter bg="#00000033" backdropFilter="blur(40px)" p={['1.5rem', '2rem']}>
     <Div
       mx="auto"
+      bottom="0"
       display="flex"
+      position="sticky"
       maxWidth="79.75rem"
       alignItems="center"
       justifyContent="space-between"

@@ -65,10 +65,7 @@ const ModalProvider: FC = () => {
             maxHeight="95vh"
             pb={safeInsetBottom}
             transition={{ duration: 0.5, delay: 0.2 }}
-            animate={{
-              y: ['200vh', '0vh'],
-              scale: [0.5, 1],
-            }}
+            animate={{ y: ['200vh', '0vh'], scale: [0.5, 1] }}
             {...containerProps}
             onClick={(e) => e.stopPropagation()}
           >
