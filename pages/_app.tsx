@@ -2,6 +2,7 @@ import { ApolloProvider } from '@apollo/client';
 import { Global } from '@emotion/react';
 import type { AppProps } from 'next/app';
 import dynamic from 'next/dynamic';
+import Head from 'next/head';
 import { Toaster } from 'react-hot-toast';
 
 import { graphQLClient } from '@/api';
@@ -12,13 +13,21 @@ const Web3Provider = dynamic(import('@/components/web3-provider'), {
 });
 
 const App = ({ Component, pageProps }: AppProps) => (
-  <ApolloProvider client={graphQLClient}>
-    <Web3Provider>
-      <Toaster />
-      <Global styles={GlobalStyles} />
-      <Component {...pageProps} />
-    </Web3Provider>
-  </ApolloProvider>
+  <>
+    <Head>
+      <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=5, minimum-scale=1, viewport-fit=cover"
+      />
+    </Head>
+    <ApolloProvider client={graphQLClient}>
+      <Web3Provider>
+        <Toaster />
+        <Global styles={GlobalStyles} />
+        <Component {...pageProps} />
+      </Web3Provider>
+    </ApolloProvider>
+  </>
 );
 
 export default App;

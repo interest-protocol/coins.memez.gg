@@ -53,6 +53,7 @@ const ModalProvider: FC = () => {
           backdropFilter="blur(10px)"
           animate={{ opacity: [0, 1] }}
           transition={{ duration: 0.5 }}
+          pb="env(safe-area-inset-bottom)"
           {...overlayProps}
         >
           <Toaster />
