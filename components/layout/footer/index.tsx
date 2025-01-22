@@ -8,7 +8,7 @@ import { SOCIAL_ITEMS } from './footer.data';
 import FooterSocialItem from './footer-social-item';
 
 const Footer: FC = () => (
-  <HtmlFooter bg="#00000033" backdropFilter="blur(40px)" p={['1.5rem', '2rem']}>
+  <HtmlFooter bg="#00000033" p={['1.5rem', '2rem']} backdropFilter="blur(40px)">
     <Div
       mx="auto"
       display="flex"

@@ -5,10 +5,13 @@ import { Toaster } from 'react-hot-toast';
 
 import useEventListener from '@/hooks/use-event-listener';
 import { useModal } from '@/hooks/use-modal';
+import { useSafeHeight } from '@/hooks/use-safe-height';
 
 const Motion = motion.create(Div);
 
 const ModalProvider: FC = () => {
+  const safeHeight = useSafeHeight();
+
   const {
     content,
     onClose,
@@ -51,9 +54,9 @@ const ModalProvider: FC = () => {
           justifyContent="center"
           onClick={onHandleClose}
           backdropFilter="blur(10px)"
-          transition={{ duration: 0.5 }}
-          pb="env(safe-area-inset-bottom)"
           animate={{ opacity: [0, 1] }}
+          transition={{ duration: 0.5 }}
+          pb={`calc(100vh - ${safeHeight}px)`}
           {...overlayProps}
         >
           <Toaster />
@@ -61,10 +64,7 @@ const ModalProvider: FC = () => {
             maxWidth="95vw"
             maxHeight="95vh"
             transition={{ duration: 0.5, delay: 0.2 }}
-            animate={{
-              y: ['200vh', '0vh'],
-              scale: [0.5, 1],
-            }}
+            animate={{ y: ['200vh', '0vh'], scale: [0.5, 1] }}
             {...containerProps}
             onClick={(e) => e.stopPropagation()}
           >
