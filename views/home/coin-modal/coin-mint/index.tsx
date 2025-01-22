@@ -75,6 +75,14 @@ const CoinMint: FC = () => {
                       )
                     )
                   : '--'}{' '}
+              </Span>
+              <Span
+                maxWidth="10ch"
+                color="#F5B722"
+                overflow="hidden"
+                whiteSpace="nowrap"
+                textOverflow="ellipsis"
+              >
                 {coin.symbol}
               </Span>
             </Div>

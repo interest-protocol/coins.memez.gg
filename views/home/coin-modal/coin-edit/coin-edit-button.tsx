@@ -1,6 +1,6 @@
 import { Img } from '@stylin.js/elements';
 import { FC, useState } from 'react';
-import { useFormContext } from 'react-hook-form';
+import { useFormContext, useWatch } from 'react-hook-form';
 
 import { LoaderSVG } from '@/components/svg';
 import WalletGuardedButton from '@/components/wallet-guarded-button';
@@ -16,7 +16,12 @@ const CoinEditButton: FC<CoinEditFormProps> = ({ coin, editable }) => {
   const getExplorerLink = useGetExplorerUrl();
   const { dialog, handleClose } = useDialog();
   const [loading, setLoading] = useState(false);
-  const { trigger } = useFormContext<IEditForm>();
+  const { trigger, control } = useFormContext<IEditForm>();
+
+  const [name, symbol, description, image] = useWatch({
+    control,
+    name: ['name', 'symbol', 'description', 'imageUrl'],
+  });
 
   const goToTx = (tx: string) =>
     window.open(
@@ -25,12 +30,17 @@ const CoinEditButton: FC<CoinEditFormProps> = ({ coin, editable }) => {
       'noreferrer'
     );
 
+  const disabled =
+    !editable ||
+    (coin.name === name &&
+      coin.symbol === symbol &&
+      coin.description === description &&
+      coin.iconUrl === image);
+
   const handleEdit = async () => {
     const isValid = await trigger();
 
-    if (!isValid) return;
-
-    if (!editable) return;
+    if (!isValid || disabled) return;
 
     try {
       setLoading(true);
@@ -88,7 +98,7 @@ const CoinEditButton: FC<CoinEditFormProps> = ({ coin, editable }) => {
   };
 
   return (
-    <WalletGuardedButton onClick={handleEdit} disabled={!editable}>
+    <WalletGuardedButton onClick={handleEdit} disabled={disabled}>
       {loading ? 'Updating...' : !editable ? 'Unable to update' : 'Update'}
     </WalletGuardedButton>
   );
