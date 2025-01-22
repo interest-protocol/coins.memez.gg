@@ -4,6 +4,7 @@ import { FC } from 'react';
 import { useLocalStorage } from 'usehooks-ts';
 
 import { ChevronRightSVG } from '@/components/svg';
+import { Network } from '@/constants';
 import { RPC, RPC_DISPLAY, RPC_STORAGE_KEY, RPCs } from '@/constants/rpc';
 import { useNetwork } from '@/hooks/use-network';
 
@@ -27,7 +28,12 @@ const SettingsMenuRPC: FC<SettingsMenusProps> = ({ show, toggleShow }) => {
         onClick={toggleShow}
         justifyContent="space-between"
       >
-        <P>RPCs {network && <Small opacity="0.6">(testnet)</Small>}</P>
+        <P>
+          RPCs
+          {network === Network.TESTNET && (
+            <Small opacity="0.6"> (testnet)</Small>
+          )}
+        </P>
         <Motion animate={{ rotate: show ? '90deg' : '0deg' }}>
           <ChevronRightSVG
             width="100%"
