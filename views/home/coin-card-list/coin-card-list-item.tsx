@@ -37,12 +37,8 @@ const CoinCard: FC<Coin> = ({
 
     setContent(<CoinModal />, {
       onClose: () => updateURL(pathname),
-      overlayProps: {
-        alignItems: ['flex-end', 'center'],
-      },
-      containerProps: {
-        maxWidth: ['100vw', '95vw'],
-      },
+      containerProps: { maxWidth: ['100vw', '95vw'] },
+      overlayProps: { alignItems: ['flex-end', 'center'] },
     });
   };
 

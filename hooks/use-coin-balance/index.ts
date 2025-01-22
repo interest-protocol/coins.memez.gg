@@ -7,12 +7,14 @@ export const useCoinBalance = (type?: string, account?: string) => {
   const currentAccount = useCurrentAccount();
 
   const { data, ...props } = useSWR(
-    [type, account ?? currentAccount?.address, 'useCoinBalance'],
+    [type, account ?? currentAccount?.address, useCoinBalance.name],
     async () => {
-      if (!type || !currentAccount || !account) return;
+      const address = account || currentAccount?.address;
+
+      if (!type || !address) return;
 
       const balance = await client.getBalance({
-        owner: account ?? currentAccount.address,
+        owner: address,
         coinType: type,
       });
 

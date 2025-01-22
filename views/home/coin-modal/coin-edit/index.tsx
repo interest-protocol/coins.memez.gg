@@ -17,9 +17,7 @@ const CreateEdit: FC = () => {
 
   const { coin, loading } = useCoin(params?.get('coin') ?? undefined);
 
-  const { abilities } = useCoinsAbilities({
-    metadataCap: coin?.metadataCap,
-  });
+  const { abilities } = useCoinsAbilities({ metadataCap: coin?.metadataCap });
 
   if (loading) return <CoinModalLoading />;
 
