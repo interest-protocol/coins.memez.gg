@@ -65,6 +65,8 @@ const MigrateCoinSelector: FC = () => {
             bg="#393838"
             display="flex"
             cursor="pointer"
+            alignItems="center"
+            borderRadius="0.5rem"
             border="1px solid transparent"
             nHover={{ borderColor: '#F5B722' }}
             onClick={() => {
@@ -81,8 +83,6 @@ const MigrateCoinSelector: FC = () => {
                 FixedPointMath.toNumber(BigNumber(supply), decimals)
               );
             }}
-            alignItems="center"
-            borderRadius="0.5rem"
           >
             <Img
               alt={name}
