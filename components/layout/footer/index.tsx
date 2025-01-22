@@ -12,8 +12,9 @@ const Footer: FC = () => (
     bottom="0"
     bg="#00000033"
     position="sticky"
-    backdropFilter="blur(40px)"
     p={['1.5rem', '2rem']}
+    backdropFilter="blur(40px)"
+    pb="env(safe-area-inset-bottom)"
   >
     <Div
       mx="auto"
