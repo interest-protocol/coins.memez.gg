@@ -4,6 +4,10 @@ import { FC } from 'react';
 const SEO: FC = () => (
   <Head>
     <title>MEMEZ.GG</title>
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
     <meta name="description" content="Sui IPX Coin Standard explorer" />
     <link rel="canonical" href="https://coins.memez.gg" />
     <meta property="twitter:card" content="summary_large_image" />

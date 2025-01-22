@@ -64,7 +64,7 @@ const ModalProvider: FC = () => {
           <Toaster />
           <Motion
             maxWidth="95vw"
-            maxHeight="95%"
+            maxHeight="95vh"
             transition={{ duration: 0.5, delay: 0.2 }}
             animate={{ y: ['200vh', '0vh'], scale: [0.5, 1] }}
             {...containerProps}
