@@ -19,6 +19,6 @@ export const SOCIAL_ITEMS = [
   {
     name: 'X',
     Icon: XSVG,
-    link: 'https://x.com/IPXSui',
+    link: 'https://x.com/memezdotgg',
   },
 ];
