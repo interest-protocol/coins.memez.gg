@@ -101,7 +101,7 @@ const MigrateCoinButton: FC = () => {
     );
 
   const handleNext = async () => {
-    if (Step.Features === step) {
+    if ([Step.Features, Step.Select].includes(step)) {
       const isValid = await trigger(STEP_VALIDATION[step]);
 
       if (!isValid) return;
