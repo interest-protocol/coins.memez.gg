@@ -52,6 +52,7 @@ const NewCoinModal: FC = () => {
         <Button
           all="unset"
           px="1rem"
+          bg="#fff1"
           gap="0.5rem"
           py="1.125rem"
           display="flex"
@@ -61,6 +62,7 @@ const NewCoinModal: FC = () => {
           borderRadius="0.825rem"
           onClick={() => setMode(NewCoinMode.Create)}
           color={mode === NewCoinMode.Create ? '#F5B722' : undefined}
+          borderColor={mode === NewCoinMode.Create ? '#F5B722' : 'transparent'}
         >
           <Radio active={mode === NewCoinMode.Create} />
           Create token
@@ -79,6 +81,7 @@ const NewCoinModal: FC = () => {
         <Button
           all="unset"
           px="1rem"
+          bg="#fff1"
           gap="0.5rem"
           py="1.125rem"
           display="flex"
@@ -88,6 +91,7 @@ const NewCoinModal: FC = () => {
           borderRadius="0.825rem"
           onClick={() => setMode(NewCoinMode.Migrate)}
           color={mode === NewCoinMode.Migrate ? '#F5B722' : undefined}
+          borderColor={mode === NewCoinMode.Migrate ? '#F5B722' : 'transparent'}
         >
           <Radio active={mode === NewCoinMode.Migrate} />
           Migrate
