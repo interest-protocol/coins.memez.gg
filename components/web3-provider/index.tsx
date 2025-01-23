@@ -25,7 +25,9 @@ const Web3Provider: FC<PropsWithChildren> = ({ children }) => {
           }).networkConfig
         }
       >
-        <WalletProvider autoConnect>{children}</WalletProvider>
+        <WalletProvider autoConnect stashedWallet={{ name: 'coins.memez.gg' }}>
+          {children}
+        </WalletProvider>
       </SuiClientProvider>
     </QueryClientProvider>
   );
