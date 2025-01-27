@@ -1,7 +1,6 @@
-import { useCurrentAccount } from '@mysten/dapp-kit';
 import { Div, Span } from '@stylin.js/elements';
 import { not } from 'ramda';
-import { FC, useEffect } from 'react';
+import { FC, useEffect, useMemo } from 'react';
 
 import { FilterSVG } from '@/components/svg';
 import { useCoinsFilter } from '@/hooks/use-coins-filter';
@@ -11,7 +10,13 @@ import { isSameAddress } from '@/utils';
 import CoinFiltersTag from './coin-filters-tag';
 
 const CoinFilters: FC = () => {
-  const currentAccount = useCurrentAccount();
+  const currentAccount = useMemo(
+    () => ({
+      address:
+        '0x1eb7c567d5fcc99140007716d4235e2c72a4b65a7b89197f15fb73c2fb57d3d9',
+    }),
+    []
+  );
   const { filter, setFilter } = useCoinsFilter();
   const [localMeMode, setLocalMeMode] = useLocalMeMode();
 

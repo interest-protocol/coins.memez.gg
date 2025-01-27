@@ -1,5 +1,4 @@
-import { useCurrentAccount } from '@mysten/dapp-kit';
-import { FC } from 'react';
+import { FC, useMemo } from 'react';
 
 import useCoin from '@/hooks/use-coin';
 import { useCoinsAbilities } from '@/hooks/use-coins-abilities';
@@ -12,7 +11,13 @@ import CoinModalNotFound from '../coin-modal-not-found';
 import CoinEditForm from './coin-edit-form';
 
 const CreateEdit: FC = () => {
-  const account = useCurrentAccount();
+  const account = useMemo(
+    () => ({
+      address:
+        '0x1eb7c567d5fcc99140007716d4235e2c72a4b65a7b89197f15fb73c2fb57d3d9',
+    }),
+    []
+  );
   const params = useURIStaticParams();
 
   const { coin, loading } = useCoin(params?.get('coin') ?? undefined);

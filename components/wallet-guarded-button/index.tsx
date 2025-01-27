@@ -1,11 +1,16 @@
-import { useCurrentAccount } from '@mysten/dapp-kit';
 import { Button, ButtonProps } from '@stylin.js/elements';
-import { FC } from 'react';
+import { FC, useMemo } from 'react';
 
 import { useConnectModal } from '../wallet-button/wallet-button.hook';
 
 const WalletGuardedButton: FC<ButtonProps> = (props) => {
-  const currentAccount = useCurrentAccount();
+  const currentAccount = useMemo(
+    () => ({
+      address:
+        '0x1eb7c567d5fcc99140007716d4235e2c72a4b65a7b89197f15fb73c2fb57d3d9',
+    }),
+    []
+  );
   const handleOpenConnectModal = useConnectModal();
 
   if (!currentAccount)

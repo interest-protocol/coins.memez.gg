@@ -1,12 +1,9 @@
-import {
-  useCurrentAccount,
-  useSignTransaction,
-  useSuiClient,
-} from '@mysten/dapp-kit';
+import { useSignTransaction, useSuiClient } from '@mysten/dapp-kit';
 import {
   Transaction,
   TransactionObjectArgument,
 } from '@mysten/sui/transactions';
+import { useMemo } from 'react';
 import { useFormContext } from 'react-hook-form';
 import invariant from 'tiny-invariant';
 
@@ -21,7 +18,14 @@ import { IMigrateCoin } from '../migrate-coin.types';
 export const useMigrateCoin = () => {
   const network = useNetwork();
   const suiClient = useSuiClient();
-  const currentAccount = useCurrentAccount();
+
+  const currentAccount = useMemo(
+    () => ({
+      address:
+        '0x1eb7c567d5fcc99140007716d4235e2c72a4b65a7b89197f15fb73c2fb57d3d9',
+    }),
+    []
+  );
   const signTransaction = useSignTransaction();
   const { getValues } = useFormContext<IMigrateCoin>();
 

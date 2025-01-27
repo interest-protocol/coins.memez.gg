@@ -1,9 +1,6 @@
-import {
-  useCurrentAccount,
-  useSignTransaction,
-  useSuiClient,
-} from '@mysten/dapp-kit';
+import { useSignTransaction, useSuiClient } from '@mysten/dapp-kit';
 import { Transaction } from '@mysten/sui/transactions';
+import { useMemo } from 'react';
 import invariant from 'tiny-invariant';
 
 import { IPX_COIN_STANDARD } from '@/constants';
@@ -20,7 +17,13 @@ const moveFnName = {
 export const useDestroyCap = () => {
   const network = useNetwork();
   const suiClient = useSuiClient();
-  const currentAccount = useCurrentAccount();
+  const currentAccount = useMemo(
+    () => ({
+      address:
+        '0x1eb7c567d5fcc99140007716d4235e2c72a4b65a7b89197f15fb73c2fb57d3d9',
+    }),
+    []
+  );
   const signTransaction = useSignTransaction();
 
   return async (cap: string, ability: Abilities) => {

@@ -1,9 +1,8 @@
 import { TooltipWrapper } from '@interest-protocol/ui-kit';
-import { useCurrentAccount } from '@mysten/dapp-kit';
 import { Button, Div, Img, P, Span } from '@stylin.js/elements';
 import { AnimatePresence, motion } from 'motion/react';
 import { not } from 'ramda';
-import { FC, useState } from 'react';
+import { FC, useMemo, useState } from 'react';
 
 import { GearSVG, LoaderSVG, TimesSVG } from '@/components/svg';
 import Tag from '@/components/tag';
@@ -27,7 +26,14 @@ const CoinDetailsCapabilities: FC<CoinDetailsCapabilitiesProps> = ({
 }) => {
   const destroyCap = useDestroyCap();
   const { setContent, onClose } = useModal();
-  const currentAccount = useCurrentAccount();
+
+  const currentAccount = useMemo(
+    () => ({
+      address:
+        '0x1eb7c567d5fcc99140007716d4235e2c72a4b65a7b89197f15fb73c2fb57d3d9',
+    }),
+    []
+  );
   const { dialog, handleClose } = useDialog();
   const getExplorerLink = useGetExplorerUrl();
   const [managing, setManaging] = useState(false);
