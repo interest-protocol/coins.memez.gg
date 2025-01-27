@@ -4,7 +4,6 @@ import useSWR from 'swr';
 
 export const useCoinBalance = (type?: string, account?: string) => {
   const client = useSuiClient();
-
   const currentAccount = useCurrentAccount();
 
   const { data, ...props } = useSWR(

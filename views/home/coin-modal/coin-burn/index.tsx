@@ -26,7 +26,6 @@ import CoinBurnPreview from './coin-burn-preview';
 const CoinBurn: FC = () => {
   const params = useURIStaticParams();
   const account = useCurrentAccount();
-
   const { coin, loading } = useCoin(params?.get('coin') ?? undefined);
   const form = useForm<IBurnForm>({
     defaultValues: {

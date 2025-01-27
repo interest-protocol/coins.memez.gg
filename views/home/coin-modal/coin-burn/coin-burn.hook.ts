@@ -24,7 +24,6 @@ import { IBurnForm } from './coin-burn.types';
 export const useBurn = ({ burnCap, ipxTreasuryCap, type, decimals }: Coin) => {
   const network = useNetwork();
   const client = useSuiClient();
-
   const currentAccount = useCurrentAccount();
   const signTransaction = useSignTransaction();
   const publicBurn = burnCap === ipxTreasuryCap;
