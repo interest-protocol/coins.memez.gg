@@ -1,8 +1,9 @@
+import { useCurrentAccount } from '@mysten/dapp-kit';
 import { formatAddress } from '@mysten/sui/utils';
 import { Button, Div, DivElementProps } from '@stylin.js/elements';
 import { AnimatePresence } from 'motion/react';
 import { not } from 'ramda';
-import { FC, useMemo, useState } from 'react';
+import { FC, useState } from 'react';
 
 import { UserSVG } from '@/components/svg';
 import useClickOutsideListenerRef from '@/hooks/use-click-outside-listener-ref';
@@ -11,13 +12,7 @@ import ConnectedWallets from './connected-wallets';
 
 const ConnectedModal: FC = () => {
   const [show, setShow] = useState(false);
-  const currentAccount = useMemo(
-    () => ({
-      address:
-        '0x1eb7c567d5fcc99140007716d4235e2c72a4b65a7b89197f15fb73c2fb57d3d9',
-    }),
-    []
-  );
+  const currentAccount = useCurrentAccount();
 
   const menuRef = useClickOutsideListenerRef<DivElementProps>(() =>
     setShow(false)

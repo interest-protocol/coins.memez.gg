@@ -1,6 +1,5 @@
-import { useSuiClient } from '@mysten/dapp-kit';
+import { useCurrentAccount, useSuiClient } from '@mysten/dapp-kit';
 import { keys, path } from 'ramda';
-import { useMemo } from 'react';
 import useSWR from 'swr';
 
 import { TREASURY_STRUCT_TYPE } from '@/constants';
@@ -8,13 +7,7 @@ import { fetchCoinMetadata } from '@/utils';
 
 export const useOwnedCoins = (cursor?: string | null) => {
   const client = useSuiClient();
-  const currentAccount = useMemo(
-    () => ({
-      address:
-        '0x1eb7c567d5fcc99140007716d4235e2c72a4b65a7b89197f15fb73c2fb57d3d9',
-    }),
-    []
-  );
+  const currentAccount = useCurrentAccount();
 
   return useSWR([currentAccount?.address], async () => {
     if (!currentAccount) return;

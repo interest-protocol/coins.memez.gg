@@ -1,6 +1,7 @@
+import { useCurrentAccount } from '@mysten/dapp-kit';
 import { Button, Div } from '@stylin.js/elements';
 import { motion } from 'motion/react';
-import { FC, useMemo } from 'react';
+import { FC } from 'react';
 
 import { WalletSVG } from '@/components/svg';
 
@@ -10,13 +11,7 @@ import { useConnectModal } from './wallet-button.hook';
 const Motion = motion(Div);
 
 const WalletButton: FC = () => {
-  const currentAccount = useMemo(
-    () => ({
-      address:
-        '0x1eb7c567d5fcc99140007716d4235e2c72a4b65a7b89197f15fb73c2fb57d3d9',
-    }),
-    []
-  );
+  const currentAccount = useCurrentAccount();
   const handleOpenConnectModal = useConnectModal();
 
   if (currentAccount) return <ConnectedModal />;

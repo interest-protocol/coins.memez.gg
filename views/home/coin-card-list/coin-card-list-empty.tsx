@@ -1,5 +1,6 @@
+import { useCurrentAccount } from '@mysten/dapp-kit';
 import { Div, H3, Img, P } from '@stylin.js/elements';
-import { FC, useMemo } from 'react';
+import { FC } from 'react';
 
 import WalletGuardedButton from '@/components/wallet-guarded-button';
 import { useLocalMeMode } from '@/hooks/use-local-me-mode';
@@ -7,13 +8,7 @@ import { useLocalMeMode } from '@/hooks/use-local-me-mode';
 const CoinCardListEmpty: FC = () => {
   const [localMeMode] = useLocalMeMode();
 
-  const currentAccount = useMemo(
-    () => ({
-      address:
-        '0x1eb7c567d5fcc99140007716d4235e2c72a4b65a7b89197f15fb73c2fb57d3d9',
-    }),
-    []
-  );
+  const currentAccount = useCurrentAccount();
 
   return (
     <Div

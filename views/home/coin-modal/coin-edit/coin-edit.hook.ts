@@ -1,7 +1,10 @@
-import { useSignTransaction, useSuiClient } from '@mysten/dapp-kit';
+import {
+  useCurrentAccount,
+  useSignTransaction,
+  useSuiClient,
+} from '@mysten/dapp-kit';
 import { Transaction } from '@mysten/sui/transactions';
 import { normalizeStructTag } from '@mysten/sui/utils';
-import { useMemo } from 'react';
 import { useFormContext } from 'react-hook-form';
 import invariant from 'tiny-invariant';
 
@@ -21,14 +24,7 @@ export const useEdit = ({
 }: Coin) => {
   const network = useNetwork();
   const client = useSuiClient();
-
-  const currentAccount = useMemo(
-    () => ({
-      address:
-        '0x1eb7c567d5fcc99140007716d4235e2c72a4b65a7b89197f15fb73c2fb57d3d9',
-    }),
-    []
-  );
+  const currentAccount = useCurrentAccount();
   const signTransaction = useSignTransaction();
   const { getValues } = useFormContext<IEditForm>();
 

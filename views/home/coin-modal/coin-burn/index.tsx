@@ -1,5 +1,6 @@
+import { useCurrentAccount } from '@mysten/dapp-kit';
 import { Button, Div, Span } from '@stylin.js/elements';
-import { FC, useMemo } from 'react';
+import { FC } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 
 import Tag from '@/components/tag';
@@ -24,14 +25,8 @@ import CoinBurnPreview from './coin-burn-preview';
 
 const CoinBurn: FC = () => {
   const params = useURIStaticParams();
+  const account = useCurrentAccount();
 
-  const account = useMemo(
-    () => ({
-      address:
-        '0x1eb7c567d5fcc99140007716d4235e2c72a4b65a7b89197f15fb73c2fb57d3d9',
-    }),
-    []
-  );
   const { coin, loading } = useCoin(params?.get('coin') ?? undefined);
   const form = useForm<IBurnForm>({
     defaultValues: {
