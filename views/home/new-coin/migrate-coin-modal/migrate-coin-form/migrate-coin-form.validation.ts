@@ -6,6 +6,10 @@ import { FixedPointMath } from '@/lib/entities/fixed-point-math';
 import { IMigrateCoin } from '../migrate-coin.types';
 
 export const migrateCoinSchema = yup.object<IMigrateCoin>({
+  name: yup.string().required(),
+  symbol: yup.string().required(),
+  description: yup.string(),
+  imageUrl: yup.string(),
   maxSupply: yup
     .string()
     .test(
