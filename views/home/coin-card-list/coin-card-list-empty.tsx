@@ -7,6 +7,7 @@ import { useLocalMeMode } from '@/hooks/use-local-me-mode';
 
 const CoinCardListEmpty: FC = () => {
   const [localMeMode] = useLocalMeMode();
+
   const currentAccount = useCurrentAccount();
 
   return (

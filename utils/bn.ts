@@ -34,3 +34,5 @@ export function isBigNumberish(value: any): value is BigNumberish {
       typeof value === 'bigint')
   );
 }
+
+export const isNumeric = (bn: BigNumber) => !Number.isNaN(bn.toNumber());

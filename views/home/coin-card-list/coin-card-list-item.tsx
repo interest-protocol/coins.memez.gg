@@ -10,7 +10,7 @@ import { useCoinsAbilities } from '@/hooks/use-coins-abilities';
 import { useModal } from '@/hooks/use-modal';
 import { Abilities, Coin, CoinModalMode } from '@/interface';
 import { FixedPointMath } from '@/lib/entities/fixed-point-math';
-import { commaSeparatedNumber } from '@/utils';
+import { commaSeparatedNumber, isNumeric } from '@/utils';
 import { updateURL } from '@/utils/url';
 
 import CoinModal from '../coin-modal';
@@ -111,8 +111,17 @@ const CoinCard: FC<Coin> = ({
         <Div display="flex" justifyContent="space-between">
           <P color="#FFFFFFA3">My Balance</P>
           <P color="#F5B722" textAlign="right">
-            {totalSupply && balance
-              ? `${FixedPointMath.toNumber(balance.times(100).div(totalSupply).decimalPlaces(2), 0)}%`
+            {totalSupply &&
+            isNumeric(totalSupply) &&
+            balance &&
+            isNumeric(balance)
+              ? `${FixedPointMath.toNumber(
+                  balance
+                    .times(100)
+                    .div(totalSupply.isZero() ? 1 : totalSupply)
+                    .decimalPlaces(2),
+                  0
+                )}%`
               : '--'}
           </P>
         </Div>
