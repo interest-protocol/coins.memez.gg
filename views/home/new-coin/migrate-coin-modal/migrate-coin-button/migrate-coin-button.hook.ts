@@ -67,7 +67,7 @@ export const useMigrateCoin = () => {
     if (mintable) {
       if (Number(maxSupply))
         tx.moveCall({
-          target: `${IPX_COIN_STANDARD[network]}::ipx_coin_standard::new`,
+          target: `${IPX_COIN_STANDARD[network]}::ipx_coin_standard::set_maximum_supply`,
           arguments: [
             witness,
             tx.pure.u64(
