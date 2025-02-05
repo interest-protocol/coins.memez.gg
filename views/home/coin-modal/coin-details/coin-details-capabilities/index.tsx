@@ -22,6 +22,7 @@ const Motion = motion.create(Div);
 
 const CoinDetailsCapabilities: FC<CoinDetailsCapabilitiesProps> = ({
   caps,
+  loading,
   canBurn,
   abilities,
 }) => {
@@ -111,9 +112,10 @@ const CoinDetailsCapabilities: FC<CoinDetailsCapabilitiesProps> = ({
   return (
     <Motion display="flex" alignItems="center" flexDirection="column">
       <Div display="flex" gap="0.5rem">
-        {(canBurn || abilities?.[Abilities.Burn]) && (
+        {(canBurn || abilities?.[Abilities.Burn] || loading) && (
           <Tag
             hexColor="#FF562C"
+            loading={canBurn ? false : loading}
             onClick={
               managing && hasBurnCap
                 ? onDestroyCap(caps.burnCap!, Abilities.Burn)
@@ -126,9 +128,10 @@ const CoinDetailsCapabilities: FC<CoinDetailsCapabilitiesProps> = ({
             )}
           </Tag>
         )}
-        {abilities?.[Abilities.Mint] && (
+        {(abilities?.[Abilities.Mint] || loading) && (
           <Tag
             hexColor="#95CB34"
+            loading={loading}
             onClick={
               managing && hasMintCap
                 ? onDestroyCap(caps.mintCap!, Abilities.Mint)
@@ -141,8 +144,9 @@ const CoinDetailsCapabilities: FC<CoinDetailsCapabilitiesProps> = ({
             )}
           </Tag>
         )}
-        {abilities?.[Abilities.Edit] && (
+        {(abilities?.[Abilities.Edit] || loading) && (
           <Tag
+            loading={loading}
             hexColor="#D0D0D0"
             onClick={
               managing && hasEditCap

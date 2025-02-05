@@ -1,3 +1,5 @@
+import 'react-loading-skeleton/dist/skeleton.css';
+
 import { ApolloProvider } from '@apollo/client';
 import { Global } from '@emotion/react';
 import type { AppProps } from 'next/app';

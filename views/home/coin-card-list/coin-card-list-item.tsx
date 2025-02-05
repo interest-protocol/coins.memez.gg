@@ -30,7 +30,11 @@ const CoinCard: FC<Coin> = ({
   const { balance } = useCoinBalance(type);
   const { totalSupply } = useCoinSupply(type);
   const [isImageError, setIsImageError] = useState(false);
-  const { abilities } = useCoinsAbilities({ burnCap, mintCap, metadataCap });
+  const { abilities, isLoading: loading } = useCoinsAbilities({
+    burnCap,
+    mintCap,
+    metadataCap,
+  });
 
   const handleClick = () => {
     updateURL(`${pathname}?coin=${type}&mode=${CoinModalMode.Details}`);
@@ -62,11 +66,21 @@ const CoinCard: FC<Coin> = ({
         justifyContent="space-between"
       >
         <Div display="flex" gap="0.5rem">
-          {(canBurn || abilities?.[Abilities.Burn]) && (
-            <Tag hexColor="#FF562C">Burn</Tag>
+          {(canBurn || abilities?.[Abilities.Burn] || loading) && (
+            <Tag hexColor="#FF562C" loading={canBurn ? false : loading}>
+              Burn
+            </Tag>
           )}
-          {abilities?.[Abilities.Mint] && <Tag hexColor="#95CB34">Mint</Tag>}
-          {abilities?.[Abilities.Edit] && <Tag hexColor="#D0D0D0">Edit</Tag>}
+          {(abilities?.[Abilities.Mint] || loading) && (
+            <Tag hexColor="#95CB34" loading={loading}>
+              Mint
+            </Tag>
+          )}
+          {(abilities?.[Abilities.Edit] || loading) && (
+            <Tag hexColor="#D0D0D0" loading={loading}>
+              Edit
+            </Tag>
+          )}
         </Div>
       </Div>
       <Div

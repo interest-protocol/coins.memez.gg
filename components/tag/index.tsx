@@ -1,6 +1,7 @@
 import { Div } from '@stylin.js/elements';
 import { motion } from 'motion/react';
 import { FC, PropsWithChildren } from 'react';
+import Skeleton from 'react-loading-skeleton';
 
 import { TagProps } from './tag.types';
 
@@ -8,6 +9,7 @@ const Motion = motion.create(Div);
 
 const Tag: FC<PropsWithChildren<TagProps>> = ({
   onClick,
+  loading,
   hexColor,
   children,
 }) => (
@@ -32,7 +34,15 @@ const Tag: FC<PropsWithChildren<TagProps>> = ({
       },
     })}
   >
-    {children}
+    {loading ? (
+      <Skeleton
+        width="3rem"
+        baseColor={`${hexColor}1A`}
+        highlightColor={hexColor}
+      />
+    ) : (
+      children
+    )}
   </Motion>
 );
 
