@@ -7,11 +7,14 @@ import {
   Transaction,
   TransactionObjectArgument,
 } from '@mysten/sui/transactions';
+import { SUI_TYPE_ARG } from '@mysten/sui/utils';
+import BigNumber from 'bignumber.js';
 import { useFormContext } from 'react-hook-form';
 import invariant from 'tiny-invariant';
 
 import { FEE_ADDRESS, MIGRATE_COIN_FEE } from '@/constants/fee';
 import { IPX_COIN_STANDARD } from '@/constants/package';
+import { useCoinBalance } from '@/hooks/use-coin-balance';
 import { useNetwork } from '@/hooks/use-network';
 import { FixedPointMath } from '@/lib/entities/fixed-point-math';
 import { signAndExecute, throwTXIfNotSuccessful, waitForTx } from '@/utils';
@@ -24,9 +27,15 @@ export const useMigrateCoin = () => {
   const currentAccount = useCurrentAccount();
   const signTransaction = useSignTransaction();
   const { getValues } = useFormContext<IMigrateCoin>();
+  const { balance } = useCoinBalance(SUI_TYPE_ARG, currentAccount?.address);
 
   return async () => {
     invariant(currentAccount, 'You must be logged in');
+    invariant(balance, 'Loading your balance, try again');
+    invariant(
+      balance.gt(BigNumber(2 * 10 ** 9)),
+      'You do not have enough Sui, please charge your wallet and try again'
+    );
 
     const [
       type,

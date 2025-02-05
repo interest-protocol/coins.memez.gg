@@ -4,12 +4,14 @@ import {
   useSuiClient,
 } from '@mysten/dapp-kit';
 import { Transaction } from '@mysten/sui/transactions';
-import { normalizeSuiAddress } from '@mysten/sui/utils';
+import { normalizeSuiAddress, SUI_TYPE_ARG } from '@mysten/sui/utils';
+import BigNumber from 'bignumber.js';
 import { useFormContext } from 'react-hook-form';
 import invariant from 'tiny-invariant';
 
 import { CREATE_COIN_FEE, FEE_ADDRESS } from '@/constants/fee';
 import { IPX_COIN_STANDARD } from '@/constants/package';
+import { useCoinBalance } from '@/hooks/use-coin-balance';
 import { useNetwork } from '@/hooks/use-network';
 import { FixedPointMath } from '@/lib/entities/fixed-point-math';
 import { getBytecode } from '@/lib/move-template/coin-v2';
@@ -24,9 +26,15 @@ export const useCreateCoin = () => {
   const currentAccount = useCurrentAccount();
   const signTransaction = useSignTransaction();
   const { getValues } = useFormContext<ICreateCoin>();
+  const { balance } = useCoinBalance(SUI_TYPE_ARG, currentAccount?.address);
 
   return async () => {
     invariant(currentAccount, 'You must be logged in');
+    invariant(balance, 'Loading your balance, try again');
+    invariant(
+      balance.gt(BigNumber(2 * 10 ** 9)),
+      'You do not have enough Sui, please charge your wallet and try again'
+    );
 
     const coin = getValues();
 

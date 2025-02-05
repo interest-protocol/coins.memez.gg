@@ -65,9 +65,10 @@ const CreateCoinButton: FC = () => {
         error: (e) => ({
           title: 'Oops! You could not create!',
           button: { label: 'Try again', onClick: handleCreateCoin },
-          message:
+          message: (
             e.message ||
-            'Try to refresh the page, double-check your inputs, or reconnect your wallet.',
+            'Try to refresh the page, double-check your inputs, or reconnect your wallet.'
+          ).replace('Invariant failed: ', ''),
           ghostButton: {
             label: 'Do not want to try again!',
             onClick: handleClose,
