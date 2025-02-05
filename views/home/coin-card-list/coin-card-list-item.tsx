@@ -1,8 +1,10 @@
 import { formatAddress } from '@mysten/sui/utils';
 import { Article, Button, Div, H3, Img, P } from '@stylin.js/elements';
 import { useRouter } from 'next/router';
-import { FC, useState } from 'react';
+import { FC, MouseEventHandler, useState } from 'react';
+import toast, { Toaster } from 'react-hot-toast';
 
+import { CopySVG } from '@/components/svg';
 import Tag from '@/components/tag';
 import { useCoinBalance } from '@/hooks/use-coin-balance';
 import { useCoinSupply } from '@/hooks/use-coin-supply';
@@ -36,6 +38,15 @@ const CoinCard: FC<Coin> = ({
     metadataCap,
   });
 
+  const handleCopy =
+    (information: string): MouseEventHandler<HTMLDivElement> =>
+    (e) => {
+      e.stopPropagation();
+
+      window.navigator.clipboard.writeText(information);
+      toast.success('Copied!');
+    };
+
   const handleClick = () => {
     updateURL(`${pathname}?coin=${type}&mode=${CoinModalMode.Details}`);
 
@@ -59,6 +70,7 @@ const CoinCard: FC<Coin> = ({
       nHover={{ borderColor: '#F5B72280' }}
       borderRadius={['1rem', '1rem', '1.825rem']}
     >
+      <Toaster />
       <Div
         height="2rem"
         display="flex"
@@ -100,7 +112,23 @@ const CoinCard: FC<Coin> = ({
           src={isImageError ? '/default-image.webp' : iconUrl}
         />
         <H3 fontSize="1.25rem">{name}</H3>
-        <P color="#9B9CA1">{formatAddress(type)}</P>
+        <Div
+          gap="0.25rem"
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
+        >
+          <P color="#9B9CA1">{formatAddress(type)}</P>
+          <Div
+            display="flex"
+            color="#9B9CA1"
+            alignItems="center"
+            onClick={handleCopy(type)}
+            nHover={{ color: '#F5B722 ' }}
+          >
+            <CopySVG maxWidth="1rem" maxHeight="1rem" width="100%" />
+          </Div>
+        </Div>
       </Div>
       <Div
         p="1rem"
