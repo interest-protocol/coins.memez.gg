@@ -8,7 +8,6 @@ import {
   TransactionObjectArgument,
 } from '@mysten/sui/transactions';
 import { SUI_TYPE_ARG } from '@mysten/sui/utils';
-import BigNumber from 'bignumber.js';
 import { useFormContext } from 'react-hook-form';
 import invariant from 'tiny-invariant';
 
@@ -33,7 +32,7 @@ export const useMigrateCoin = () => {
     invariant(currentAccount, 'You must be logged in');
     invariant(balance, 'Loading your balance, try again');
     invariant(
-      balance.gt(BigNumber(2 * 10 ** 9)),
+      balance.gt(FixedPointMath.toBigNumber(MIGRATE_COIN_FEE)),
       'You do not have enough Sui, please charge your wallet and try again'
     );
 
