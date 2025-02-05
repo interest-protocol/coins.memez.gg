@@ -31,7 +31,7 @@ export const useCreateCoin = () => {
     invariant(currentAccount, 'You must be logged in');
     invariant(balance, 'Loading your balance, try again');
     invariant(
-      balance.gt(FixedPointMath.toBigNumber(CREATE_COIN_FEE)),
+      balance.gt(FixedPointMath.toBigNumber(CREATE_COIN_FEE + 1)),
       'You do not have enough Sui, please charge your wallet and try again'
     );
 
