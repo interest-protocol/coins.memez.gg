@@ -68,8 +68,10 @@ const CardList: FC = () => {
               pageRangeDisplayed={2}
               renderOnZeroPageCount={null}
               containerClassName="paginate"
-              pageCount={Math.ceil(totalItems / limit)}
               onPageChange={({ selected }) => setPage(selected + 1)}
+              pageCount={
+                totalItems <= limit ? 0 : Math.ceil(totalItems / limit)
+              }
               previousLabel={
                 <ChevronLeftSVG width="100%" maxWidth="1rem" maxHeight="1rem" />
               }
