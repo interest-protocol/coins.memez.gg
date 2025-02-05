@@ -37,7 +37,7 @@ const CoinDetails: FC = () => {
   };
 
   const { totalSupply } = useCoinSupply(coin?.type);
-  const { abilities } = useCoinsAbilities(abilityCaps);
+  const { abilities, isLoading } = useCoinsAbilities(abilityCaps);
 
   if (loading) return <CoinModalLoading />;
 
@@ -89,6 +89,7 @@ const CoinDetails: FC = () => {
 
         <CoinDetailsCapabilities
           caps={abilityCaps}
+          loading={isLoading}
           abilities={abilities}
           canBurn={coin.canBurn}
         />
