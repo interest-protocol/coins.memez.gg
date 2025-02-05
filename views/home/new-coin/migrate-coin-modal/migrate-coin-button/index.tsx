@@ -62,29 +62,26 @@ const MigrateCoinButton: FC = () => {
           message:
             'Accept the transaction on the your wallet pop up, we will let you know when it is done.',
         }),
-        error: (e) => {
-          console.log({ e });
-
-          return {
-            title: 'Oops! You could not migrate!',
-            button: { label: 'Try again', onClick: handleMigrateCoin },
-            message:
-              e.message ||
-              'Try to refresh the page, double-check your inputs, or reconnect your wallet.',
-            ghostButton: {
-              label: 'Do not want to try again!',
-              onClick: handleClose,
-            },
-            Icon: (
-              <Img
-                alt="Error"
-                width="7rem"
-                height="7rem"
-                src="/dialogs/error.png"
-              />
-            ),
-          };
-        },
+        error: (e) => ({
+          title: 'Oops! You could not migrate!',
+          button: { label: 'Try again', onClick: handleMigrateCoin },
+          message: (
+            e.message ||
+            'Try to refresh the page, double-check your inputs, or reconnect your wallet.'
+          ).replace('Invariant failed: ', ''),
+          ghostButton: {
+            label: 'Do not want to try again!',
+            onClick: handleClose,
+          },
+          Icon: (
+            <Img
+              alt="Error"
+              width="7rem"
+              height="7rem"
+              src="/dialogs/error.png"
+            />
+          ),
+        }),
       });
     } finally {
       setLoading(false);

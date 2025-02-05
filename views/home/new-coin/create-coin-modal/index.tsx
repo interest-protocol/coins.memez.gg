@@ -18,6 +18,8 @@ const CreateCoinModal: FC = () => {
     resolver: yupResolver(createCoinSchema),
     defaultValues: {
       step: Step.Details,
+      decimals: 9,
+      supply: 100000000,
       features: {
         burnable: false,
         canBurn: false,
