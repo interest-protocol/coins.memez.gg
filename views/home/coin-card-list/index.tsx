@@ -30,7 +30,7 @@ const CardList: FC = () => {
         <H3 fontSize={['1.5rem', '1.5rem', '1.5rem', '1.25rem']}>
           {items && totalItems ? (
             <>
-              {items?.length} coins of {totalItems}
+              {(page - 1) * limit + 1} - {items?.length} coins of {totalItems}
             </>
           ) : (
             'No Results'
