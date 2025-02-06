@@ -52,8 +52,17 @@ const SearchResultsItem: FC<SearchingCoin> = ({
         src={imageError ? '/default-image.webp' : iconUrl}
       />
       <Div color="#9B9CA1">
-        <H4 fontWeight="400">{name}</H4>
-        <P>{symbol}</P>
+        <H4
+          maxWidth="16ch"
+          fontWeight="400"
+          overflow="hidden"
+          textOverflow="ellipsis"
+        >
+          {name}
+        </H4>
+        <P maxWidth="12ch" overflow="hidden" textOverflow="ellipsis">
+          {symbol}
+        </P>
       </Div>
     </Article>
   );
