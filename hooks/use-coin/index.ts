@@ -27,7 +27,7 @@ const useCoin = (type?: string): UseCoinResponse => {
       }
     `,
     {
-      variables: { type },
+      variables: { type: type ?? '0x2::sui::SUI' },
     }
   );
 
