@@ -17,6 +17,8 @@ const CardList: FC = () => {
   const { page, setPage, limit } = useCoinsFilter();
   const { totalItems, items, loading } = useCoins();
 
+  const listFirstPosition = (page - 1) * limit;
+
   return (
     <Div>
       <CoinModalInitManager />
@@ -30,7 +32,8 @@ const CardList: FC = () => {
         <H3 fontSize={['1.5rem', '1.5rem', '1.5rem', '1.25rem']}>
           {items && totalItems ? (
             <>
-              {(page - 1) * limit + 1} - {items?.length} coins of {totalItems}
+              {listFirstPosition + 1} - {listFirstPosition + items?.length}{' '}
+              coins of {totalItems}
             </>
           ) : (
             'No Results'
