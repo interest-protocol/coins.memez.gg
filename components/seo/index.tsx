@@ -6,7 +6,7 @@ const SEO: FC = () => (
     <title>MEMEZ.GG</title>
     <meta
       name="viewport"
-      content="width=device-width, initial-scale=1, maximum-scale=5, minimum-scale=1, viewport-fit=cover"
+      content="width=device-width, initial-scale=1, maximum-scale=5, minimum-scale=1, viewport-fit=cover, interactive-widget=resizes-content"
     />
     <meta name="description" content="Sui IPX Coin Standard explorer" />
     <link rel="canonical" href="https://coins.memez.gg" />

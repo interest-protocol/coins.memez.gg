@@ -5,12 +5,14 @@ import { FormProvider, useForm } from 'react-hook-form';
 import { SearchSVG } from '@/components/svg';
 import TextField from '@/components/text-field';
 import { useModal } from '@/hooks/use-modal';
+import { useSafeHeight } from '@/hooks/use-safe-height';
 
 import { ISearchForm } from './search-modal.types';
 import SearchResults from './search-results';
 
 const SearchModal: FC = () => {
   const { handleClose } = useModal();
+  const safeHeight = useSafeHeight();
   const form = useForm<ISearchForm>();
 
   return (
@@ -19,7 +21,12 @@ const SearchModal: FC = () => {
         display="flex"
         onClick={handleClose}
         flexDirection="column"
-        height={['90vh', '90vh', '90vh', '70vh']}
+        height={[
+          `calc(${safeHeight}px - 10vh)`,
+          `calc(${safeHeight}px - 10vh)`,
+          `calc(${safeHeight}px - 10vh)`,
+          '70vh',
+        ]}
       >
         <Div
           bg="#1A1A1A"

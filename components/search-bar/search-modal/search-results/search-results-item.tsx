@@ -24,6 +24,8 @@ const SearchResultsItem: FC<SearchingCoin> = ({
 
     setContent(<CoinModal />, {
       onClose: () => updateURL(pathname),
+      containerProps: { maxWidth: ['100vw', '95vw'] },
+      overlayProps: { alignItems: ['flex-end', 'center'] },
     });
   };
 
