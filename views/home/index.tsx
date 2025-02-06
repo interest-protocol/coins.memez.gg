@@ -24,7 +24,7 @@ const Home: FC = () => (
       flexDirection="column"
       p={['1.5rem', '1.5rem', '1.5rem', '2rem']}
     >
-      <Div p={['1rem', '1.5rem']} bg="#3C3C3C80" borderRadius="1rem">
+      <Div bg="#3C3C3C80" borderRadius="1rem" p={['1rem', '1.5rem']}>
         <CardList />
       </Div>
     </Section>

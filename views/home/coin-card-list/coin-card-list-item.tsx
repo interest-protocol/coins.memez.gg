@@ -67,118 +67,124 @@ const CoinCard: FC<Coin> = ({
       onClick={handleClick}
       flexDirection="column"
       border="1px solid transparent"
+      justifyContent="space-between"
       nHover={{ borderColor: '#F5B72280' }}
       borderRadius={['1rem', '1rem', '1.825rem']}
     >
       <Toaster />
-      <Div
-        height="2rem"
-        display="flex"
-        alignItems="center"
-        justifyContent="space-between"
-      >
-        <Div display="flex" gap="0.5rem">
-          {(canBurn || abilities?.[Abilities.Burn] || loading) && (
-            <Tag hexColor="#FF562C" loading={canBurn ? false : loading}>
-              Burn
-            </Tag>
-          )}
-          {(abilities?.[Abilities.Mint] || loading) && (
-            <Tag hexColor="#95CB34" loading={loading}>
-              Mint
-            </Tag>
-          )}
-          {(abilities?.[Abilities.Edit] || loading) && (
-            <Tag hexColor="#D0D0D0" loading={loading}>
-              Edit
-            </Tag>
-          )}
-        </Div>
-      </Div>
-      <Div
-        gap="0.5rem"
-        display="flex"
-        textAlign="center"
-        alignItems="center"
-        flexDirection="column"
-      >
-        <Img
-          alt={name}
-          width="4rem"
-          height="4rem"
-          objectFit="cover"
-          borderRadius="0.5rem"
-          onError={() => setIsImageError(true)}
-          src={isImageError ? '/default-image.webp' : iconUrl}
-        />
-        <H3 fontSize="1.25rem">{name}</H3>
+      <Div display="flex" flexDirection="column" gap="1.5rem">
         <Div
-          gap="0.25rem"
+          height="2rem"
           display="flex"
           alignItems="center"
-          justifyContent="center"
+          justifyContent="space-between"
         >
-          <P color="#9B9CA1">{formatAddress(type)}</P>
+          <Div display="flex" gap="0.5rem" mx="-0.25rem">
+            {(canBurn || abilities?.[Abilities.Burn] || loading) && (
+              <Tag hexColor="#FF562C" loading={canBurn ? false : loading}>
+                Burn
+              </Tag>
+            )}
+            {(abilities?.[Abilities.Mint] || loading) && (
+              <Tag hexColor="#95CB34" loading={loading}>
+                Mint
+              </Tag>
+            )}
+            {(abilities?.[Abilities.Edit] || loading) && (
+              <Tag hexColor="#D0D0D0" loading={loading}>
+                Edit
+              </Tag>
+            )}
+          </Div>
+        </Div>
+        <Div
+          gap="0.5rem"
+          display="flex"
+          textAlign="center"
+          alignItems="center"
+          flexDirection="column"
+        >
+          <Img
+            alt={name}
+            width="4rem"
+            height="4rem"
+            objectFit="cover"
+            borderRadius="0.5rem"
+            onError={() => setIsImageError(true)}
+            src={isImageError ? '/default-image.webp' : iconUrl}
+          />
+          <H3 fontSize="1.25rem">{name}</H3>
           <Div
+            gap="0.25rem"
             display="flex"
-            color="#9B9CA1"
             alignItems="center"
-            onClick={handleCopy(type)}
-            nHover={{ color: '#F5B722 ' }}
+            justifyContent="center"
           >
-            <CopySVG maxWidth="1rem" maxHeight="1rem" width="100%" />
+            <P color="#9B9CA1">{formatAddress(type)}</P>
+            <Div
+              display="flex"
+              color="#9B9CA1"
+              alignItems="center"
+              onClick={handleCopy(type)}
+              nHover={{ color: '#F5B722 ' }}
+            >
+              <CopySVG maxWidth="1rem" maxHeight="1rem" width="100%" />
+            </Div>
           </Div>
         </Div>
       </Div>
-      <Div
-        p="1rem"
-        bg="#1A1A1A"
-        gap="0.5rem"
-        display="flex"
-        borderRadius="0.75rem"
-        flexDirection="column"
-        border="1px solid #242424"
-      >
-        <Div display="flex" justifyContent="space-between">
-          <P color="#FFFFFFA3">Supply</P>
-          <P color="#F5B722" textAlign="right">
-            {totalSupply
-              ? commaSeparatedNumber(
-                  FixedPointMath.toNumber(totalSupply, decimals)
-                )
-              : '--'}
-          </P>
+
+      <Div display="flex" flexDirection="column" gap="1.5rem">
+        <Div
+          p="1rem"
+          bg="#1A1A1A"
+          gap="0.5rem"
+          display="flex"
+          borderRadius="0.75rem"
+          flexDirection="column"
+          border="1px solid #242424"
+        >
+          <Div display="flex" justifyContent="space-between">
+            <P color="#FFFFFFA3">Supply</P>
+            <P color="#F5B722" textAlign="right">
+              {totalSupply
+                ? commaSeparatedNumber(
+                    FixedPointMath.toNumber(totalSupply, decimals)
+                  )
+                : '--'}
+            </P>
+          </Div>
+          <Div borderTop="1px solid #242424" />
+          <Div display="flex" justifyContent="space-between">
+            <P color="#FFFFFFA3">My Balance</P>
+            <P color="#F5B722" textAlign="right">
+              {totalSupply &&
+              isNumeric(totalSupply) &&
+              balance &&
+              isNumeric(balance)
+                ? `${FixedPointMath.toNumber(
+                    balance
+                      .times(100)
+                      .div(totalSupply.isZero() ? 1 : totalSupply)
+                      .decimalPlaces(2),
+                    0
+                  )}%`
+                : '--'}
+            </P>
+          </Div>
         </Div>
-        <Div borderTop="1px solid #242424" />
-        <Div display="flex" justifyContent="space-between">
-          <P color="#FFFFFFA3">My Balance</P>
-          <P color="#F5B722" textAlign="right">
-            {totalSupply &&
-            isNumeric(totalSupply) &&
-            balance &&
-            isNumeric(balance)
-              ? `${FixedPointMath.toNumber(
-                  balance
-                    .times(100)
-                    .div(totalSupply.isZero() ? 1 : totalSupply)
-                    .decimalPlaces(2),
-                  0
-                )}%`
-              : '--'}
-          </P>
-        </Div>
+        <Button
+          all="unset"
+          p="1rem"
+          bg="#F5B722"
+          px="1.25rem"
+          color="#000000"
+          textAlign="center"
+          borderRadius="1rem"
+        >
+          See more
+        </Button>
       </Div>
-      <Button
-        all="unset"
-        p="1rem"
-        bg="#F5B722"
-        px="1.25rem"
-        color="#000000"
-        textAlign="center"
-        borderRadius="1rem"
-      >
-        See more
-      </Button>
     </Article>
   );
 };
