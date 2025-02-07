@@ -5,10 +5,10 @@ import { useLocalStorage } from 'usehooks-ts';
 
 import { ChevronRightSVG } from '@/components/svg';
 import {
-  Explorer,
-  EXPLORER_DISPLAY,
-  EXPLORER_STORAGE_KEY,
-  EXPLORERS,
+  CARD_MODE_DISPLAY,
+  CARD_MODE_STORAGE_KEY,
+  CARD_MODES,
+  CardMode,
 } from '@/constants';
 
 import { SettingsMenusProps } from '../settings-menu.types';
@@ -16,10 +16,10 @@ import SettingsMenuItem from '../settings-menu-item';
 
 const Motion = motion.create(Div);
 
-const SettingsMenuExplorer: FC<SettingsMenusProps> = ({ show, toggleShow }) => {
-  const [localExplorer, setExplorer] = useLocalStorage<Explorer>(
-    EXPLORER_STORAGE_KEY,
-    Explorer.SuiVision
+const SettingsMenuCardInfo: FC<SettingsMenusProps> = ({ show, toggleShow }) => {
+  const [cardMode, setCardMode] = useLocalStorage<CardMode>(
+    CARD_MODE_STORAGE_KEY,
+    CardMode.Description
   );
 
   return (
@@ -33,7 +33,7 @@ const SettingsMenuExplorer: FC<SettingsMenusProps> = ({ show, toggleShow }) => {
         onClick={toggleShow}
         justifyContent="space-between"
       >
-        <P>Explorer</P>
+        <P>Card Display</P>
         <Motion animate={{ rotate: show ? '90deg' : '0deg' }}>
           <ChevronRightSVG
             width="100%"
@@ -54,14 +54,14 @@ const SettingsMenuExplorer: FC<SettingsMenusProps> = ({ show, toggleShow }) => {
               opacity: [0, 1, 1],
             }}
           >
-            {EXPLORERS.map((explorer, index) => (
+            {CARD_MODES.map((mode, index) => (
               <SettingsMenuItem
-                key={explorer}
-                name={explorer}
+                key={mode}
+                name={mode}
                 withBorder={!!index}
-                title={EXPLORER_DISPLAY[explorer]}
-                selected={explorer === localExplorer}
-                onSelect={() => setExplorer(explorer)}
+                selected={mode === cardMode}
+                title={CARD_MODE_DISPLAY[mode]}
+                onSelect={() => setCardMode(mode)}
               />
             ))}
           </Motion>
@@ -71,4 +71,4 @@ const SettingsMenuExplorer: FC<SettingsMenusProps> = ({ show, toggleShow }) => {
   );
 };
 
-export default SettingsMenuExplorer;
+export default SettingsMenuCardInfo;

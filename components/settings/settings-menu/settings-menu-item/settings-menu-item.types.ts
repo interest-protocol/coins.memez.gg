@@ -1,4 +1,4 @@
-export interface SettingsMenuExplorerItemProps {
+export interface SettingsMenuItemProps {
   name: string;
   title: string;
   selected: boolean;

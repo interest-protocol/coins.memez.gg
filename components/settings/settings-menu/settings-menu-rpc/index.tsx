@@ -9,7 +9,7 @@ import { RPC, RPC_DISPLAY, RPC_STORAGE_KEY, RPCs } from '@/constants/rpc';
 import { useNetwork } from '@/hooks/use-network';
 
 import { SettingsMenusProps } from '../settings-menu.types';
-import SettingsMenuRPCItem from './settings-menu-rpc-item';
+import SettingsMenuItem from '../settings-menu-item';
 
 const Motion = motion.create(Div);
 
@@ -55,7 +55,7 @@ const SettingsMenuRPC: FC<SettingsMenusProps> = ({ show, toggleShow }) => {
             }}
           >
             {RPCs.map((rpc, index) => (
-              <SettingsMenuRPCItem
+              <SettingsMenuItem
                 key={rpc}
                 name={rpc}
                 withBorder={!!index}

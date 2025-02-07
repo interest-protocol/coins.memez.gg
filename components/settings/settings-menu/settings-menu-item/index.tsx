@@ -3,9 +3,9 @@ import { memo } from 'react';
 
 import { ToggleButton } from '@/components/toggle';
 
-import { SettingsMenuExplorerItemProps } from './settings-menu-explorer.types';
+import { SettingsMenuItemProps } from './settings-menu-item.types';
 
-const SettingsMenuExplorerItem = memo<SettingsMenuExplorerItemProps>(
+const SettingsMenuItem = memo<SettingsMenuItemProps>(
   ({ name, title, selected, onSelect, withBorder }) => (
     <Div
       mx="1rem"
@@ -21,6 +21,6 @@ const SettingsMenuExplorerItem = memo<SettingsMenuExplorerItemProps>(
   )
 );
 
-SettingsMenuExplorerItem.displayName = SettingsMenuExplorerItem.name;
+SettingsMenuItem.displayName = SettingsMenuItem.name;
 
-export default SettingsMenuExplorerItem;
+export default SettingsMenuItem;
