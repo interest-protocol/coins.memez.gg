@@ -3,9 +3,11 @@ import { Article, Button, Div, H3, Img, P } from '@stylin.js/elements';
 import { useRouter } from 'next/router';
 import { FC, MouseEventHandler, useState } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
+import { useReadLocalStorage } from 'usehooks-ts';
 
 import { CopySVG } from '@/components/svg';
 import Tag from '@/components/tag';
+import { CARD_MODE_STORAGE_KEY, CardMode } from '@/constants';
 import { useCoinBalance } from '@/hooks/use-coin-balance';
 import { useCoinSupply } from '@/hooks/use-coin-supply';
 import { useCoinsAbilities } from '@/hooks/use-coins-abilities';
@@ -25,6 +27,7 @@ const CoinCard: FC<Coin> = ({
   mintCap,
   canBurn,
   decimals,
+  description,
   metadataCap,
 }) => {
   const { pathname } = useRouter();
@@ -37,6 +40,8 @@ const CoinCard: FC<Coin> = ({
     mintCap,
     metadataCap,
   });
+  const cardMode =
+    useReadLocalStorage(CARD_MODE_STORAGE_KEY) ?? CardMode.Description;
 
   const handleCopy =
     (information: string): MouseEventHandler<HTMLDivElement> =>
@@ -133,46 +138,60 @@ const CoinCard: FC<Coin> = ({
           </Div>
         </Div>
       </Div>
-
-      <Div display="flex" flexDirection="column" gap="1.5rem">
-        <Div
-          p="1rem"
-          bg="#1A1A1A"
-          gap="0.5rem"
-          display="flex"
-          borderRadius="0.75rem"
-          flexDirection="column"
-          border="1px solid #242424"
-        >
-          <Div display="flex" justifyContent="space-between">
-            <P color="#FFFFFFA3">Supply</P>
-            <P color="#F5B722" textAlign="right">
-              {totalSupply
-                ? commaSeparatedNumber(
-                    FixedPointMath.toNumber(totalSupply, decimals)
-                  )
-                : '--'}
+      <Div gap="1.5rem" display="flex" flexDirection="column">
+        {cardMode === CardMode.Description ? (
+          <Div
+            px="0.5rem"
+            py="0.5rem"
+            bg="#1A1A1A"
+            height="5.8rem"
+            borderRadius="0.75rem"
+            border="1px solid #242424"
+          >
+            <P color="#FFFFFFA3" overflowY="auto" height="100%" px="0.5rem">
+              {description}
             </P>
           </Div>
-          <Div borderTop="1px solid #242424" />
-          <Div display="flex" justifyContent="space-between">
-            <P color="#FFFFFFA3">My Balance</P>
-            <P color="#F5B722" textAlign="right">
-              {totalSupply &&
-              isNumeric(totalSupply) &&
-              balance &&
-              isNumeric(balance)
-                ? `${FixedPointMath.toNumber(
-                    balance
-                      .times(100)
-                      .div(totalSupply.isZero() ? 1 : totalSupply)
-                      .decimalPlaces(2),
-                    0
-                  )}%`
-                : '--'}
-            </P>
+        ) : (
+          <Div
+            p="1rem"
+            bg="#1A1A1A"
+            gap="0.5rem"
+            display="flex"
+            borderRadius="0.75rem"
+            flexDirection="column"
+            border="1px solid #242424"
+          >
+            <Div display="flex" justifyContent="space-between">
+              <P color="#FFFFFFA3">Supply</P>
+              <P color="#F5B722" textAlign="right">
+                {totalSupply
+                  ? commaSeparatedNumber(
+                      FixedPointMath.toNumber(totalSupply, decimals)
+                    )
+                  : '--'}
+              </P>
+            </Div>
+            <Div borderTop="1px solid #242424" />
+            <Div display="flex" justifyContent="space-between">
+              <P color="#FFFFFFA3">My Balance</P>
+              <P color="#F5B722" textAlign="right">
+                {totalSupply &&
+                isNumeric(totalSupply) &&
+                balance &&
+                isNumeric(balance)
+                  ? `${FixedPointMath.toNumber(
+                      balance
+                        .times(100)
+                        .div(totalSupply.isZero() ? 1 : totalSupply)
+                        .decimalPlaces(2),
+                      0
+                    )}%`
+                  : '--'}
+              </P>
+            </Div>
           </Div>
-        </Div>
+        )}
         <Button
           all="unset"
           p="1rem"
