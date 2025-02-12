@@ -48,9 +48,7 @@ const SearchResultsContent: FC<SearchResultsContentProps> = ({ search }) => {
       ) : (
         <Div key={unikey()} display="flex" flexDirection="column" gap="0.5rem">
           <Div color="#9B9CA1">
-            <P maxWidth="12ch" overflow="hidden" textOverflow="ellipsis">
-              No coin found...
-            </P>
+            <P>No coin found...</P>
           </Div>
         </Div>
       )}
