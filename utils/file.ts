@@ -1,7 +1,7 @@
 import Resizer from 'react-image-file-resizer';
 
-export const getBase64 = async (file: File) => {
-  const stringImage = await new Promise<string>((resolve) => {
+export const getResizedImage = async (file: File) =>
+  new Promise<File | Blob>((resolve) => {
     Resizer.imageFileResizer(
       file,
       250,
@@ -9,12 +9,7 @@ export const getBase64 = async (file: File) => {
       'JPEG',
       80,
       0,
-      (uri) => resolve(uri.toString()),
-      'base64'
+      (blob) => resolve(blob as File | Blob),
+      'blob'
     );
   });
-
-  if (stringImage.length >= 80_000) throw new Error('Image is too big');
-
-  return stringImage;
-};

@@ -1,7 +1,7 @@
 import { Div, Input, Label, P } from '@stylin.js/elements';
 import { ChangeEventHandler, DragEventHandler, FC, useState } from 'react';
 
-import { getBase64 } from '@/utils';
+import { getResizedImage } from '@/utils';
 
 import { FileUploadSVG } from '../svg';
 import { DraggableInputProps } from './draggable-input.types';
@@ -22,12 +22,23 @@ const DraggableInput: FC<DraggableInputProps> = ({
     if (!validTypes.some((type) => file.type.includes(type)))
       return onFailure?.('Make sure that you are sending a image file');
 
-    const imageBase64 = await getBase64(file).catch();
+    const form = new FormData();
 
-    if (!imageBase64)
-      return onFailure?.('Could not convert the file to base 64');
+    const resizedImage = await getResizedImage(file);
 
-    setFileUrl(imageBase64);
+    form.append('file', resizedImage, file.name);
+
+    const imageUrl = await fetch(process.env.NEXT_PUBLIC_FILE_UPLOAD_API!, {
+      method: 'POST',
+      body: form,
+    })
+      .then((res) => res.json())
+      .then((data) => data.url)
+      .catch();
+
+    if (!imageUrl) return onFailure?.('Could not convert the file to url');
+
+    setFileUrl(imageUrl);
   };
 
   const handleDropFile: DragEventHandler<HTMLDivElement> = async (e) => {
@@ -46,12 +57,23 @@ const DraggableInput: FC<DraggableInputProps> = ({
 
       if (!file) return onFailure?.('No file found');
 
-      const imageBase64 = await getBase64(file).catch();
+      const form = new FormData();
 
-      if (!imageBase64)
-        return onFailure?.('Could not convert the file to base 64');
+      const resizedImage = await getResizedImage(file);
 
-      setFileUrl(imageBase64);
+      form.append('file', resizedImage, file.name);
+
+      const imageUrl = await fetch(process.env.NEXT_PUBLIC_FILE_UPLOAD_API!, {
+        method: 'POST',
+        body: form,
+      })
+        .then((res) => res.json())
+        .then((data) => data.url)
+        .catch();
+
+      if (!imageUrl) return onFailure?.('Could not convert the file to url');
+
+      setFileUrl(imageUrl);
 
       return;
     }
@@ -63,12 +85,23 @@ const DraggableInput: FC<DraggableInputProps> = ({
     if (!file.type.includes('image/'))
       return onFailure?.('Make sure that you are sending a image file');
 
-    const imageBase64 = await getBase64(file).catch();
+    const form = new FormData();
 
-    if (!imageBase64)
-      return onFailure?.('Could not convert the file to base 64');
+    const resizedImage = await getResizedImage(file);
 
-    setFileUrl(imageBase64);
+    form.append('file', resizedImage, file.name);
+
+    const imageUrl = await fetch(process.env.NEXT_PUBLIC_FILE_UPLOAD_API!, {
+      method: 'POST',
+      body: form,
+    })
+      .then((res) => res.json())
+      .then((data) => data.url)
+      .catch();
+
+    if (!imageUrl) return onFailure?.('Could not convert the file to url');
+
+    setFileUrl(imageUrl);
   };
 
   return (
