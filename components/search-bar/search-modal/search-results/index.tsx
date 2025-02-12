@@ -47,8 +47,13 @@ const SearchResults: FC = () => {
   const { control } = useFormContext<ISearchForm>();
 
   const [search] = useDebounceValue(useWatch({ control, name: 'search' }), 300);
+  const { itemsPerField } = useSearchCoins(search);
+
+  console.log('Search value _>', search);
 
   if (!search) return null;
+  if (!itemsPerField || itemsPerField.length === 0)
+    return <H4 p="1rem">Oops! There is no result for your search</H4>;
 
   return <SearchResultsContent search={search} />;
 };
