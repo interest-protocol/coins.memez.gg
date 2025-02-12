@@ -4,6 +4,7 @@ import { useFormContext, useWatch } from 'react-hook-form';
 import unikey from 'unikey';
 import { useDebounceValue } from 'usehooks-ts';
 
+import { LoaderSVG } from '@/components/svg';
 import { useSearchCoins } from '@/hooks/use-search-coins';
 
 import { ISearchForm, SearchResultsContentProps } from '../search-modal.types';
@@ -12,7 +13,20 @@ import SearchResultsItem from './search-results-item';
 const SearchResultsContent: FC<SearchResultsContentProps> = ({ search }) => {
   const { itemsPerField } = useSearchCoins(search);
 
-  if (!itemsPerField) return null;
+  if (!itemsPerField)
+    return (
+      <Div
+        flex="1"
+        display="flex"
+        maxHeight="100%"
+        alignItems="center"
+        justifyContent="center"
+        pt="1rem"
+        pb="2rem"
+      >
+        <LoaderSVG />
+      </Div>
+    );
 
   return (
     <Div
