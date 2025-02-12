@@ -30,5 +30,4 @@ const Home: FC = () => (
     </Section>
   </Layout>
 );
-
 export default Home;
