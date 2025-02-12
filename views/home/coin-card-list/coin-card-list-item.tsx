@@ -77,14 +77,14 @@ const CoinCard: FC<Coin> = ({
       borderRadius={['1rem', '1rem', '1.825rem']}
     >
       <Toaster />
-      <Div gap="1.5rem" display="flex" flexDirection="column">
+      <Div display="flex" flexDirection="column" gap="1.5rem">
         <Div
           height="2rem"
           display="flex"
           alignItems="center"
           justifyContent="space-between"
         >
-          <Div display="flex" gap="0.5rem">
+          <Div display="flex" gap="0.5rem" mx="-0.25rem">
             {(canBurn || abilities?.[Abilities.Burn] || loading) && (
               <Tag hexColor="#FF562C" loading={canBurn ? false : loading}>
                 Burn
