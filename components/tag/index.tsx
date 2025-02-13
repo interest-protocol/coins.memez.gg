@@ -36,7 +36,7 @@ const Tag: FC<PropsWithChildren<TagProps>> = ({
   >
     {loading ? (
       <Skeleton
-        width="4rem"
+        width="2.6rem"
         baseColor={`${hexColor}1A`}
         highlightColor={hexColor}
       />
