@@ -5,9 +5,10 @@ import { useFormContext, useWatch } from 'react-hook-form';
 import { LoaderSVG } from '@/components/svg';
 import WalletGuardedButton from '@/components/wallet-guarded-button';
 import { ExplorerMode } from '@/constants';
-import { MIGRATE_COIN_FEE } from '@/constants/fee';
+import { MIGRATE_COIN_FEE_MAP } from '@/constants/fee';
 import { useDialog } from '@/hooks/use-dialog';
 import { useGetExplorerUrl } from '@/hooks/use-get-explorer-url';
+import { useNetwork } from '@/hooks/use-network';
 
 import { NEXT_BUTTON_TEXT, NEXT_STEP } from '../migrate-coin.data';
 import { IMigrateCoin, Step } from '../migrate-coin.types';
@@ -20,6 +21,7 @@ const MigrateCoinButton: FC = () => {
   const { dialog, handleClose } = useDialog();
   const [loading, setLoading] = useState(false);
   const { control, setValue, trigger } = useFormContext<IMigrateCoin>();
+  const network = useNetwork();
 
   const step = useWatch({ control, name: 'step' });
 
@@ -93,7 +95,7 @@ const MigrateCoinButton: FC = () => {
       <WalletGuardedButton onClick={handleMigrateCoin}>
         {loading
           ? 'Migrating Coin...'
-          : `Migrate Coin for ${MIGRATE_COIN_FEE} SUI`}
+          : `Migrate Coin for ${MIGRATE_COIN_FEE_MAP[network]} SUI`}
       </WalletGuardedButton>
     );
 
