@@ -10,8 +10,6 @@ import {
 
 import { Fraction } from './fraction';
 
-const MAX_NUMBER_INPUT_VALUE = 9000000000000000;
-
 const ONE_COIN = new BigNumber(1000000000);
 
 const parse = (_value: BigNumberish) => {
@@ -61,9 +59,9 @@ export class FixedPointMath {
 
     const x = Math.floor(+value * factor);
 
-    return parseBigNumberish(
-      x >= MAX_NUMBER_INPUT_VALUE ? MAX_NUMBER_INPUT_VALUE : x
-    ).multipliedBy(new BigNumber(10).pow(decimals - significant));
+    return parseBigNumberish(x).multipliedBy(
+      new BigNumber(10).pow(decimals - significant)
+    );
   }
 
   public static toNumber(
