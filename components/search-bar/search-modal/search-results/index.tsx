@@ -1,9 +1,10 @@
-import { Div, H4 } from '@stylin.js/elements';
+import { Div, H4, P } from '@stylin.js/elements';
 import { FC } from 'react';
 import { useFormContext, useWatch } from 'react-hook-form';
 import unikey from 'unikey';
 import { useDebounceValue } from 'usehooks-ts';
 
+import { LoaderSVG } from '@/components/svg';
 import { useSearchCoins } from '@/hooks/use-search-coins';
 
 import { ISearchForm, SearchResultsContentProps } from '../search-modal.types';
@@ -12,7 +13,20 @@ import SearchResultsItem from './search-results-item';
 const SearchResultsContent: FC<SearchResultsContentProps> = ({ search }) => {
   const { itemsPerField } = useSearchCoins(search);
 
-  if (!itemsPerField) return null;
+  if (!itemsPerField)
+    return (
+      <Div
+        flex="1"
+        display="flex"
+        maxHeight="100%"
+        alignItems="center"
+        justifyContent="center"
+        pt="1rem"
+        pb="2rem"
+      >
+        <LoaderSVG />
+      </Div>
+    );
 
   return (
     <Div
@@ -27,18 +41,31 @@ const SearchResultsContent: FC<SearchResultsContentProps> = ({ search }) => {
       borderTop="1px solid #F5B722"
       onClick={(e) => e.stopPropagation()}
     >
-      {itemsPerField.map(({ coins, field }) => (
+      {itemsPerField.length ? (
+        itemsPerField.map(({ coins, field }) => (
+          <Div
+            key={unikey()}
+            display="flex"
+            flexDirection="column"
+            gap="0.5rem"
+          >
+            <H4 color="#F5B722" ml="0.5rem">
+              {field}
+            </H4>
+            <Div display="flex" flexDirection="column" gap="0.5rem">
+              {coins.map((coin) => (
+                <SearchResultsItem key={unikey()} {...coin} />
+              ))}
+            </Div>
+          </Div>
+        ))
+      ) : (
         <Div key={unikey()} display="flex" flexDirection="column" gap="0.5rem">
-          <H4 color="#F5B722" ml="0.5rem">
-            {field}
-          </H4>
-          <Div display="flex" flexDirection="column" gap="0.5rem">
-            {coins.map((coin) => (
-              <SearchResultsItem key={unikey()} {...coin} />
-            ))}
+          <Div color="#9B9CA1">
+            <P>No coin found...</P>
           </Div>
         </Div>
-      ))}
+      )}
     </Div>
   );
 };

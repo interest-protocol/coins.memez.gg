@@ -11,7 +11,7 @@ import { SUI_TYPE_ARG } from '@mysten/sui/utils';
 import { useFormContext } from 'react-hook-form';
 import invariant from 'tiny-invariant';
 
-import { FEE_ADDRESS, MIGRATE_COIN_FEE } from '@/constants/fee';
+import { FEE_ADDRESS, MIGRATE_COIN_FEE_MAP } from '@/constants/fee';
 import { IPX_COIN_STANDARD } from '@/constants/package';
 import { useCoinBalance } from '@/hooks/use-coin-balance';
 import { useNetwork } from '@/hooks/use-network';
@@ -32,7 +32,7 @@ export const useMigrateCoin = () => {
     invariant(currentAccount, 'You must be logged in');
     invariant(balance, 'Loading your balance, try again');
     invariant(
-      balance.gt(FixedPointMath.toBigNumber(MIGRATE_COIN_FEE)),
+      balance.gt(FixedPointMath.toBigNumber(MIGRATE_COIN_FEE_MAP[network])),
       'You do not have enough Sui, please charge your wallet and try again'
     );
 
@@ -61,7 +61,9 @@ export const useMigrateCoin = () => {
     const tx = new Transaction();
 
     const fee = tx.splitCoins(tx.gas, [
-      tx.pure.u64(FixedPointMath.toBigNumber(MIGRATE_COIN_FEE).toString()),
+      tx.pure.u64(
+        FixedPointMath.toBigNumber(MIGRATE_COIN_FEE_MAP[network]).toString()
+      ),
     ]);
 
     const [ipxTreasuryCap, witness] = tx.moveCall({

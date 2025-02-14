@@ -5,9 +5,10 @@ import { useFormContext, useWatch } from 'react-hook-form';
 import { LoaderSVG } from '@/components/svg';
 import WalletGuardedButton from '@/components/wallet-guarded-button';
 import { ExplorerMode } from '@/constants';
-import { CREATE_COIN_FEE } from '@/constants/fee';
+import { CREATE_COIN_FEE_MAP } from '@/constants/fee';
 import { useDialog } from '@/hooks/use-dialog';
 import { useGetExplorerUrl } from '@/hooks/use-get-explorer-url';
+import { useNetwork } from '@/hooks/use-network';
 
 import { NEXT_BUTTON_TEXT, NEXT_STEP } from '../create-coin.data';
 import { ICreateCoin, Step } from '../create-coin.types';
@@ -20,6 +21,7 @@ const CreateCoinButton: FC = () => {
   const { dialog, handleClose } = useDialog();
   const [loading, setLoading] = useState(false);
   const { control, setValue, trigger } = useFormContext<ICreateCoin>();
+  const network = useNetwork();
 
   const step = useWatch({ control, name: 'step' });
 
@@ -93,7 +95,7 @@ const CreateCoinButton: FC = () => {
       <WalletGuardedButton onClick={handleCreateCoin}>
         {loading
           ? 'Creating Coin...'
-          : `Create Coin for ${CREATE_COIN_FEE} SUI`}
+          : `Create Coin for ${CREATE_COIN_FEE_MAP[network]} SUI`}
       </WalletGuardedButton>
     );
 
