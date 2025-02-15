@@ -1,16 +1,14 @@
 import BigNumber from 'bignumber.js';
 
+import { MAX_NUMBER } from '@/constants';
 import { BigNumberish } from '@/interface';
 import {
   isBigNumberish,
-  parseBigNumberish,
   parseToPositiveStringNumber,
   ZERO_BIG_NUMBER,
 } from '@/utils';
 
 import { Fraction } from './fraction';
-
-const MAX_NUMBER_INPUT_VALUE = 9000000000000000;
 
 const ONE_COIN = new BigNumber(1000000000);
 
@@ -48,22 +46,25 @@ export class FixedPointMath {
     decimals = 9,
     significant = 6
   ): BigNumber {
-    if (value == null || isNaN(+value)) return ZERO_BIG_NUMBER;
+    const safeValue =
+      typeof value === 'number' && value > MAX_NUMBER ? MAX_NUMBER : value;
 
-    const factor = 10 ** significant;
+    if (safeValue == null || isNaN(+safeValue)) return ZERO_BIG_NUMBER;
 
-    if (typeof value === 'number' && 0 > value * factor) return ZERO_BIG_NUMBER;
+    const factor = BigNumber(10).pow(significant);
+
+    const bnValue = BigNumber(safeValue).times(factor);
+
     if (
-      typeof value === 'string' &&
-      0 > +parseToPositiveStringNumber(value) * factor
+      (typeof safeValue === 'number' && ZERO_BIG_NUMBER.gt(bnValue)) ||
+      (typeof safeValue === 'string' &&
+        ZERO_BIG_NUMBER.gt(
+          BigNumber(parseToPositiveStringNumber(safeValue)).times(factor)
+        ))
     )
       return ZERO_BIG_NUMBER;
 
-    const x = Math.floor(+value * factor);
-
-    return parseBigNumberish(
-      x >= MAX_NUMBER_INPUT_VALUE ? MAX_NUMBER_INPUT_VALUE : x
-    ).multipliedBy(new BigNumber(10).pow(decimals - significant));
+    return bnValue.times(BigNumber(10).pow(decimals - significant));
   }
 
   public static toNumber(

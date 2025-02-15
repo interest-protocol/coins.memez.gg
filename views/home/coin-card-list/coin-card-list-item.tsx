@@ -1,5 +1,6 @@
 import { formatAddress } from '@mysten/sui/utils';
 import { Article, Button, Div, H3, Img, P } from '@stylin.js/elements';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { FC, MouseEventHandler, useState } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
@@ -7,10 +8,11 @@ import { useReadLocalStorage } from 'usehooks-ts';
 
 import { CopySVG } from '@/components/svg';
 import Tag from '@/components/tag';
-import { CARD_MODE_STORAGE_KEY, CardMode } from '@/constants';
+import { CARD_MODE_STORAGE_KEY, CardMode, ExplorerMode } from '@/constants';
 import { useCoinBalance } from '@/hooks/use-coin-balance';
 import { useCoinSupply } from '@/hooks/use-coin-supply';
 import { useCoinsAbilities } from '@/hooks/use-coins-abilities';
+import { useGetExplorerUrl } from '@/hooks/use-get-explorer-url';
 import { useModal } from '@/hooks/use-modal';
 import { Abilities, Coin, CoinModalMode } from '@/interface';
 import { FixedPointMath } from '@/lib/entities/fixed-point-math';
@@ -33,6 +35,7 @@ const CoinCard: FC<Coin> = ({
   const { pathname } = useRouter();
   const { setContent } = useModal();
   const { balance } = useCoinBalance(type);
+  const getExplorerUrl = useGetExplorerUrl();
   const { totalSupply } = useCoinSupply(type);
   const [isImageError, setIsImageError] = useState(false);
   const { abilities, isLoading: loading } = useCoinsAbilities({
@@ -125,7 +128,18 @@ const CoinCard: FC<Coin> = ({
             alignItems="center"
             justifyContent="center"
           >
-            <P color="#9B9CA1">{formatAddress(type)}</P>
+            <Link
+              target="_blank"
+              onClick={(e) => e.stopPropagation()}
+              href={getExplorerUrl(type, ExplorerMode.Coin)}
+            >
+              <P
+                color="#9B9CA1"
+                nHover={{ color: '#F5B722', textDecoration: 'underline' }}
+              >
+                {formatAddress(type)}
+              </P>
+            </Link>
             <Div
               display="flex"
               color="#9B9CA1"
