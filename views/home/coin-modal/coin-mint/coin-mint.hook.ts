@@ -8,16 +8,19 @@ import { normalizeStructTag } from '@mysten/sui/utils';
 import { useFormContext } from 'react-hook-form';
 import invariant from 'tiny-invariant';
 
-import { IPX_COIN_STANDARD } from '@/constants';
-import { useNetwork } from '@/hooks/use-network';
 import { Coin } from '@/interface';
 import { FixedPointMath } from '@/lib/entities/fixed-point-math';
 import { signAndExecute, throwTXIfNotSuccessful, waitForTx } from '@/utils';
 
 import { IMintForm } from './coin-mint.types';
 
-export const useMint = ({ mintCap, ipxTreasuryCap, type, decimals }: Coin) => {
-  const network = useNetwork();
+export const useMint = ({
+  type,
+  mintCap,
+  decimals,
+  packageId,
+  ipxTreasuryCap,
+}: Coin) => {
   const client = useSuiClient();
   const currentAccount = useCurrentAccount();
   const signTransaction = useSignTransaction();
@@ -31,7 +34,7 @@ export const useMint = ({ mintCap, ipxTreasuryCap, type, decimals }: Coin) => {
     const tx = new Transaction();
 
     const mintedCoin = tx.moveCall({
-      target: `${IPX_COIN_STANDARD[network]}::ipx_coin_standard::mint`,
+      target: `${packageId}::ipx_coin_standard::mint`,
       typeArguments: [normalizeStructTag(type)],
       arguments: [
         tx.object(mintCap),

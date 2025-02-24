@@ -8,8 +8,6 @@ import { normalizeStructTag } from '@mysten/sui/utils';
 import { useFormContext } from 'react-hook-form';
 import invariant from 'tiny-invariant';
 
-import { IPX_COIN_STANDARD } from '@/constants';
-import { useNetwork } from '@/hooks/use-network';
 import { Coin } from '@/interface';
 import { signAndExecute, throwTXIfNotSuccessful, waitForTx } from '@/utils';
 
@@ -17,12 +15,12 @@ import { IEditForm } from './coin-edit.types';
 
 export const useEdit = ({
   type,
+  packageId,
   metadataCap,
   ipxTreasuryCap,
   metadataObjectId,
   ...coin
 }: Coin) => {
-  const network = useNetwork();
   const client = useSuiClient();
   const currentAccount = useCurrentAccount();
   const signTransaction = useSignTransaction();
@@ -42,7 +40,7 @@ export const useEdit = ({
 
     if (name !== coin.name)
       tx.moveCall({
-        target: `${IPX_COIN_STANDARD[network]}::ipx_coin_standard::update_name`,
+        target: `${packageId}::ipx_coin_standard::update_name`,
         typeArguments: [normalizeStructTag(type)],
         arguments: [
           tx.object(ipxTreasuryCap),
@@ -54,7 +52,7 @@ export const useEdit = ({
 
     if (symbol !== coin.symbol)
       tx.moveCall({
-        target: `${IPX_COIN_STANDARD[network]}::ipx_coin_standard::update_symbol`,
+        target: `${packageId}::ipx_coin_standard::update_symbol`,
         typeArguments: [normalizeStructTag(type)],
         arguments: [
           tx.object(ipxTreasuryCap),
@@ -66,7 +64,7 @@ export const useEdit = ({
 
     if (description !== coin.description)
       tx.moveCall({
-        target: `${IPX_COIN_STANDARD[network]}::ipx_coin_standard::update_description`,
+        target: `${packageId}::ipx_coin_standard::update_description`,
         typeArguments: [normalizeStructTag(type)],
         arguments: [
           tx.object(ipxTreasuryCap),
@@ -78,7 +76,7 @@ export const useEdit = ({
 
     if (imageUrl !== coin.iconUrl)
       tx.moveCall({
-        target: `${IPX_COIN_STANDARD[network]}::ipx_coin_standard::update_icon_url`,
+        target: `${packageId}::ipx_coin_standard::update_icon_url`,
         typeArguments: [normalizeStructTag(type)],
         arguments: [
           tx.object(ipxTreasuryCap),
