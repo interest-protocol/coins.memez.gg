@@ -18,6 +18,7 @@ export interface Coin {
   decimals: number;
   createdAt: string;
   createdBy: string;
+  packageId: string;
   description: string;
   treasuryCap: string;
   metadataCap: string;
