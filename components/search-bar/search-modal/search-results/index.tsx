@@ -62,7 +62,7 @@ const SearchResultsContent: FC<SearchResultsContentProps> = ({ search }) => {
       ) : (
         <Div key={unikey()} display="flex" flexDirection="column" gap="0.5rem">
           <Div color="#9B9CA1">
-            <P>No coin found...</P>
+            <P>Oops! There is no result for your search</P>
           </Div>
         </Div>
       )}

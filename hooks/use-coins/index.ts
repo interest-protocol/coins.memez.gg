@@ -1,10 +1,12 @@
 import { gql, useQuery } from '@apollo/client';
 
 import { useCoinsFilter } from '../use-coins-filter';
+import { useWhitelistedCoins } from '../use-whitelisted';
 import { UseCoinsResponse } from './use-coins.types';
 
 const useCoins = (): UseCoinsResponse => {
   const { page, limit, filter } = useCoinsFilter();
+  const { data: whitelisted } = useWhitelistedCoins();
 
   const { data, ...props } = useQuery(
     gql`
@@ -15,6 +17,7 @@ const useCoins = (): UseCoinsResponse => {
         $isBurnable: Boolean
         $isMintable: Boolean
         $isEditable: Boolean
+        $types: [String]
       ) {
         fetchCoins(
           input: {
@@ -24,6 +27,7 @@ const useCoins = (): UseCoinsResponse => {
             isBurnable: $isBurnable
             isMintable: $isMintable
             isEditable: $isEditable
+            types: $types
           }
         ) {
           totalItems
@@ -56,6 +60,7 @@ const useCoins = (): UseCoinsResponse => {
         isMintable: filter.mintable || undefined,
         isEditable: filter.editable || undefined,
         creators: filter.creator ? [filter.creator] : undefined,
+        types: filter.whitelisted ? whitelisted : undefined,
       },
       defaultOptions: {
         pollInterval: 5000,

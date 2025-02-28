@@ -25,6 +25,7 @@ const CoinDetailsCapabilities: FC<CoinDetailsCapabilitiesProps> = ({
   loading,
   canBurn,
   abilities,
+  packageId,
 }) => {
   const destroyCap = useDestroyCap();
   const { setContent, onClose } = useModal();
@@ -55,7 +56,7 @@ const CoinDetailsCapabilities: FC<CoinDetailsCapabilitiesProps> = ({
   const hasAdminCap = hasBurnCap || hasMintCap || hasEditCap;
 
   const handleDestroyCap = (cap: string, ability: Abilities) => () =>
-    dialog.promise(destroyCap(cap, ability), {
+    dialog.promise(destroyCap(cap, ability, packageId), {
       success: (txDigest) => ({
         title: 'Feature Destroyed',
         button: {

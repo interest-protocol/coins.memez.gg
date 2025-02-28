@@ -14,6 +14,7 @@ import { useCoinSupply } from '@/hooks/use-coin-supply';
 import { useCoinsAbilities } from '@/hooks/use-coins-abilities';
 import { useGetExplorerUrl } from '@/hooks/use-get-explorer-url';
 import { useModal } from '@/hooks/use-modal';
+import { useWhitelistedCoins } from '@/hooks/use-whitelisted';
 import { Abilities, Coin, CoinModalMode } from '@/interface';
 import { FixedPointMath } from '@/lib/entities/fixed-point-math';
 import { commaSeparatedNumber, isNumeric } from '@/utils';
@@ -43,6 +44,8 @@ const CoinCard: FC<Coin> = ({
     mintCap,
     metadataCap,
   });
+  const { data: whitelisted } = useWhitelistedCoins();
+
   const cardMode =
     useReadLocalStorage(CARD_MODE_STORAGE_KEY) ?? CardMode.Description;
 
@@ -64,20 +67,23 @@ const CoinCard: FC<Coin> = ({
       overlayProps: { alignItems: ['flex-end', 'center'] },
     });
   };
-
   return (
     <Article
       p="1.5rem"
       gap="1.5rem"
-      bg="#161616"
+      bg={`${
+        whitelisted?.includes(type)
+          ? 'url("card-linear-gradient.svg") center/cover no-repeat'
+          : '#161616'
+      }`}
       display="flex"
       cursor="pointer"
-      onClick={handleClick}
       flexDirection="column"
       border="1px solid transparent"
       justifyContent="space-between"
       nHover={{ borderColor: '#F5B72280' }}
       borderRadius={['1rem', '1rem', '1.825rem']}
+      onClick={handleClick}
     >
       <Toaster />
       <Div display="flex" flexDirection="column" gap="1.5rem">
