@@ -17,6 +17,7 @@ const useCoin = (type?: string): UseCoinResponse => {
           decimals
           createdAt
           createdBy
+          packageId
           description
           metadataCap
           treasuryCap

@@ -18,9 +18,11 @@ export interface Coin {
   decimals: number;
   createdAt: string;
   createdBy: string;
+  packageId: string;
   description: string;
   treasuryCap: string;
   metadataCap: string;
+  isWhitelist?: string;
   maximumSupply: string;
   ipxTreasuryCap: string;
   metadataObjectId: string;
@@ -35,6 +37,7 @@ export interface Filter {
   mintable?: boolean;
   editable?: boolean;
   ipxTreasury?: string;
+  whitelisted?: boolean;
 }
 
 export enum Abilities {

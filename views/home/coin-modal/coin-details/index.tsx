@@ -92,6 +92,7 @@ const CoinDetails: FC = () => {
           loading={isLoading}
           abilities={abilities}
           canBurn={coin.canBurn}
+          packageId={coin.packageId}
         />
       </Div>
       <Div display="flex" flexDirection="column" gap="1rem">

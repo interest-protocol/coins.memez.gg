@@ -6,8 +6,6 @@ import {
 import { Transaction } from '@mysten/sui/transactions';
 import invariant from 'tiny-invariant';
 
-import { IPX_COIN_STANDARD } from '@/constants';
-import { useNetwork } from '@/hooks/use-network';
 import { Abilities } from '@/interface';
 import { signAndExecute, throwTXIfNotSuccessful, waitForTx } from '@/utils';
 
@@ -18,18 +16,17 @@ const moveFnName = {
 };
 
 export const useDestroyCap = () => {
-  const network = useNetwork();
   const suiClient = useSuiClient();
   const currentAccount = useCurrentAccount();
   const signTransaction = useSignTransaction();
 
-  return async (cap: string, ability: Abilities) => {
+  return async (cap: string, ability: Abilities, packageId: string) => {
     invariant(currentAccount, 'You must be connected');
 
     const tx = new Transaction();
 
     tx.moveCall({
-      target: `${IPX_COIN_STANDARD[network]}::ipx_coin_standard::destroy_${moveFnName[ability]}_cap`,
+      target: `${packageId}::ipx_coin_standard::destroy_${moveFnName[ability]}_cap`,
       arguments: [tx.object(cap)],
     });
 

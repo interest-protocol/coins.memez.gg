@@ -8,8 +8,6 @@ import { normalizeStructTag } from '@mysten/sui/utils';
 import { useFormContext } from 'react-hook-form';
 import invariant from 'tiny-invariant';
 
-import { IPX_COIN_STANDARD } from '@/constants';
-import { useNetwork } from '@/hooks/use-network';
 import { Coin } from '@/interface';
 import { FixedPointMath } from '@/lib/entities/fixed-point-math';
 import {
@@ -21,8 +19,13 @@ import {
 
 import { IBurnForm } from './coin-burn.types';
 
-export const useBurn = ({ burnCap, ipxTreasuryCap, type, decimals }: Coin) => {
-  const network = useNetwork();
+export const useBurn = ({
+  type,
+  burnCap,
+  decimals,
+  packageId,
+  ipxTreasuryCap,
+}: Coin) => {
   const client = useSuiClient();
   const currentAccount = useCurrentAccount();
   const signTransaction = useSignTransaction();
@@ -55,7 +58,7 @@ export const useBurn = ({ burnCap, ipxTreasuryCap, type, decimals }: Coin) => {
     ]);
 
     tx.moveCall({
-      target: `${IPX_COIN_STANDARD[network]}::ipx_coin_standard::${
+      target: `${packageId}::ipx_coin_standard::${
         publicBurn ? 'treasury' : 'cap'
       }_burn`,
       typeArguments: [normalizeStructTag(type)],

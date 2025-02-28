@@ -23,6 +23,7 @@
     "@types/ramda": "^0.30.2",
     "bignumber.js": "^9.1.2",
     "decimal.js-light": "^2.5.1",
+    "framer-motion": "^12.4.5",
     "graphql": "^16.9.0",
     "i": "^0.3.7",
     "motion": "^11.18.0",
