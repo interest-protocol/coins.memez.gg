@@ -1,5 +1,6 @@
 import { formatAddress } from '@mysten/sui/utils';
-import { Article, Button, Div, H3, Img, P } from '@stylin.js/elements';
+import { Button, Div, H3, Img, P } from '@stylin.js/elements';
+import { motion } from 'motion/react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { FC, MouseEventHandler, useState } from 'react';
@@ -48,6 +49,7 @@ const CoinCard: FC<Coin> = ({
 
   const cardMode =
     useReadLocalStorage(CARD_MODE_STORAGE_KEY) ?? CardMode.Description;
+  const Motion = motion.create(Div);
 
   const handleCopy =
     (information: string): MouseEventHandler<HTMLDivElement> =>
@@ -68,20 +70,29 @@ const CoinCard: FC<Coin> = ({
     });
   };
   return (
-    <Article
+    <Motion
       p="1.5rem"
       gap="1.5rem"
-      bg={`${
-        whitelisted?.includes(type)
-          ? 'url("card-linear-gradient.svg") center/cover no-repeat'
-          : '#161616'
-      }`}
+      bg={`${whitelisted?.includes(type) ? "url('card-linear-gradient.svg') center/cover no-repeat" : '#161616'}`}
       display="flex"
       cursor="pointer"
+      overflow="hidden"
       flexDirection="column"
       border="1px solid transparent"
       justifyContent="space-between"
-      nHover={{ borderColor: '#F5B72280' }}
+      animate={{
+        backgroundPosition: ['0% 0%', '100% 100%', '0% 0%'],
+      }}
+      transition={{
+        duration: 10,
+        repeat: Infinity,
+        ease: 'linear',
+      }}
+      nHover={{
+        borderColor: '#F5B72280',
+        backgroundSize: '120%',
+        transition: 'transform .75s',
+      }}
       borderRadius={['1rem', '1rem', '1.825rem']}
       onClick={handleClick}
     >
@@ -224,7 +235,7 @@ const CoinCard: FC<Coin> = ({
           See more
         </Button>
       </Div>
-    </Article>
+    </Motion>
   );
 };
 
