@@ -44,9 +44,19 @@ const CoinFilters: FC = () => {
         <FilterSVG maxWidth="1rem" maxHeight="1rem" width="100%" />
         <Span>Filter</Span>
       </Div>
-      <Div display="flex" gap="0.5rem" flexWrap="wrap" alignItems="center">
+      <Div display="flex" flexWrap="wrap" gap="0.5rem" alignItems="center">
+        <CoinFiltersTag
+          active={!!filter.whitelisted}
+          isWhitelist={true}
+          onClick={() => {
+            setFilter({ whitelisted: !filter.whitelisted });
+          }}
+        >
+          Whitelisted
+        </CoinFiltersTag>
         <CoinFiltersTag
           active={localMeMode}
+          isWhitelist={false}
           onClick={() => {
             const creator =
               currentAccount &&
@@ -63,6 +73,7 @@ const CoinFilters: FC = () => {
           Me
         </CoinFiltersTag>
         <CoinFiltersTag
+          isWhitelist={false}
           active={!!filter.burnable}
           onClick={() => setFilter({ burnable: !filter.burnable })}
         >
@@ -70,12 +81,14 @@ const CoinFilters: FC = () => {
         </CoinFiltersTag>
         <CoinFiltersTag
           active={!!filter.mintable}
+          isWhitelist={false}
           onClick={() => setFilter({ mintable: !filter.mintable })}
         >
           Mintable
         </CoinFiltersTag>
         <CoinFiltersTag
           active={!!filter.editable}
+          isWhitelist={false}
           onClick={() => setFilter({ editable: !filter.editable })}
         >
           Editable

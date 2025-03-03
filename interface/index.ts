@@ -37,6 +37,7 @@ export interface Filter {
   editable?: boolean;
   showNsfw?: boolean;
   ipxTreasury?: string;
+  whitelisted?: boolean;
 }
 
 export enum Abilities {

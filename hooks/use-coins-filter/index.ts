@@ -9,6 +9,7 @@ export const useCoinsFilter = create<UseCoinsFilter>((set) => ({
     burnable: false,
     mintable: false,
     editable: false,
+    whitelisted: false,
   },
   setPage: (page) => set({ page }),
   setLimit: (limit) => set({ limit }),
