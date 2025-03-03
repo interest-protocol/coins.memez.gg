@@ -15,12 +15,14 @@ const useCoins = (): UseCoinsResponse => {
         $isBurnable: Boolean
         $isMintable: Boolean
         $isEditable: Boolean
+        $showNsfw: Boolean
       ) {
         fetchCoins(
           input: {
             page: $page
             limit: $limit
             creators: $creators
+            showNsfw: $showNsfw
             isBurnable: $isBurnable
             isMintable: $isMintable
             isEditable: $isEditable
@@ -52,6 +54,7 @@ const useCoins = (): UseCoinsResponse => {
       variables: {
         page,
         limit,
+        showNsfw: filter.showNsfw || undefined,
         isBurnable: filter.burnable || undefined,
         isMintable: filter.mintable || undefined,
         isEditable: filter.editable || undefined,

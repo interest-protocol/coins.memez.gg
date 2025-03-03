@@ -44,7 +44,7 @@ const CoinFilters: FC = () => {
         <FilterSVG maxWidth="1rem" maxHeight="1rem" width="100%" />
         <Span>Filter</Span>
       </Div>
-      <Div display="flex" gap="0.5rem" alignItems="center">
+      <Div display="flex" gap="0.5rem" flexWrap="wrap" alignItems="center">
         <CoinFiltersTag
           active={localMeMode}
           onClick={() => {
@@ -79,6 +79,12 @@ const CoinFilters: FC = () => {
           onClick={() => setFilter({ editable: !filter.editable })}
         >
           Editable
+        </CoinFiltersTag>
+        <CoinFiltersTag
+          active={!!filter.showNsfw}
+          onClick={() => setFilter({ showNsfw: !filter.showNsfw })}
+        >
+          NSFW
         </CoinFiltersTag>
       </Div>
     </Div>
