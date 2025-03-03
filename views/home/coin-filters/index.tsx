@@ -93,6 +93,12 @@ const CoinFilters: FC = () => {
         >
           Editable
         </CoinFiltersTag>
+        <CoinFiltersTag
+          active={!!filter.showNsfw}
+          onClick={() => setFilter({ showNsfw: !filter.showNsfw })}
+        >
+          NSFW
+        </CoinFiltersTag>
       </Div>
     </Div>
   );

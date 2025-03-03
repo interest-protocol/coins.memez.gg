@@ -35,6 +35,7 @@ export interface Filter {
   burnable?: boolean;
   mintable?: boolean;
   editable?: boolean;
+  showNsfw?: boolean;
   ipxTreasury?: string;
   whitelisted?: boolean;
 }
