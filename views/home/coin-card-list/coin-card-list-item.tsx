@@ -1,5 +1,6 @@
+import { Motion } from '@interest-protocol/ui-kit';
 import { formatAddress } from '@mysten/sui/utils';
-import { Article, Button, Div, H3, Img, P } from '@stylin.js/elements';
+import { Button, Div, H3, Img, P } from '@stylin.js/elements';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { FC, MouseEventHandler, useState } from 'react';
@@ -68,22 +69,31 @@ const CoinCard: FC<Coin> = ({
     });
   };
   return (
-    <Article
+    <Motion
       p="1.5rem"
       gap="1.5rem"
-      bg={`${
-        whitelisted?.includes(type)
-          ? 'url("card-linear-gradient.svg") center/cover no-repeat'
-          : '#161616'
-      }`}
       display="flex"
       cursor="pointer"
+      onClick={handleClick}
       flexDirection="column"
       border="1px solid transparent"
       justifyContent="space-between"
       nHover={{ borderColor: '#F5B72280' }}
       borderRadius={['1rem', '1rem', '1.825rem']}
-      onClick={handleClick}
+      bg={`${
+        whitelisted?.includes(type)
+          ? 'url("card-linear-gradient.svg") center/cover no-repeat, #161616'
+          : '#161616'
+      }`}
+      animate={{
+        backgroundSize: ['100%', '150%', '100%'],
+        backgroundPosition: ['0% 0%', '100% 100%', '100% 0%', '100% 0%'],
+      }}
+      transition={{
+        duration: 10,
+        ease: 'linear',
+        repeat: Infinity,
+      }}
     >
       <Toaster />
       <Div display="flex" flexDirection="column" gap="1.5rem">
@@ -224,7 +234,7 @@ const CoinCard: FC<Coin> = ({
           See more
         </Button>
       </Div>
-    </Article>
+    </Motion>
   );
 };
 
