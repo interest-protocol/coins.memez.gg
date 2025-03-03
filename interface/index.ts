@@ -36,6 +36,7 @@ export interface Filter {
   mintable?: boolean;
   editable?: boolean;
   ipxTreasury?: string;
+  whitelisted?: boolean;
 }
 
 export enum Abilities {
