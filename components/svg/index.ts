@@ -1,3 +1,4 @@
+export { default as BadgeSVG } from './badge';
 export { default as CautionSVG } from './caution';
 export { default as CheckSVG } from './check';
 export { default as ChevronDownSVG } from './chevron-down';

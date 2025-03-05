@@ -7,7 +7,7 @@ import { FC, MouseEventHandler, useState } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
 import { useReadLocalStorage } from 'usehooks-ts';
 
-import { CopySVG } from '@/components/svg';
+import { BadgeSVG, CopySVG } from '@/components/svg';
 import Tag from '@/components/tag';
 import { CARD_MODE_STORAGE_KEY, CardMode, ExplorerMode } from '@/constants';
 import { useCoinBalance } from '@/hooks/use-coin-balance';
@@ -80,20 +80,20 @@ const CoinCard: FC<Coin> = ({
       justifyContent="space-between"
       nHover={{ borderColor: '#F5B72280' }}
       borderRadius={['1rem', '1rem', '1.825rem']}
-      bg={`${
-        whitelisted?.includes(type)
-          ? 'url("card-linear-gradient.svg") center/cover no-repeat, #161616'
-          : '#161616'
-      }`}
       animate={{
         backgroundSize: ['100%', '150%', '100%'],
-        backgroundPosition: ['0% 0%', '100% 100%', '100% 0%', '100% 0%'],
+        backgroundPosition: ['1% 1%', '99% 99%', '99% 1%', '1% 99%', '1% 1%'],
       }}
       transition={{
-        duration: 10,
+        duration: 20,
         ease: 'linear',
         repeat: Infinity,
       }}
+      bg={`${
+        whitelisted?.includes(type)
+          ? 'url("card-linear-gradient.png") center/cover no-repeat, #161616'
+          : '#161616'
+      }`}
     >
       <Toaster />
       <Div display="flex" flexDirection="column" gap="1.5rem">
@@ -137,7 +137,12 @@ const CoinCard: FC<Coin> = ({
             onError={() => setIsImageError(true)}
             src={isImageError ? '/default-image.webp' : iconUrl}
           />
-          <H3 fontSize="1.25rem">{name}</H3>
+          <Div display="flex" alignItems="center" gap="0.5rem">
+            <H3 fontSize="1.25rem">{name}</H3>
+            {whitelisted?.includes(type) && (
+              <BadgeSVG maxWidth="1rem" maxHeight="1rem" width="100%" />
+            )}
+          </Div>
           <Div
             gap="0.25rem"
             display="flex"
