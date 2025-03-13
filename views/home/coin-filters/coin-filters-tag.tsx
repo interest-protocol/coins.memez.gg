@@ -8,6 +8,7 @@ import { CoinFiltersTagProps } from './coin-filters.types';
 const CoinFiltersTag: FC<PropsWithChildren<CoinFiltersTagProps>> = ({
   active,
   onClick,
+  isWhitelist,
   children,
 }) => (
   <Button
@@ -20,9 +21,15 @@ const CoinFiltersTag: FC<PropsWithChildren<CoinFiltersTagProps>> = ({
     borderRadius="1.25rem"
     border="1px solid #F5B722"
     color={active ? '#242424' : '#F5B722'}
-    bg={active ? '#F5B722' : 'transparent'}
     py={['0.25rem', '0.25rem', '0.375rem']}
     px={['0.375rem', '0.375rem', '0.5rem']}
+    bg={
+      active
+        ? '#F5B722'
+        : isWhitelist
+          ? 'url("button-linear-gradient.png") center/cover no-repeat'
+          : 'transparent'
+    }
   >
     {children}
     {active && <TimesSVG width="100%" maxWidth="1rem" maxHeight="1rem" />}

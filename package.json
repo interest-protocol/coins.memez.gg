@@ -24,7 +24,6 @@
     "bignumber.js": "^9.1.2",
     "decimal.js-light": "^2.5.1",
     "graphql": "^16.9.0",
-    "i": "^0.3.7",
     "motion": "^11.18.0",
     "next": "14.0.3",
     "npm": "^11.1.0",

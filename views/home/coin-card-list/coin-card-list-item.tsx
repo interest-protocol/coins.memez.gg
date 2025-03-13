@@ -1,12 +1,13 @@
+import { Motion } from '@interest-protocol/ui-kit';
 import { formatAddress } from '@mysten/sui/utils';
-import { Article, Button, Div, H3, Img, P } from '@stylin.js/elements';
+import { Button, Div, H3, Img, P } from '@stylin.js/elements';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { FC, MouseEventHandler, useState } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
 import { useReadLocalStorage } from 'usehooks-ts';
 
-import { CopySVG } from '@/components/svg';
+import { BadgeSVG, CopySVG } from '@/components/svg';
 import Tag from '@/components/tag';
 import { CARD_MODE_STORAGE_KEY, CardMode, ExplorerMode } from '@/constants';
 import { useCoinBalance } from '@/hooks/use-coin-balance';
@@ -14,6 +15,7 @@ import { useCoinSupply } from '@/hooks/use-coin-supply';
 import { useCoinsAbilities } from '@/hooks/use-coins-abilities';
 import { useGetExplorerUrl } from '@/hooks/use-get-explorer-url';
 import { useModal } from '@/hooks/use-modal';
+import { useWhitelistedCoins } from '@/hooks/use-whitelisted';
 import { Abilities, Coin, CoinModalMode } from '@/interface';
 import { FixedPointMath } from '@/lib/entities/fixed-point-math';
 import { commaSeparatedNumber, isNumeric } from '@/utils';
@@ -43,6 +45,8 @@ const CoinCard: FC<Coin> = ({
     mintCap,
     metadataCap,
   });
+  const { data: whitelisted } = useWhitelistedCoins();
+
   const cardMode =
     useReadLocalStorage(CARD_MODE_STORAGE_KEY) ?? CardMode.Description;
 
@@ -64,12 +68,10 @@ const CoinCard: FC<Coin> = ({
       overlayProps: { alignItems: ['flex-end', 'center'] },
     });
   };
-
   return (
-    <Article
+    <Motion
       p="1.5rem"
       gap="1.5rem"
-      bg="#161616"
       display="flex"
       cursor="pointer"
       onClick={handleClick}
@@ -78,6 +80,20 @@ const CoinCard: FC<Coin> = ({
       justifyContent="space-between"
       nHover={{ borderColor: '#F5B72280' }}
       borderRadius={['1rem', '1rem', '1.825rem']}
+      animate={{
+        backgroundSize: ['100%', '150%', '100%'],
+        backgroundPosition: ['1% 1%', '99% 99%', '99% 1%', '1% 99%', '1% 1%'],
+      }}
+      transition={{
+        duration: 20,
+        ease: 'linear',
+        repeat: Infinity,
+      }}
+      bg={`${
+        whitelisted?.includes(type)
+          ? 'url("card-linear-gradient.png") center/cover no-repeat, #161616'
+          : '#161616'
+      }`}
     >
       <Toaster />
       <Div display="flex" flexDirection="column" gap="1.5rem">
@@ -121,7 +137,12 @@ const CoinCard: FC<Coin> = ({
             onError={() => setIsImageError(true)}
             src={isImageError ? '/default-image.webp' : iconUrl}
           />
-          <H3 fontSize="1.25rem">{name}</H3>
+          <Div display="flex" alignItems="center" gap="0.5rem">
+            <H3 fontSize="1.25rem">{name}</H3>
+            {whitelisted?.includes(type) && (
+              <BadgeSVG maxWidth="1rem" maxHeight="1rem" width="100%" />
+            )}
+          </Div>
           <Div
             gap="0.25rem"
             display="flex"
@@ -218,7 +239,7 @@ const CoinCard: FC<Coin> = ({
           See more
         </Button>
       </Div>
-    </Article>
+    </Motion>
   );
 };
 
