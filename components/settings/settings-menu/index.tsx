@@ -25,6 +25,7 @@ const SettingsMenu: FC = () => {
       borderRadius="1.125rem"
       backdropFilter="blur(30px)"
       animate={{ scaleY: [0, 1] }}
+      left={['-20rem', 'none', 'none', 'none']}
     >
       <Motion bg="#1A1A1A" py="0.5rem" borderRadius="0.75rem" width="20rem">
         <SettingsMenuCardInfo

@@ -16,6 +16,7 @@ const ConnectedWallets: FC = () => {
       p="1rem"
       gap="0.5rem"
       mt="3.5rem"
+      width="22rem"
       bg="#3C3C3C80"
       display="flex"
       overflow="hidden"
@@ -27,6 +28,7 @@ const ConnectedWallets: FC = () => {
       backdropFilter="blur(30px)"
       animate={{ scaleY: [0, 1] }}
       onClick={(e) => e.stopPropagation()}
+      left={['-125%', 'none', '-12rem', '-11.5rem']}
     >
       <AnimatePresence>
         {accounts.map((account) => (
