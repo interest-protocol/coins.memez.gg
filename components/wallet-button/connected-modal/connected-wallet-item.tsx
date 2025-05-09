@@ -44,7 +44,7 @@ const ConnectedWalletItem: FC<ConnectedWalletItemProps> = ({ account }) => {
         px="1rem"
         bg="#1A1A1A"
         gap="0.75rem"
-        width="20rem"
+        width="100%"
         display="flex"
         overflow="hidden"
         borderRadius="0.5rem"
