@@ -49,6 +49,13 @@ export const useCreateCoin = () => {
 
     const coinBytecode = getBytecode(coin, network);
 
+    console.log({
+      network,
+      bytecode: coinBytecode,
+      fee: CREATE_COIN_FEE_MAP[network],
+      packageId: IPX_COIN_STANDARD[network],
+    });
+
     const [upgradeCap] = tx.publish({
       modules: [[...coinBytecode]],
       dependencies: [
