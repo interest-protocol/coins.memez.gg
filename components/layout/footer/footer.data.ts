@@ -4,7 +4,7 @@ export const SOCIAL_ITEMS = [
   {
     name: 'Discord',
     Icon: DiscordSVG,
-    link: 'https://discord.com/invite/interestprotocol',
+    link: 'https://discord.com/invite/interestlabs',
   },
   {
     name: 'Github',
