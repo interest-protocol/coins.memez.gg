@@ -183,7 +183,15 @@ const CoinCard: FC<Coin> = ({
             borderRadius="0.75rem"
             border="1px solid #242424"
           >
-            <P color="#FFFFFFA3" overflowY="auto" height="100%" px="0.5rem">
+            <P
+              color="#FFFFFFA3"
+              overflowY="auto"
+              hyphens="auto"
+              wordWrap="break-word"
+              overflowWrap="break-word"
+              height="100%"
+              px="0.5rem"
+            >
               {description}
             </P>
           </Div>
