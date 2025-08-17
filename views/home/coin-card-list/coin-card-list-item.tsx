@@ -188,7 +188,7 @@ const CoinCard: FC<Coin> = ({
               overflowY="auto"
               hyphens="auto"
               wordWrap="break-word"
-              overflowWrap="break-word"
+              overflowWrap="anywhere"
               height="100%"
               px="0.5rem"
             >
