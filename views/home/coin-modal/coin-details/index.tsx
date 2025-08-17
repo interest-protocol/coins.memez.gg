@@ -177,7 +177,7 @@ const CoinDetails: FC = () => {
           borderRadius="0.75rem"
           hyphens="auto"
           wordWrap="break-word"
-          overflowWrap="break-word"
+          overflowWrap="anywhere"
         >
           {coin.description}
         </Div>
