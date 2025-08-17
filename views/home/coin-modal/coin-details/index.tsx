@@ -171,7 +171,14 @@ const CoinDetails: FC = () => {
           )}
         </Div>
         <H4>Description</H4>
-        <Div p="1rem" bg="#1A1A1A" borderRadius="0.75rem">
+        <Div
+          p="1rem"
+          bg="#1A1A1A"
+          borderRadius="0.75rem"
+          hyphens="auto"
+          wordWrap="break-word"
+          overflowWrap="break-word"
+        >
           {coin.description}
         </Div>
         <Button
